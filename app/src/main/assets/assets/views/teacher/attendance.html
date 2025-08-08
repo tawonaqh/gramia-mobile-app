@@ -1,0 +1,49 @@
+<div class="container-fluid mb-4" id="studentDashboard">
+    <h3>Student Attendance</h3>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onclick="dashboard()">Home</a></li>
+        <li class="breadcrumb-item"><a href="#" onclick="loadView('dashboard/teacher')">Teacher</a></li>
+        <li class="breadcrumb-item active">Attendance</li>
+    </ol>
+    <br>
+    <div class="d-flex justify-content-end my-3">
+        <a href="#"  onclick="recordAttendance()">Record Attendance</a>
+    </div>
+    <br>
+    <div class="input-group input-group-lg rounded-4 border my-3">
+        <input type="search" name="search" class="form-control border-0 bg-transparent search-input">
+        <button class="btn search-btn text-muted ms-2" type="button" onclick="loadData()">Search</button>
+
+    </div>
+    <div class="d-flex justify-content-start  mb-2">
+
+        <select id="order_filter" class="form-select  bg-transparent form-select-md me-1 " onchange="loadData()">
+            <option value="day DESC">Newest First</option>
+            <option value="day ASC">Oldest First</option>
+        </select>
+
+        <select class='form-select form-select-md  bg-transparent select save-state f-sel ms-1' name='institution_class'>
+
+        </select>
+    </div>
+
+    <div class="d-flex justify-content-between text-end my-4">
+        <small>Total Records: <span id="total_records_label">0</span></small>
+
+    </div>
+    <div id="results" class="mb-4"></div>
+
+    <hr>
+    <div class="input-group border rounded-pill d-flex my-4">
+        <button class="btn " onclick="changePage(-1)">Prev</button>
+        <select id="page_selector" class="form-select text-center border-0 bg-transparent" onchange="goToPage(this.value)">
+            <!-- Options are dynamically generated -->
+        </select>
+        <button class="btn " onclick="changePage(1)">Next</button>
+    </div>
+    <select id="page_size_select" class="form-select form-select-md mx-auto mt-3 bg-transparent w-auto rounded-pill text-center" onchange="updatePageSize(this.value)">
+        <option value="10">10 per page</option>
+        <option value="25">25 per page</option>
+        <option value="50">50 per page</option>
+    </select>
+</div>

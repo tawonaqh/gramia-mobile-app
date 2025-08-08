@@ -1,0 +1,40 @@
+<link href="assets/css/account.css" rel="stylesheet">
+
+<div class="login-wrapper d-flex flex-column justify-content-between min-vh-100">
+
+    <div class="logo">
+        <img src="assets/img/gramialogo-white.png" alt="Logo">
+    </div>
+
+
+    <div class="form-container">
+        <form id="_form">
+            <div class="mb-3">
+                <label for="name">Full name</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+
+            <div class="mb-3">
+                <label id="not_robot_question">What is 3 + 4?</label>
+                <input type="number" id="txt_not_robot_answer" placeholder="Answer:"  required>
+            </div>
+            <br>
+        <p id='msg'></p>
+    </form>
+        <button  id="submit_btn"  onclick="submit()" >Create Account</button>
+
+
+
+        <div class="link mt-3" onclick="navigateTo('login')">Already Registered</div>
+    </div>
+</div>

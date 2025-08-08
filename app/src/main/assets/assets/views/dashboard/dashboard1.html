@@ -1,0 +1,229 @@
+
+
+<div class="user-card shadow-sm  text-dark bg-white rounded-4 mt-4 p-3 d-flex align-items-center justify-content-between" >
+    <div class="d-flex align-items-center">
+        <img src="assets/img/profile.png" class="rounded-circle me-3" alt="User" style="width: 50px; height: 50px; object-fit: cover;">
+        <div>
+            <h6 class="mb-0" id="user_name">Guest</h6>
+            <small class="text-muted" id="user_role">..</small>
+        </div>
+    </div>
+    <i class="fas fa-bell text-primary fa-lg"></i>
+</div>
+<div class="container  py-3" id="mainDashboard">
+
+
+    <!-- Current Requests -->
+
+
+    <!-- Account Results -->
+    <div class=" view " id="dashlinks">
+        <div style="d-none" class="row  text-center dashlinks student-links">
+            <div class="col-12 py-4"></div>
+            <div class="col-12">
+                <div class="row g-2 mb-4">
+                    <div class="col-4">
+                        <div class="card shadow-sm text-center bg-light">
+                            <div class="card-body px-2 py-3">
+                                <i class="fas fa-file-invoice-dollar fa-lg text-primary mb-2"></i>
+                                <div class="fw-bold small">Invoices</div>
+                                <h6 id="totalInvoices" class="text-primary mb-0">$0.00</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card shadow-sm text-center bg-light">
+                            <div class="card-body px-2 py-3">
+                                <i class="fas fa-money-bill-wave fa-lg text-success mb-2"></i>
+                                <div class="fw-bold small">Payments</div>
+                                <h6 id="totalPayments" class="text-success mb-0">$0.00</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card shadow-sm text-center bg-light">
+                            <div class="card-body px-2 py-3">
+                                <i class="fas fa-wallet fa-lg text-danger mb-2"></i>
+                                <div class="fw-bold small">Balance</div>
+                                <h6 id="balance" class="text-danger mb-0">$0.00</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+                    <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Classes: </label>
+                    <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="institution_class" required>
+                        <option value="">Select Class</option>
+
+                    </select>
+                    <p class="pt-2" id="class_description"></p>
+                    <div class="input-group text-center d-flex justify-content-center">
+                        <button class="btn btn-sm btn-outline-secondary mb-2" onclick="get_classes(true)">
+                            Refresh Classes
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary mb-2" onclick="view_class()">
+                            View Details
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="list-group shadow-sm mb-4">
+
+
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-attendance')">
+                         <span><i class="fas fa-user-check me-2"></i> Attendance History</span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-progress-reports')">
+                         <span><i class="fas fa-chart-line me-2"></i> Progress Reports</span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-resources')">
+                         <span><i class="fas fa-folder-open me-2"></i> Resources</span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-timetable')">
+                         <span><i class="fas fa-calendar-week me-2"></i> Timetable </span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-submissions')">
+                        <span><i class="fas fa-upload me-2"></i> Submissions</span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-invoices')">
+                        <span><i class="fas fa-file-invoice me-2"></i> Invoices</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-guardians')">
+                        <span><i class="fas fa-users me-2"></i> Guardians</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+
+                </div>
+
+            </div>
+
+            <!-- Add more items here using the same structure -->
+        </div>
+        <div style="d-none" class="row g-3 text-center dashlinks staff-links">
+            <div class="col-12 py-4"></div>
+            <div class="col-12 col-sm-3">
+                <div class="list-group shadow-sm my-4">
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('users')">
+                        <span><i class="fas fa-users me-2"></i> Institution Users</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('requests')">
+                        <span><i class="fas fa-user-plus me-2"></i> Account Requests</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+
+
+
+                </div>
+
+            </div>
+
+            <!-- Add more items here using the same structure -->
+        </div>
+        <div style="d-none" class="row g-3 text-center dashlinks admin-links">
+            <div class="col-12 py-4"></div>
+            <div class="col-12 ">
+                <div class="list-group shadow-sm my-4">
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('users')">
+                        <span><i class="fas fa-users me-2"></i> Institution Users</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('requests')">
+                        <span><i class="fas fa-user-plus me-2"></i> Account Requests</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+
+                </div>
+
+            </div>
+
+            <!-- Add more items here using the same structure -->
+        </div>
+        <div style="d-none" class="row g-3 text-center dashlinks teacher-links">
+            <div class="col-12 py-4"></div>
+
+            <div class="col-12">
+                <div class="list-group shadow-sm mb-4">
+
+
+
+
+                    <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('teacher-attendance')">
+                        <span><i class="fas fa-user-check me-2"></i> Attendance</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('teacher-resources')">
+                        <span><i class="fas fa-folder-open me-2"></i> Resources</span>
+                        <i class="fas fa-chevron-right float-end mt-1"></i>
+                    </a>
+
+                    <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('teacher-assignments')">
+                        <span><i class="fas fa-table me-2"></i> Mark Sheet</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('teacher-progress')">
+                        <span><i class="fas fa-chart-line me-2"></i> Term Report</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+
+
+                    <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('teacher-timetable')">
+                        <span><i class="fas fa-calendar-alt me-2"></i> Timetable</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
+
+
+
+
+                </div>
+
+            </div>
+
+            <!-- Add more items here using the same structure -->
+        </div>
+        <div class="list-group shadow-sm my-4">
+            <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('notices')">
+                <span><i class="fas fa-bullhorn me-2"></i> Notices</span>
+                <i class="fas fa-chevron-right text-muted"></i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('events')">
+                <span><i class="fas fa-calendar-alt me-2"></i> Events</span>
+                <i class="fas fa-chevron-right text-muted"></i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('calendar')">
+                <span><i class="fas fa-calendar me-2"></i> Calendar</span>
+                <i class="fas fa-chevron-right text-muted"></i>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-3 fs-6 text-danger d-flex justify-content-between align-items-center" onclick="logout()">
+                <span><i class="fas fa-sign-out-alt me-2"></i> Logout</span>
+            </a>
+        </div>
+
+    </div>
+    <div  class=" view px-3 " style="display:none" id="results" ></div>
+
+</div>

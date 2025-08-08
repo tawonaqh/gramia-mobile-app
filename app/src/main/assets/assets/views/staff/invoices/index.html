@@ -1,0 +1,104 @@
+<div class="container view py-4" id="studentDashboard">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="dashboard()" style="cursor:pointer"></i>
+                Transactions
+            </h5>
+            <button class="btn  dark-bg" type="button" onclick="loadData(true)"><i
+                    class="ph ph-arrows-clockwise"></i></button>
+
+        </div>
+        <br>
+        <div class="input-group rounded-2">
+            <button class="btn my-4 w-100 py-3 rounded-2 dark-bg text-white" onclick="navigateTo('add-invoice')">
+                <i class="fas fa-plus me-1"></i> Add Invoice
+            </button>
+
+        </div>
+
+        <!-- Search + Filter Row -->
+        <div class="d-flex align-items-center gap-2 my-3">
+            <!-- Search Input -->
+            <div class="flex-grow-1 position-relative search-wrapper">
+                <input type="search" name="search" class="form-control search-input ps-5" placeholder="Search">
+                <i class="ph ph-magnifying-glass search-icon text-muted" onclick="loadData(true)"></i>
+            </div>
+
+            <!-- Filter Button -->
+            <button class="btn btn-outline-light border rounded-3 px-3 py-2 " onclick="$('#filterMenu').slideToggle()">
+                <i class="ph ph-funnel-simple text-dark"></i>
+            </button>
+        </div>
+
+        <!-- Custom Styled Sort Options -->
+        <div class="mb-3 px-1" id="filterMenu" style="display:none">
+            <div class="fw-semibold mb-2 text-muted">Sort by</div>
+
+            <div class="custom-radio-list">
+                <label class="sort-label">
+                    <input type="radio" name="order_filter" value="reg_date ASC" onchange="updateActiveSort()">
+                    <span class="label-text">Oldest First</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+
+                <label class="sort-label active">
+                    <input type="radio" name="order_filter" value="reg_date DESC" onchange="updateActiveSort()" checked>
+                    <span class="label-text">Newest</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+            </div>
+        </div>
+        <div class="custom-select-container text-end ">
+            <select class="custom-select-display  save-state f-sel " id="transactionType" onchange="loadData(true)">
+                <option value="">All Transactions</option>
+                <option value="1">Invoices</option>
+                <option value="2">Reciepts</option>
+            </select>
+        </div>
+        <div class=" mt-4 mb-2 text-end">
+            <small class="dark-text">Total Records: <span id="total_records_label">0</span></small>
+        </div>
+    </div>
+    <div id="results" class="mb-4"></div>
+
+    <div id="nav">
+        <div class="input-group shadow-sm my-3 dark-bg rounded-pill mb-3">
+            <button class="btn  text-white rounded-start-pill" onclick="changePage(-1)">Prev</button>
+            <select id="page_selector" class="form-select text-center border-0 bg-transparent text-white form-select"
+                onchange="goToPage(this.value)">
+                <!-- Dynamic page options -->
+            </select>
+            <button class="btn  text-white btn rounded-end-pill" onclick="changePage(1)">Next</button>
+        </div>
+
+        <div class="text-center">
+            <select id="page_size"
+                class="form-select  dark-bg text-white rounded-pill w-auto d-inline-block text-center px-3"
+                onchange="updatePageSize(this.value)">
+                <option value="10">10 per page</option>
+                <option value="25">25 per page</option>
+                <option value="50">50 per page</option>
+                <option value="100" selected>100 per page</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden template -->
+<div id="list_template" style="display: none;">
+    <a href="#" onclick="" class="text-decoration-none text-dark">
+        <span class="fw-semibold text-muted small ms-2">@noticeCategory_name</span>
+        <div class="bg-light text-white rounded-4 p-3 mb-3">
+
+            <div class="fw-semibold dark-text fs-5">@subject_name</div>
+
+            <p class="text-green small mb-2" style="white-space: pre-line;">@message_name</p>
+
+            <div class="text-light  small">
+                <hr>
+                <span class="fw-light text-black-50">Added on @reg_date by @creator</span>
+            </div>
+        </div>
+    </a>
+</div>

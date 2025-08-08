@@ -1,0 +1,23 @@
+<link href="assets/css/account.css" rel="stylesheet">
+
+<div class="login-wrapper d-flex flex-column justify-content-between min-vh-100">
+
+<div class="logo">
+    <img src="assets/img/gramialogo-white.png" alt="Logo">
+</div>
+
+<div class="form-container">
+    <form id="loginForm">
+
+    <label for="loginUsername">Username</label>
+    <input type="text" name="email" id="loginUsername" placeholder="">
+
+   <p id="msg"></p>
+        <br>
+    <button type="submit" id="btn_reset">Reset</button>
+    </form>
+
+    <div class="link mt-3" onclick="navigateTo('register')">New User</div>
+    <div class="link" onclick="navigateTo('login')">Login</div>
+</div>
+</div>

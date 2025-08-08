@@ -1,0 +1,66 @@
+<div class="container view">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="goBackView()" style="cursor:pointer"></i>
+                Edit Resource
+            </h5>
+
+        </div>
+    </div>
+    <br>
+    <form class="py-3" id="update_item_form">
+        <input type="hidden" name="itemiD" value="{{iD}}" />
+        <input type="hidden" name="api" value="true" />
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Name</div>
+            <input type="text" class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="name"
+                    id="name"
+                    style="font-size: 1rem;" value="{{name}}">
+
+                <!-- add more as needed -->
+            </input>
+        </div>
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Description</div>
+            <textarea type="text" class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="description"
+                    id="description"
+                    style="font-size: 1rem;" />{{description}}</textarea>
+        </div>
+
+
+
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Status (Whether the students can see it or not)</div>
+            <select class="form-select border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="status"
+                    id="status"
+                    style="font-size: 1rem;">
+                <option value="1" >Active</option>
+                <option value="2" >Inactive</option>
+                <!-- add more as needed -->
+            </select>
+        </div>
+
+
+
+
+
+        <p id="form_result" class="small text-danger ps-2"></p>
+        <br>
+        <hr>
+        <br>
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <button type="button" id="btn_edit_item" class="btn dark-bg btn-lg rounded-2 px-4 shadow-sm">
+                Update Record
+            </button>
+
+        </div>
+
+    </form>
+
+
+
+</div>

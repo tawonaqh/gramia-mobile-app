@@ -1,0 +1,24 @@
+<!-- Mobile Chat UI Inspired by Screenshot -->
+<link href="assets/css/chat.css" rel="stylesheet">
+
+
+<div class="chat-wrapper">
+    <div class="chat-header">
+        <i class="ph ph-arrow-left me-2" onclick="goBackView()" style="cursor:pointer"></i>
+        <div class="profile-info">
+            <div class="profile-text">
+                <div class="name">{{othername}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatMessages" class="d-flex flex-column px-3 pt-2">
+        <!-- Messages dynamically loaded here -->
+    </div>
+
+    <div class="chat-footer">
+        <input id="chatInput" type="text" placeholder="Type your message...">
+        <button onclick="sendDirectMessage()">Send</button>
+    </div>
+</div>
+<audio id="sendSound" src="assets/sounds/pop.mp3" preload="auto"></audio>

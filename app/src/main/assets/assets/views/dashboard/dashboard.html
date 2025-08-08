@@ -1,0 +1,264 @@
+<link href="assets/css/dashboard.css" rel="stylesheet">
+
+<div class="dashboard-container container px-0 mx-0">
+
+    <div class="header d-flex align-items-center justify-content-between  ">
+        <div class="d-flex align-items-center">
+            <div class="logo-container ps-3 pe-1 py-1 bg-white rounded-end-4" style="border: solid 1px #ccc; border-left: none;">
+                <img src="assets/img/schoollogo.png" id="institution_logo" alt="Logo" class="logo-img me-0" />
+            </div>
+            <h1 class="ms-3 mb-0 school-name" id="user_institution"></h1>
+        </div>
+
+    </div>
+    <hr>
+    <div class="px-2">
+        <div class="profile-section d-flex align-items-center mb-4" onclick="editProfile()">
+            <div id="profilewrapper" class="profile-image-wrapper me-3">
+                <img src="assets/img/profile.png" id="studentPhoto" class="profile-pic" alt="Profile">
+            </div>
+            <div>
+                <h5 class="mb-1 fw-semibold text-dark" id="user_name">Guest</h5>
+                <p class="mb-0 text-success fw-medium">
+
+                    <span id="user_role"></span> <span class="fw-regular text-muted d-none" id="account_no"></span>
+
+                </p>
+               
+            </div>
+        </div>
+    
+
+        <div class="menu-section mb-4  dashlinks teacher-links">
+            <div class="menu-card" onclick="navigateTo('teacher-attendance')">
+                <i class="ph ph-binary icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold">Attendance</h6>
+                    <p class="mb-0 small text-muted">Record Attendance</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('teacher-resources')">
+                <i class="ph ph-folder-open icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold">Resources</h6>
+                    <p class="mb-0 small text-muted">Share Notes and Lessons</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('teacher-assignments')">
+                <i class="ph ph-list-checks icon"></i>
+                <div>
+                    <div class="fw-semibold">Mark Sheet</div>
+                    <small class="text-muted">Student Class Mark</small>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('teacher-progress')">
+                <i class="ph ph-swap icon"></i>
+                <div>
+                    <div class="fw-semibold">Term Report</div>
+                    <small class="text-muted">Final Marks for the term</small>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('teacher-timetable')">
+                <i class="ph ph-grid-nine icon"></i>
+                <div>
+                    <div class="fw-semibold">Timetable</div>
+                    <small class="text-muted">Daily Schedule</small>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="menu-section mb-4  dashlinks student-links">
+
+            <div class="student-dashboard pb-4">
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12">
+                        <div class="card-box invoice pt-5">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="fw-bold text-white d-flex align-items-center">
+                                    <i class="ph ph-invoice me-2"></i> Invoices
+                                </div>
+                                <div class="fw-bold text-white px-4" id="totalInvoices">$500</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="fw-bold text-white d-flex align-items-center">
+                                    <i class="ph ph-credit-card me-2"></i> Payments
+                                </div>
+                                <div class="fw-bold text-white px-4" id="totalPayments">$500</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2" id="balance-row">
+                                <div class="fw-bold text-white d-flex align-items-center">
+                                    <i class="ph ph-wallet me-2"></i> Balance
+                                </div>
+                                <div class="fw-bold text-white px-4" id="balance">$500</div>
+                            </div>
+                            <div class="text-white mt-1"></div>
+                            <div class="d-flex justify-content-between align-items-end mt-4"
+                                onclick="navigateTo('invoices')">
+
+                                <div class="btn-section">Details</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 d-none">
+                        <div class="card-box balance">
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-bold text-white">Balance</div>
+                                <div class="fw-bold text-white">$0</div>
+                            </div>
+                            <div class="text-white mt-1">Term 2</div>
+                            <div class="d-flex justify-content-between align-items-end mt-4">
+
+                                <div class="btn-section" onclick="navigateTo('student-invoices')">Statement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-card my-4"
+                    onclick="bootstrap.Offcanvas.getOrCreateInstance('#selectClassCanvas').show();">
+                    <i class="ph ph-grid-nine icon"></i>
+                    <div>
+                        <div class="fw-semibold" id="current_class_name">Current</div>
+                        <small class="text-muted">Change Class</small>
+                    </div>
+                </div>
+
+                <div class="row g-3 text-center quick-actions justify-content-center">
+                    <div class="col-4">
+                        <div class="action-box" onclick="navigateTo('student-attendance')">
+                            Attendance<br><span>History</span></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="action-box" onclick="navigateTo('student-progress-reports')">
+                            Progress<br><span>Reports</span></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="action-box" onclick="navigateTo('student-resources')">Resources</div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="action-box" onclick="navigateTo('student-timetable')">Timetable</div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="action-box" onclick="navigateTo('student-submissions')">Submission</div>
+                    </div>
+                    <div class="col-4 d-none">
+                        <div class="action-box" onclick="navigateTo('guardians')">Guardians</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-section mb-4  dashlinks admin-links">
+            <div class="menu-card" onclick="navigateTo('users')">
+                <i class="ph ph-users icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold">Institution Users</h6>
+                    <p class="mb-0 small text-muted">User Accounts</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('requests')">
+                <i class="ph ph-user-plus icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold"> Account Requests</h6>
+                    <p class="mb-0 small text-muted">Approve or Reject new accounts</p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="menu-section mb-4  dashlinks staff-links">
+
+
+            <div class="menu-card" onclick="navigateTo('users')">
+                <i class="ph ph-users icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold">Institution Users</h6>
+                    <p class="mb-0 small text-muted">User Accounts</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('requests')">
+                <i class="ph ph-user-plus icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold"> Account Requests</h6>
+                    <p class="mb-0 small text-muted">Approve or Reject new accounts</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('notices-admin')">
+                <i class="ph ph-megaphone-simple icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold"> Notices</h6>
+                    <p class="mb-0 small text-muted">Send public messages to all users</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('events-admin')">
+                <i class="ph ph-volleyball icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold">Events</h6>
+                    <p class="mb-0 small text-muted">Notify and invite all users of events</p>
+                </div>
+            </div>
+            <div class="menu-card" onclick="navigateTo('invoices-admin')">
+                <i class="ph ph-cash-register icon"></i>
+                <div>
+                    <h6 class="mb-0 fw-semibold"> Transactions</h6>
+                    <p class="mb-0 small text-muted">Record and view Invoices and Payments</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="cards-section row gx-3 mb-4">
+            <div class="col-6 ">
+                <div class="info-card shadow-lg py-2 mx-2" onclick="navigateTo('notices')">
+                    <div class="dots mt-3">
+                        <span class="dot active"></span>
+                        <span class="dot active"></span>
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="card-label mb-2">Notices</div>
+                </div>
+            </div>
+            <div class="col-6 ">
+                <div class="info-card shadow-lg py-2 mx-2" onclick="navigateTo('events')">
+                    <div class="dots mt-3">
+                        <span class="dot active dark"></span>
+                        <span class="dot dark"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="card-label mb-2">Events</div>
+                </div>
+            </div>
+        </div>
+        <div class="cards-section row gx-3 mb-4">
+            <div class="col-6 ">
+                <div class="info-card shadow-lg py-2 mx-2" onclick="navigateTo('calendar')">
+                    <div class="dots mt-3">
+                        <span class="dot active "></span>
+                        <span class="dot dark"></span>
+                        <span class="dot dark"></span>
+                    </div>
+                    <div class="card-label mb-2">Calendar</div>
+                </div>
+            </div>
+            <div class="col-6 ">
+                <div class="info-card shadow-lg py-2 mx-2" onclick="editProfile()">
+                    <div class="dots mt-3">
+                        <span class="dot  dark"></span>
+                        <span class="dot dark"></span>
+                        <span class="dot active"></span>
+                    </div>
+                    <div class="card-label mb-2">Settings</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn w-100 my-4 logout-btn" onclick="logout()"> Sign Out</button>
+    </div>
+</div>

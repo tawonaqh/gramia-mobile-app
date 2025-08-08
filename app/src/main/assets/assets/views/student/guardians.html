@@ -1,0 +1,27 @@
+<div class="container-fluid " id="studentDashboard">
+    <h3>Student Dashboard</h3>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onclick="dashboard()" >Home</a></li>
+        <li class="breadcrumb-item"><a href="#"  onclick="loadView('dashboard/student')">Dashboard</a></li>
+        <li class="breadcrumb-item active">Student</li>
+    </ol>
+    <div class="d-flex justify-content-end my-3">
+        <button class="btn btn-success btn-sm" onclick="openAddGuardianModal()">+ Add Guardian</button>
+    </div>
+    <div class="mb-5" id="results"></div>
+
+    <div id="list_template" style="display: none;">
+        <div class="card shadow-sm mb-3 border-0">
+            <div class="card-body">
+                <h5 class="card-title">@item_name <small class="text-muted">| @guardianType_name</small></h5>
+                <p class="card-text small text-muted mb-3">
+                    <strong>Phone:</strong> @phone_name<br>
+                    <strong>Email:</strong> @email_name<br>
+                    <strong>Occupation:</strong> @occupation_name
+                </p>
+                <button class="btn btn-sm btn-outline-primary" onclick="viewGuardian(@item_id)">View Details</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

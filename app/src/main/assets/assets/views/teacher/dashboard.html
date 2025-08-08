@@ -1,0 +1,358 @@
+<div class="container-fluid" id="teacherDashboard">
+
+    <!-- Welcome & Quick Info -->
+    <h5 class="fw-bold">Teacher Dashboard</h5>
+
+    <!-- Welcome -->
+    <div class="my-3 text-muted small">
+        Welcome, <span class="fw-bold text-dark" id="username"></span>
+    </div>
+
+    <div class="row g-2 mb-4">
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="dashboard()">
+                        <i class="fas fa-home fa-lg text-black mb-2"></i>
+                        <h6 id="total" class="text-primary mb-0">.</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="">
+                        <i class="fas fa-bell fa-lg text-primary mb-2"></i>
+                        <h6 id="totalNotices" class="text-primary mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="">
+                        <i class="fas fa-envelope fa-lg text-success mb-2"></i>
+                        <h6 id="totalMessages" class="text-success mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="">
+                        <i class="fas fa-calendar-alt fa-lg text-danger mb-2"></i>
+                        <h6 id="cards" class="text-danger mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- Quick Summary Cards -->
+    <div class="row d-none g-3 mb-4">
+        <div class="col-6">
+            <div class="card shadow-sm text-center bg-success text-white p-3">
+                <i class="fas fa-user-graduate fa-2x mb-2"></i>
+                <div>My Classes</div>
+                <h5 id="myClassesCount">0</h5>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow-sm text-center bg-info text-white p-3">
+                <i class="fas fa-file-alt fa-2x mb-2"></i>
+                <div>Submissions</div>
+                <h5 id="newSubmissionsCount">0</h5>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow-sm text-center bg-warning text-dark p-3">
+                <i class="fas fa-tasks fa-2x mb-2"></i>
+                <div>Assignments</div>
+                <h5 id="assignmentCount">0</h5>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card shadow-sm text-center bg-primary text-white p-3">
+                <i class="fas fa-user-check fa-2x mb-2"></i>
+                <div>Attendance</div>
+                <h5 id="attendanceCount">0</h5>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Quick Links Menu -->
+    <div class="list-group shadow-sm mb-4">
+
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-chalkboard-teacher me-2"></i> My Classes</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-user-check me-2"></i> Attendance</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-tasks me-2"></i> Assignments</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-upload me-2"></i> Submissions</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-comments me-2"></i> Group Chats</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-calendar-alt me-2"></i> Timetable</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="">
+            <span><i class="fas fa-user-cog me-2"></i> Edit Profile</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 text-danger d-flex justify-content-between align-items-center" onclick="logout()">
+            <span><i class="fas fa-sign-out-alt me-2"></i> Logout</span>
+        </a>
+
+    </div>
+</div>
+<div class="container-fluid d-none " id="studentDashboard">
+    <h3>Teacher Dashboard</h3>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onclick="dashboard()" >Home</a></li>
+        <li class="breadcrumb-item active">Teacher</li>
+    </ol>
+
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h4>Welcome: <span class="text-warning" id="userName"></span></h4>
+    </div>
+    <div class="container my-4">
+        <div class="row g-3">
+            <div class="col-6">
+                <div class="card-stat p-4">
+
+                    <div>New Submissions</div>
+                    <div class="h4 d-flex justify-content-around mt-4">
+                        <i class="fas fa-user-plus icon-lg"></i>
+                        <span class="pt-0 mt-0 card-stat-label" > 0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-stat p-4">
+
+                    <div>New Messages</div>
+                    <div class="h4 d-flex justify-content-around mt-4">
+                        <i class="fas fa-envelope icon-lg"></i>
+                        <span class="pt-0 mt-0 card-stat-label" >0 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-stat p-4">
+
+                    <div>Students</div>
+                    <div class="h4 d-flex justify-content-around mt-4">
+                        <i class="fas fa-user-graduate icon-lg"></i>
+                        <span class="pt-0 mt-0 card-stat-label" >0 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card-stat p-4">
+
+                    <div>Classes</div>
+                    <div class="h4 d-flex justify-content-around mt-4">
+                        <i class="fas fa-chalkboard-teacher icon-lg"></i>
+                        <span class="pt-0 mt-0 card-stat-label" >0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="row g-4 mt-4">
+                    <div class="col-6">
+                        <a href="">
+                            <div class="action-card">
+                                <i class="fas fa-user-graduate fa-2x mb-2"></i>
+                                <strong>Assignments</strong>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <div class="action-card"  onclick="navigateTo('teacher/attendance')">
+                            <i class="fas fa-user-plus fa-2x mb-2"></i>
+                            <strong>Attendance</strong>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="action-card">
+                            <i class="fas fa-calendar-alt fa-2x mb-2"></i>
+                            <strong>Marks</strong>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="action-card">
+                            <i class="fas fa-bullhorn fa-2x mb-2"></i>
+                            <strong>Chat</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6  text-center pt-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4" style="height: 100%;">
+                            <h5 class="mb-3">Notice Board</h5>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-warning text-white">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="pb-2">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+
+            <div class="col-md-6  text-center pt-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4" style="height: 100%;">
+                            <h5 class="mb-3">Latest Messages</h5>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-warning text-white">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="pb-2">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6  text-center pt-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4" style="height: 100%;">
+                            <h5 class="mb-3">Assignments</h5>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-warning text-white">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="pb-2">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6  text-center pt-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4" style="height: 100%;">
+                            <h5 class="mb-3">Submissions</h5>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-warning text-white">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="pb-2">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6  text-center pt-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-4" style="height: 100%;">
+                            <h5 class="mb-3">Assignments</h5>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="border-bottom pb-2 mb-3">
+                                <span class="badge bg-warning text-white">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                            <div class="pb-2">
+                                <span class="badge bg-primary">25 Feb, 2025</span>
+                                <div>Mr Smith is absent today</div>
+                                <small class="text-muted">5 min ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card rounded-2 my-4 p-4 ">
+            <h5> Latest Notifications:</h5>
+            <div class="table-responsive"><table class="table table-borderless" id="requestsTable"></table></div>
+            <p class="text-center" id="notificationsBtn">
+                <a class="btn  rounded-2 border" onclick="navigateTo('admin/requests')">All Notifications</a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<!-- account.css already linked -->
+<link href="assets/css/account.css" rel="stylesheet">
+<div class="login-wrapper d-flex flex-column justify-content-between min-vh-100">
+
+    <div class="logo">
+        <img src="assets/img/gramialogo-white.png" alt="Logo">
+    </div>
+<div class="form-container">
+
+        <form id="loginForm">
+            <h3 class="text-primary fw-bold mb-3">Welcome Back<br><span id="username">User</span>!</h3>
+            <p class="mb-4">Please enter your password to continue.</p>
+
+            <label for="unlockPassword">Password</label>
+            <input type="password" name="password" id="unlockPassword" placeholder="***********">
+            <br>
+            <button type="button" id="btn_resume"  onclick="validateUnlock()" >Continue</button>
+            <br>
+            <p id="msg" class="text-danger mt-3"></p>
+        </form>
+        <div class="link" onclick="navigateTo('login')">Login to another account</div>
+
+</div>
+</div>

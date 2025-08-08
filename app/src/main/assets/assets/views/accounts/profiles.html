@@ -1,0 +1,133 @@
+<div class="container-fluid " id="studentDashboard">
+            <h3>Student Dashboard</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" onclick="dashboard()" >Home</a></li>
+                <li class="breadcrumb-item active">Student</li>
+            </ol>
+
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h4>Welcome: <span class="text-warning" id="studentName"></span></h4>
+    </div>
+
+    <!-- Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4"><div class="message-card bg-primary text-white text-center"><h5>Total Invoices</h5><h3 id="totalInvoices">$0.00</h3></div></div>
+        <div class="col-md-4"><div class="message-card bg-danger text-white text-center"><h5>Total Payments</h5><h3 id="totalPayments">$0.00</h3></div></div>
+        <div class="col-md-4"><div class="message-card bg-success text-white text-center"><h5>Balance</h5><h3 id="balance">$0.00</h3></div></div>
+    </div>
+
+    <!-- Personal Details -->
+    <div class="card mb-4 p-4">
+        <h5>Personal Details:</h5>
+        <div class="row">
+            <div class="col-md-4 text-center"><img id="studentPhoto" class="img-fluid rounded-circle" src="" alt="Student Photo"></div>
+            <div class="col-md-8">
+                <table class="table table-borderless">
+                    <tbody id="studentProfile"></tbody>
+                </table>
+                <p class="text-end">
+                    <button class="btn btn-outline-primary" onclick="openEditProfileModal()">Manage Profile</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guardian Details -->
+    <div class="card mb-4 p-4">
+        <h5>Guardian Details:</h5>
+        <div class="table-responsive"><table class="table table-borderless" id="guardianTable"></table></div>
+        <p class="text-end">
+            <a class="btn btn-outline-primary" onclick="loadView('student/guardians')">Manage Guardians</a>
+        </p>
+    </div>
+
+    <!-- Upcoming Events -->
+    <div class="card mb-4 p-4">
+        <h5>Upcoming Events:</h5>
+        <div class="table-responsive"><table class="table table-borderless" id="eventTable"></table></div>
+    </div>
+
+    <!-- Attendance -->
+    <div class="card mb-4 p-4">
+        <h5>Attendance History:</h5>
+        <div style="width:100%; overflow-x:auto">
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">Present <i class="fa fa-check text-success"></i></li>
+                <li class="list-group-item">Absent <i class="fa fa-times text-danger"></i></li>
+                <li class="list-group-item">Late <i class="fa fa-circle text-warning"></i></li>
+                <li class="list-group-item">Excused <i class="fa fa-exclamation text-primary"></i></li>
+            </ul>
+        </div>
+
+
+        <div class="table-responsive mt-3"><table class="table table-borderless" id="attendanceTable"></table></div>
+    </div>
+
+    <!-- Invoices -->
+    <div class="card mb-4 p-4">
+        <h5>Invoices:</h5>
+        <div class="table-responsive"><table class="table table-borderless" id="invoiceTable"></table></div>
+    </div>
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form id="editProfileForm" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="phone" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="address" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender">Gender</label>
+
+                            <select class="form-select " name="gender" id="gender" required="">
+                                <option value="">Select Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3" selected="">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dateofbirth">Date of Birth</label>
+                            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" />
+                        </div>
+                        <div class="mb-3">
+                            <label>Picture</label>
+                            <input type="file" class="form-control" name="picture" accept="image/*" />
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="submit_button" onclick="submit_profile_form()" class="btn btn-primary w-100">Save Changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Student Progress -->
+    <div class="card mb-4 p-4">
+        <h5>Student Progress:</h5>
+        <div class="table-responsive"><table class="table table-borderless" id="progressTable"></table></div>
+    </div>
+</div>

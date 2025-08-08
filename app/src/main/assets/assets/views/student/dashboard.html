@@ -1,0 +1,180 @@
+<div class="container-fluid" id="studentDashboard">
+
+    <h5 class="fw-bold" id="institution_name"></h5>
+
+    <!-- Welcome -->
+    <div class="my-3 text-muted small">
+        Welcome, <span class="fw-bold text-dark" id="username"></span>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-2">
+        <div class="col-4">
+            <div class="card shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-3">
+                    <i class="fas fa-file-invoice-dollar fa-lg text-primary mb-2"></i>
+                    <div class="fw-bold small">Invoices</div>
+                    <h6 id="totalInvoices" class="text-primary mb-0">$0.00</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-3">
+                    <i class="fas fa-money-bill-wave fa-lg text-success mb-2"></i>
+                    <div class="fw-bold small">Payments</div>
+                    <h6 id="totalPayments" class="text-success mb-0">$0.00</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-3">
+                    <i class="fas fa-wallet fa-lg text-danger mb-2"></i>
+                    <div class="fw-bold small">Balance</div>
+                    <h6 id="balance" class="text-danger mb-0">$0.00</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile & Photo -->
+    <div class="card p-3 mb-3 shadow-sm">
+        <div class="d-flex align-items-center">
+            <img id="studentPhoto" class="rounded-circle me-3" style="width:70px; height:70px;" src="" alt="Student Photo">
+            <div>
+                <div class="fw-bold">Personal Details</div>
+                <table class="table table-borderless small mb-0" id="studentProfile"></table>
+                <div class="text-end mt-2">
+                    <button class="btn btn-sm btn-outline-primary" onclick="openEditProfileModal()">
+                        <i class="fas fa-user-edit me-1"></i> Manage Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row g-2 mb-4">
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="dashboard()">
+                        <i class="fas fa-home fa-lg text-black mb-2"></i>
+                        <h6 id="total" class="text-primary mb-0">.</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="navigateTo('notices')">
+                        <i class="fas fa-bell fa-lg text-primary mb-2"></i>
+                        <h6 id="totalNotices" class="text-primary mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="navigateTo('direct-chat')">
+                        <i class="fas fa-envelope fa-lg text-success mb-2"></i>
+                        <h6 id="totalMessages" class="text-success mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card rounded-2 shadow-sm text-center bg-light">
+                <div class="card-body px-2 py-2">
+                    <a class="nav-link " href="#" onclick="navigateTo('events')">
+                        <i class="fas fa-calendar-alt fa-lg text-danger mb-2"></i>
+                        <h6 id="cards" class="text-danger mb-0">0</h6>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Class: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="institution_class" required>
+            <option value="">Select Class</option>
+
+        </select>
+        <p class="pt-2" id="class_description"></p>
+        <button class="btn btn-sm btn-outline-secondary mb-2" onclick="get_classes(true)">
+            Refresh Class List
+        </button>
+    </div>
+    <!-- Quick Links Menu -->
+    <div class="list-group shadow-sm mb-4">
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="dashboard()">
+            <span><i class="fas fa-home me-2"></i> Home</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-classes')">
+            <span><i class="fas fa-chalkboard me-2"></i> Class Details</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6" onclick="navigateTo('student-attendance')">
+            <i class="fas fa-user-check me-2"></i> Attendance History
+            <i class="fas fa-chevron-right float-end mt-1"></i>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6" onclick="navigateTo('student-progress-reports')">
+            <i class="fas fa-chart-line me-2"></i> Progress Reports
+            <i class="fas fa-chevron-right float-end mt-1"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6" onclick="navigateTo('student-assignments')">
+            <i class="fas fa-tasks me-2"></i> Assignments
+            <i class="fas fa-chevron-right float-end mt-1"></i>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action  py-3 fs-6" onclick="navigateTo('student-timetable')">
+            <i class="fas fa-calendar-week me-2"></i> Timetable
+            <i class="fas fa-chevron-right float-end mt-1"></i>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action py-3  bg-light fs-6" onclick="navigateTo('student-submissions')">
+            <i class="fas fa-upload me-2"></i> .Submissions
+            <i class="fas fa-chevron-right float-end mt-1"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-invoices')">
+            <span><i class="fas fa-file-invoice me-2"></i> Invoices</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('calendar')">
+            <span><i class="fas fa-calendar me-2"></i> Calendar</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-guardians')">
+            <span><i class="fas fa-users me-2"></i> Guardians</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action bg-light py-3 fs-6 d-flex justify-content-between align-items-center" onclick="navigateTo('student-profile')">
+            <span><i class="fas fa-user-cog me-2"></i> Edit Profile</span>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action py-3 fs-6 text-danger d-flex justify-content-between align-items-center" onclick="logout()">
+            <span><i class="fas fa-sign-out-alt me-2"></i> Logout</span>
+            <!-- Optional: omit chevron for logout -->
+        </a>
+    </div>
+    <div class="card rounded-2 my-4 p-4 ">
+        <h5> Latest Notifications:</h5>
+        <div class="table-responsive"><table class="table table-borderless" id="requestsTable"></table></div>
+        <p class="text-center" id="notificationsBtn">
+            <a class="btn  rounded-2 border" onclick="navigateTo('admin/requests')">All Notifications</a>
+        </p>
+    </div>
+</div>

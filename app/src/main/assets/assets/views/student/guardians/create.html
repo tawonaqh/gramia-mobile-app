@@ -1,0 +1,105 @@
+<div class="container mx-0 mt-4 px-0 view" id="request">
+    <div class="mx-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2"  onclick="goBackView()"]
+                   style="cursor:pointer"></i>
+                Add Guardian
+            </h5>
+
+        </div>
+        <br>
+        <div id="current_requests"></div>
+
+    </div>
+        <form class="form px-0 py-4" id="_form">
+
+       <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Name:</div>
+            <input type="text" name="name" class="form-control border-0 px-0 bg-transparent mt-1" value="" />
+        </div>
+
+       <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Phone:</div>
+            <input type="text" name="phone" class="form-control border-0 px-0 bg-transparent mt-1" value="" />
+        </div>
+
+       <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Email:</div>
+            <input type="text" name="email" class="form-control border-0 px-0 bg-transparent mt-1" value="" />
+        </div>
+
+       <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Occupation:</div>
+            <input type="text" name="occupation" class="form-control border-0 px-0 bg-transparent mt-1" value="" />
+        </div>
+
+       <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Guardian Type:</div>
+
+            <select class="form-select border-0 px-0 bg-transparent" name="guardianType" required>
+                <option value="1" >Parent</option>
+                <option value="2">Legal Guardian</option>
+                <option value="3">Sponsor</option>
+            </select>
+        </div>
+
+
+            <div class="m-4" id="form_result"></div>
+
+
+            <br>
+            <div class="d-grid m-4">
+                <button type="button" id="btn_submit_item" class="btn dark-bg rounded-2 btn-lg">
+                     Submit Record
+                </button>
+            </div>
+    </form>
+
+</div>
+<script type="text/javascript">
+
+    $('#btn_submit_item').on('click', function () {
+     if (!navigator.onLine) { showAlert('No Internet Connection'); return }
+    overlay('start');
+     current = JSON.parse(localStorage.getItem("current_account"));
+
+    console.log('submitting...')
+    var msg = $('#form_result'), _btn = $(this), _form = $('#_form').serialize()+ "&institution_user=" + current.iD+ "&user=" + user.iD;
+
+    msg.html(""); _btn.attr("disabled", "true"); _btn.html("Processing...");
+    var uri =  site + "/api/create-guardian";
+    console.log("uri: " + _form);
+    $.ajax({
+    url:uri, type: 'POST', dataType: 'application/json', data: _form,
+    complete: function (data) {
+   overlay('stop');
+
+
+    _btn.removeAttr("disabled"); console.log("rs: " + data.responseText.toString());
+    var result = JSON.parse(data.responseText.toString());
+
+    _btn.html("Add Another");
+
+    //alert(rString) //get_pagination();
+    if (result.status == 1) {
+    loadData()
+
+    msg.html(create_message("success", result.message));
+
+    //	document.location.reload();
+    } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
+    },
+    success: function (response) {
+    console.log('res: ' + response)
+    const data = JSON.parse(response);
+
+    },
+    error: function (error, status, xhr) {
+    console.log("Error loading data " + JSON.stringify(error)  + " xhr: " + xhr);
+    }
+    });
+
+    })
+
+</script>

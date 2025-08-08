@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- Viewport for responsive scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+
+    <!-- App Title -->
+    <title>Hybrid App</title>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@material/web/all.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+</head>
+<body>
+<md-dialog id="guardianDialog">
+    <div slot="headline">Guardian Details</div>
+
+    <form id="guardianForm" slot="content" class="p-3">
+        <md-outlined-text-field label="Name" name="name" id="gName" required>..</md-outlined-text-field>
+        <md-outlined-text-field label="Phone" name="phone" id="gPhone">...</md-outlined-text-field>
+        <md-outlined-text-field label="Email" name="email" id="gEmail"></md-outlined-text-field>
+        <md-outlined-text-field label="Occupation" name="occupation" id="gOccupation"></md-outlined-text-field>
+    </form>
+
+    <div slot="actions">
+        <md-text-button dialogAction="cancel">Cancel</md-text-button>
+        <md-filled-button onclick="saveGuardian()">Save</md-filled-button>
+    </div>
+</md-dialog>
+<script>
+    function openGuardianModal() {
+  document.getElementById("guardianDialog").show();
+}
+</script>
+</body>
+</html>

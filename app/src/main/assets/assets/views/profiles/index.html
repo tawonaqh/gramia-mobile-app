@@ -1,0 +1,104 @@
+<link href="assets/css/dashboard.css" rel="stylesheet">
+
+<div class="container view" id="profiles">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="dashboard()" style="cursor:pointer"></i>
+
+            </h5>
+
+        </div>
+        <br>
+        <!-- Search + Filter Row -->
+
+    </div>
+
+    <div class="text-center my-4" onclick="editProfile()">
+        <div class="position-relative d-inline-block mb-3">
+            <img id="studentPhoto" src="assets/img/profile.png" class="rounded-circle border border-3 border-success" style="width: 100px; height: 100px; object-fit: cover;" alt="Profile">
+        </div>
+
+        <h4 id="studentName" class="fw-semibold text-success mb-1">Welcome Guest</h4>
+        <div class="text-muted mb-1 small" id="user_address">
+            ..
+        </div>
+        <div class="text-muted mb-3 small" id="user_institution">
+            ...
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 bg-light rounded-pill px-3 py-3 fw-medium green-text">
+            <span id="user_class"></span> <span id="user_period"></span> <span id="user_role"></span>
+        </div>
+        <p class="d-none">
+        <span id="user_dob">Upper 6</span>
+        <span id="user_phone">Student</span>
+        <span id="user_email">Student</span>
+        </p>
+    </div>
+    <hr>
+
+
+    <!-- Custom Styled Sort Options -->
+
+  
+    <div id="current_requests" class="mb-4"></div>
+    <div class="student-section d-none">
+    <h4 class="green-text my-3 text-center fw-bold">Guardians</h4>
+    <div id="guardian_list" class="p-3"></div>
+    <br>
+    <div id="other_fields_group" class="px-3">
+        <div id="toggle_other_fields" class="bg-white rounded-4 border p-3 d-flex justify-content-between align-items-center" style="cursor: pointer;">
+            <div class="fw-semibold text-teal">Other Fields</div>
+            <i class="ph ph-caret-down text-success" id="other_fields_icon"></i>
+        </div>
+        <div id="other_fields_body" class="mt-2" style="display: none;"></div>
+    </div>
+</div>
+    <div id="results" class="mb-4"></div>
+    <br>
+    <div class="d-none" id="nav" >
+        <br><hr>
+        <br>
+        <div class="input-group shadow-sm my-3 bg-green rounded-pill mb-3">
+            <button class="btn  text-white rounded-start-pill" onclick="changePage(-1)">Prev</button>
+            <select id="page_selector" class="form-select text-center border-0 bg-transparent text-white form-select"  onchange="goToPage(this.value)">
+                <!-- Dynamic page options -->
+            </select>
+            <button class="btn  text-white btn rounded-end-pill" onclick="changePage(1)">Next</button>
+        </div>
+
+        <div class="text-center">
+            <select id="page_size" class="form-select  bg-green text-white rounded-pill w-auto d-inline-block text-center px-3" onchange="updatePageSize(this.value)">
+                <option value="10">10 per page</option>
+                <option value="25">25 per page</option>
+                <option value="50" >50 per page</option>
+                <option value="100" selected>100 per page</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+<!-- Hidden template -->
+<div id="list_template" style="display: none;">
+    <a href="#" onclick="navigateTo('view-guardian', getRecord(@item_id))" class="text-decoration-none text-dark">
+        <div class="card shadow-sm border-0 rounded-3 mb-3">
+            <div class="card-body px-4 py-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0 text-primary fw-semibold">@item_name <small class="text-muted">| @guardianType_name</small></h5>
+                    <i class="fas fa-chevron-right text-muted"></i>
+                </div>
+
+                <p class="mb-0 small text-muted">
+                    <i class="fas fa-phone me-2 text-dark"></i><span class="text-dark fw-medium">Phone:</span> @phone_name<br>
+                    <i class="fas fa-envelope me-2 text-dark"></i><span class="text-dark fw-medium">Email:</span> @email_name<br>
+                    <i class="fas fa-briefcase me-2 text-dark"></i><span class="text-dark fw-medium">Occupation:</span> @occupation_name
+                </p>
+            </div>
+        </div>
+    </a>
+</div>
+<!-- Trigger Button (optional) -->
+
+<!-- Slide-in Offcanvas Modal -->

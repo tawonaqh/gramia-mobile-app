@@ -1,0 +1,159 @@
+<div class="container view" id="studentGuardian">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="dashboard()" style="cursor:pointer"></i>
+                Attendance Records
+            </h5>
+            <button class="btn  bg-green" type="button" onclick="loadData(true)"><i
+                    class="ph ph-arrows-clockwise"></i></button>
+
+        </div>
+        <br>
+        <!-- Calendar Card -->
+        <div id="calendarCard" class="d-flex align-items-center bg-white  p-3 rounded-4 mb-3" onclick="openCalendar()">
+            <div class="icon-box d-flex align-items-center justify-content-center rounded-3 me-3">
+                <i class="fas fa-calendar-day fa-lg text-white"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="fw-semibold text-success-emphasis fs-5" id="calendarDate">June 16 2025</div>
+                <div class="text-muted small" id="calendarTime"></div>
+                <div class="gradient-bar mt-2 rounded-pill"></div>
+            </div>
+        </div>
+        <button class="btn w-100 my-4 rounded-2 py-3 dark-bg" onclick="navigateTo('add-attendance')">
+            <i class="fas fa-plus me-1"></i> Record Attendance
+        </button>
+        <br>
+        <!-- Search + Filter Row -->
+        <div class="d-flex align-items-center gap-2 my-3">
+            <!-- Search Input -->
+            <div class="flex-grow-1 position-relative search-wrapper">
+                <input type="search" name="search" class="form-control search-input ps-5" placeholder="Search">
+                <i class="ph ph-magnifying-glass search-icon text-muted" onclick="loadData(true)"></i>
+            </div>
+
+            <!-- Filter Button -->
+            <button class="btn btn-outline-light border rounded-3 px-3 py-2 " onclick="$('#filterMenu').slideToggle()">
+                <i class="ph ph-funnel-simple text-dark"></i>
+            </button>
+        </div>
+
+        <!-- Custom Styled Sort Options -->
+        <div class="mb-3 px-1" id="filterMenu" style="display:none">
+            <div class="fw-semibold mb-2 text-muted">Sort by</div>
+
+            <div class="custom-radio-list">
+                <label class="sort-label">
+                    <input type="radio" name="order_filter" value="reg_date ASC" onchange="updateActiveSort()">
+                    <span class="label-text">Oldest First</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+
+                <label class="sort-label active">
+                    <input type="radio" name="order_filter" value="reg_date DESC" onchange="updateActiveSort()" checked>
+                    <span class="label-text">Newest</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+            </div>
+        </div>
+
+
+
+        <br>
+        <div class="custom-select-container text-end ">
+            <select class="custom-select-display  save-state f-sel " name="institution_class" onchange="loadData()">
+
+            </select>
+        </div>
+        <div class=" mt-4 mb-2 text-end">
+            <small class="dark-text">Total Records: <span id="total_records_label">0</span></small>
+        </div>
+    </div>
+    <div id="results" class="mb-4"></div>
+
+    <div id="nav">
+        <br>
+        <hr>
+        <br>
+        <div class="input-group shadow-sm my-3 bg-green rounded-pill mb-3">
+            <button class="btn  text-white rounded-start-pill" onclick="changePage(-1)">Prev</button>
+            <select id="page_selector" class="form-select text-center border-0 bg-transparent text-white form-select"
+                onchange="goToPage(this.value)">
+                <!-- Dynamic page options -->
+            </select>
+            <button class="btn  text-white btn rounded-end-pill" onclick="changePage(1)">Next</button>
+        </div>
+
+        <div class="text-center">
+            <select id="page_size"
+                class="form-select  bg-green text-white rounded-pill w-auto d-inline-block text-center px-3"
+                onchange="updatePageSize(this.value)">
+                <option value="10" selected>10 per page</option>
+                <option value="25">25 per page</option>
+                <option value="50">50 per page</option>
+                <option value="100">100 per page</option>
+            </select>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Hidden template -->
+<div id="list_template" style="display: none;">
+    <a href="#">
+        <div class="  bg-light rounded-4 mb-3">
+            <div class=" p-4" data-bs-toggle="offcanvas" data-bs-target="#studentListCanvas"
+                onclick='viewStudents(@item_id)'>
+                <h5 class="text-success fw-bold mb-4">@day_name</h5>
+
+                <div class="mb-3">
+                    <div class="d-flex text-black justify-content-between small fw-semibold mb-1">
+                        <span>Present</span>
+                        <span>@present_name</span>
+                    </div>
+                    <div class="progress" style="height: 10px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: @present_percent%"
+                            aria-valuenow="@present_percent" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex text-black justify-content-between small fw-semibold mb-1">
+                        <span>Absent</span>
+                        <span>@absent_name</span>
+                    </div>
+                    <div class="progress" style="height: 10px;">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: @absent_percent%"
+                            aria-valuenow="@absent_percent" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex text-black justify-content-between small fw-semibold mb-1">
+                        <span>Late</span>
+                        <span>@late_name</span>
+                    </div>
+                    <div class="progress" style="height: 10px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: @late_percent%"
+                            aria-valuenow="@late_percent" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="d-flex text-black justify-content-between small fw-semibold mb-1">
+                        <span>Excused</span>
+                        <span>@excused_name</span>
+                    </div>
+                    <div class="progress" style="height: 10px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: @excused_percent%"
+                            aria-valuenow="@excused_percent" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </a>
+</div>

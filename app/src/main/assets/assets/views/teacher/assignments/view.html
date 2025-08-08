@@ -1,0 +1,66 @@
+<div class="container view">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="navigateTo('teacher-assignments')" style="cursor:pointer"></i>
+                Edit Activity
+            </h5>
+
+        </div>
+    </div>
+    <div class="row g-3">
+
+
+        <div class="col-12">
+            <div class="bg-light p-3 rounded-3 bg-white">
+                <p class="mb-0 fw-semibold">{{name}} | {{subject}} | {{activityType}}</p>
+            </div>
+        </div>
+
+        <div id="descriptionContainer" class="col-12">
+            <div class="bg-light p-3 rounded-3 bg-white">
+                <p id="descriptionText" class="mb-0 fw-semibold">{{description}}</p>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+              const desc = $('#descriptionText').text().trim().toLowerCase();
+
+              if (!desc || desc === 'no description') {
+                $('#descriptionContainer').hide();
+              }
+            });
+        </script>
+
+        <form class="py-3" id="create_item_form">
+
+
+
+            <div id="studentList">
+
+            </div>
+            <p id="form_result" class="small text-danger ps-2"></p>
+            <hr>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+
+
+            </div>
+            <div class="mb-4 mt-3">
+                <button type="button"
+                        id="saveEditActivityBtn"
+                        class="btn btn-success text-white py-3 w-100 opacity-50"
+                        disabled
+                        onclick="alert('Marks saved')">
+                    Save Marks
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="list-group rounded-3 shadow-sm mt-4">
+
+
+       <!-- -->
+    </div>
+</div>

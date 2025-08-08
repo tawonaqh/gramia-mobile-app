@@ -1,0 +1,598 @@
+/* auth-style.css */
+
+/* Ensures full height and vertical centering for the container */
+.auth-container {
+  min-height: 100vh;
+}
+.view{
+margin-bottom:50px;
+
+}
+
+.search-wrapper {
+  border: 1px solid #e0e6f1;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.02);
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #9fa9ba;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+}
+.icon-box {
+  background-color: #00e08f;
+  width: 48px;
+  height: 48px;
+}
+
+.gradient-bar {
+  height: 6px;
+  background: linear-gradient(to right, #00e08f, #00a39d, #004f63, #e0f4ff);
+}
+
+.custom-radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sort-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  color: #999;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.no-wrap {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+}
+.d-grid {
+    display: grid;
+}
+.sort-label input {
+  display: none;
+}
+.green-text{
+    color: #01E590;
+}
+.green-border{
+    border: solid 1px #01E590;
+}
+.text-green{
+    color: #01E590;
+}
+.light-grey-text{
+color:#8790a3
+}
+.weekday-tab {
+  min-width: 100px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+input[type="radio"].form-check-input {
+  accent-color: #00c896;
+}
+.status-option {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    min-height: 45px;
+}
+
+.status-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 0.5rem;
+    border: 2px solid #198754; /* default border */
+    background-color: transparent;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+/* Individual fill colors on the box only */
+.status-box.bg-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+.status-box.bg-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.subject-pill {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.status-box.bg-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.status-box.bg-info {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+#studentListDetails .fa-check {
+    font-size: 0.7rem;
+}
+    #eventDetails .rounded-4 {
+        transition: transform 0.2s ease;
+    }
+    #eventDetails .rounded-4:hover {
+        transform: scale(1.02);
+    }
+.attendance-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    overflow-x: auto;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.attendance-table th,
+.attendance-table td {
+    border: none !important;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.attendance-table th {
+    padding-bottom: 8px;
+}
+
+.attendance-table td {
+    padding: 10px 0;
+}
+
+.attendance-table input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #005757;
+    border-radius: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.attendance-table input.present:checked {
+    background-color: #00f19f;
+}
+.attendance-table input.absent:checked {
+    background-color: #ff2c2c;
+}
+.attendance-table input.late:checked {
+    background-color: #ffa500;
+}
+.attendance-table input.excused:checked {
+    background-color: #00e6ff;
+}
+
+.attendance-table td.name-cell {
+    font-weight: 500;
+    text-align: left;
+    color: #004e4e;
+    font-size: 0.75;
+    white-space: nowrap;
+}
+
+.save-msg {
+    font-size: 0.75rem;
+    padding-left: 8px;
+}
+border-success{
+    border-color: #01e888 !important;
+}
+.green-bg{
+    background-color: #01E590;
+}
+.bg-green{
+    background-color: #01E590;
+}
+.dark-text{
+    color: #02505A;
+}
+.dark-bg{
+    background-color: #02505A;
+    color:#fff
+}
+.bg-dark{
+    background-color: #02505A;
+    color:#fff
+}
+.sort-label .check-icon {
+  color: #00ec8b;
+  font-size: 1.2rem;
+  display: none;
+}
+
+.sort-label.active {
+  color: #00ec8b;
+  font-weight: 600;
+}
+  .custom-select-display {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        border: none;
+        font-size: 0.95rem;
+        color: #bbb;
+        font-weight: 500;
+        padding-right: 1.5rem;
+        position: relative;
+    }
+
+    .custom-select-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .custom-select-container::after {
+        content: '\f105'; /* Font Awesome right arrow (fa-chevron-right) */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #bbb;
+        pointer-events: none;
+    }
+    .rounded-4 {
+        transition: transform 0.3s ease;
+    }
+    .rounded-4:hover {
+        transform: scale(1.02);
+    }
+    .bg-success {
+        background-color: #00e197 !important; /* custom bright green */
+    }
+    .rounded-4 {
+        border-radius: 1.25rem !important;
+    }
+.view{margin-top:30px; }
+    .shadow-sm:hover {
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+    .event-card {
+        background-color: #00e197; /* match screenshot */
+        color: white;
+        border-radius: 1.25rem;
+        padding: 1rem;
+        min-height: 100px;
+    }
+.sort-label.active .check-icon {
+  display: inline;
+}
+.sort-option {
+  font-size: 1rem;
+  color: #999;
+  cursor: pointer;
+}
+
+.sort-option input {
+  display: none;
+}
+
+.sort-option.active {
+  color: #00ce83; /* Match your theme green */
+  font-weight: 600;
+  position: relative;
+}
+
+.sort-option.active::after {
+  content: '✓';
+  font-weight: bold;
+  color: #00ce83;
+  position: absolute;
+  right: -20px;
+  top: 0;
+}
+/* You can add more custom classes or overrides as needed. */
+.card {
+  border-radius: 0.75rem; /* Slightly more rounded corners */
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.message-card{
+padding:16px 10px;
+margin-bottom:10px;
+
+border-radius:4px
+}
+
+body {
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+}
+
+.card, .modal-content {
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.btn {
+  border-radius: 24px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+input, select, textarea {
+  border-radius: 12px;
+  box-shadow: none !important;
+  transition: all 0.2s ease-in-out;
+}
+
+a {
+  color: #2962ff;
+  text-decoration: none;
+}
+.fade-out {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: all 0.25s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.25s ease-in-out;
+}
+/* Material 3 dialog look */
+#alertModal .modal-content {
+  border-radius: 28px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+#alertModal .modal-header {
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  background-color: #2962ff; /* Material blue */
+  color: white;
+  padding: 1.25rem 1.5rem;
+}
+
+#alertModal .modal-title {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+#alertModal .modal-body {
+  font-size: 1rem;
+  color: #333;
+  padding: 1.5rem;
+}
+
+#alertModal .modal-footer {
+  padding: 1rem 1.5rem;
+  justify-content: flex-end;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  border-top: none;
+}
+     width: 28px;
+        height: 28px;
+        border: 2px solid #005757;
+        border-radius: 6px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-color: white;
+        transition: background-color 0.3s ease;
+    }
+    .attendance-table input[type="checkbox"].present:checked {
+        background-color: #00f19f;
+    }
+    .attendance-table input[type="checkbox"].absent:checked {
+        background-color: #ff2c2c;
+    }
+    .attendance-table input[type="checkbox"].late:checked {
+        background-color: #ffa500;
+    }
+    .attendance-table input[type="checkbox"].excused:checked {
+        background-color: #00e6ff;
+    }
+    .attendance-table td, .attendance-table th {
+        padding: 12px;
+    }
+    .save-msg {
+        font-size: 0.8rem;
+    }
+/* Material-style button */
+#alertModal .btn-primary {
+  background-color: #2962ff;
+  border-radius: 20px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 0.5rem 1.25rem;
+  box-shadow: none;
+  transition: background-color 0.2s;
+}
+.button1 {
+
+    padding: auto;
+    color: #fff !important;
+    background: #88a3e6;
+    transition: background-color 0.5s ease;
+}
+
+.button1.disabled,
+.button1:disabled {
+    background-color: #3cd68c;
+}
+
+.button1:hover {
+    color: #000;
+    background: #6b8ad7;
+
+}
+#alertModal .btn-primary:hover {
+  background-color: #0039cb;
+}
+.modal.fade .modal-dialog {
+  transform: translateY(20px);
+  transition: transform 0.3s ease-out;
+}
+.modal.fade.show .modal-dialog {
+  transform: translateY(0);
+}
+ .card-stat {
+        background-color: #3277ff;
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+    }
+    .card-stat-label{
+        font-size: 45px;
+        line-height: 0.7;
+    }
+
+    .icon-lg {
+        font-size: 36px;
+    }
+
+    .action-card {
+        border: 1px solid #eee;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.3s;
+    }
+
+    .action-card:hover {
+        background-color: #f5f5f5;
+    }
+.card h5, .card h4 {
+  margin-bottom: 0;
+}
+
+.card h6 {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1055;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .overlay-content {
+        text-align: center;
+      }
+
+      .overlay .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        animation: spin 0.8s linear infinite;
+      }
+
+      .overlay p {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .overlay.d-none {
+        display: none !important;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+}
+
+.slide-left-in {
+    animation: slideLeftIn 0.3s ease-in forwards;
+}
+.slide-left-out {
+    animation: slideLeftOut 0.3s ease-out forwards;
+}
+@keyframes slideLeftIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideLeftOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-100%); }
+}
+
+.slide-right-in {
+    animation: slideRightIn 0.3s ease-in forwards;
+}
+.slide-right-out {
+    animation: slideRightOut 0.3s ease-out forwards;
+}
+@keyframes slideRightIn {
+    from { opacity: 0; transform: translateX(-100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideRightOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+}

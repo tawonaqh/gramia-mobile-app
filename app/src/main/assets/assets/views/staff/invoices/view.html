@@ -1,0 +1,89 @@
+<div class="container px-0 mt-4 view" id="request">
+    <div class="px-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="text-green fw-bold mb-0">
+                <i class="fas fa-arrow-left me-2" onclick="goBackView()" style="cursor:pointer;"></i>
+                View Transaction
+            </h5>
+        </div>
+    </div>
+
+    <div class="px-3">
+        <!-- Transaction Details -->
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">User</div>
+            <div class="fw-semibold">{{institution_user}}</div>
+        </div>
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">Record Number</div>
+            <div class="fw-semibold" id="name"></div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3 d-none">
+            <div class="text-muted small mb-1">Period</div>
+            <div class="fw-semibold" id="period"></div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 invoice mb-3 d-none">
+            <div class="text-muted small mb-1">Category</div>
+            <div class="fw-semibold" id="category"></div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3 invoice d-none">
+            <div class="text-muted small mb-1">Description</div>
+            <div class="fw-semibold" id="description"></div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">Amount</div>
+            <div class="fw-semibold">${{amount}}</div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3 invoice d-none">
+            <div class="text-muted small mb-1">Balance</div>
+            <div class="fw-semibold" id="balance"></div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">Transaction Type</div>
+            <div class="fw-semibold">{{transactionType}}</div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">Date Registered</div>
+            <div class="fw-semibold">{{reg_date}}</div>
+        </div>
+
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-muted small mb-1">Recorded By</div>
+            <div class="fw-semibold">{{creator}}</div>
+        </div>
+    </div>
+
+    <!-- Payment Form -->
+    <form class="form bg-light rounded-4 p-3 mx-3 mt-3 d-none" id="_form">
+        <div class="mb-3">
+            <div class="text-green fw-semibold mb-1">Amount:</div>
+            <input type="number" name="amount" class="form-control bg-transparent border-0 ps-0" value="0" />
+        </div>
+        <input type="hidden" name="invoice" />
+        <input type="hidden" name="institution_user" />
+        <p id="form_result" class="small text-danger"></p>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="button" id="btn_submit_item" class="btn btn-dark btn-lg rounded-3 px-4">
+                Record Payment
+            </button>
+        </div>
+    </form>
+
+    <!-- Actions -->
+    <div class="list-group rounded-4 shadow-sm mt-4 mx-3">
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3"
+            onclick='downloadPDF({{iD}})'>
+            <i class="fas fa-download text-success me-3"></i>
+            <span>Download</span>
+        </a>
+      
+    </div>
+</div>

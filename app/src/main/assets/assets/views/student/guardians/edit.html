@@ -1,0 +1,97 @@
+<div class="container mx-0 mt-4 px-0 view" id="edit-guardian">
+    <div class="mx-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" style="cursor:pointer" onclick="goBackView()"></i>
+                Edit Guardian
+            </h5>
+        </div>
+    </div>
+        <form class="form px-0 py-4" id="update_item_form">
+            <input type="hidden" name="itemiD" value="{{iD}}" />
+
+            <div class="p-3 px-4 border-bottom">
+                <div class="text-green fw-semibold">Name:</div>
+                <input type="text" name="name" class="form-control border-0 px-0 bg-transparent mt-1" value="{{name}}" />
+            </div>
+
+            <div class="p-3 px-4 border-bottom">
+                <div class="text-green fw-semibold">Phone:</div>
+                <input type="text" name="phone" class="form-control border-0 px-0 bg-transparent mt-1" value="{{phone}}" />
+            </div>
+
+            <div class="p-3 px-4 border-bottom">
+                <div class="text-green fw-semibold">Email:</div>
+                <input type="text" name="email" class="form-control border-0 px-0 bg-transparent mt-1" value="{{email}}" />
+            </div>
+
+            <div class="p-3 px-4 border-bottom">
+                <div class="text-green fw-semibold">Occupation:</div>
+                <input type="text" name="occupation" class="form-control border-0 px-0 bg-transparent mt-1" value="{{occupation}}" />
+            </div>
+
+            <div class="p-3 px-4 border-bottom">
+                <div class="text-green fw-semibold">Guardian Type:</div>
+                <select class="form-select border-0 px-0 bg-transparent mt-1" name="guardianType" required>
+                    <option value="1" {{if guardianTypeiD=="1"}}selected{{endif}}>Parent</option>
+                    <option value="2" {{if guardianTypeiD=="2"}}selected{{endif}}>Legal Guardian</option>
+                    <option value="3" {{if guardianTypeiD=="3"}}selected{{endif}}>Sponsor</option>
+                </select>
+            </div>
+            <div class="mx-4">
+            <div class="m-4" id="form_result"></div>
+
+            <div class="d-grid m-4">
+                <button type="button" id="btn_edit_item" class="btn dark-bg rounded-2 btn-lg">
+                    Update Record
+                </button>
+            </div>
+            </div>
+        </form>
+
+
+
+</div>
+<script type="text/javascript">
+
+    $('#btn_edit_item').on('click', function () {
+         if (!navigator.onLine) { showAlert('No Internet Connection'); return }
+
+    overlay('start');
+    console.log('submitting...')
+    var msg = $('#form_result'), _btn = $(this), _form = $('#update_item_form').serialize();
+    msg.html(""); _btn.attr("disabled", "true"); _btn.html("Processing...");
+    var uri =  site + "/api/update-guardian";
+    console.log("uri: " + uri);
+    $.ajax({
+    url:uri, type: 'POST', dataType: 'application/json', data: _form,
+    complete: function (data) {
+   overlay('stop');
+
+    _btn.removeAttr("disabled"); console.log("rs: " + data.responseText.toString());
+    var result = JSON.parse(data.responseText.toString());
+
+    _btn.html("Update again");
+
+    //alert(rString) //get_pagination();
+    if (result.status == 1) {
+
+    msg.html(create_message("success", result.message));
+ loadData()
+    //	document.location.reload();
+    } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
+    },
+    success: function (response) {
+    console.log('res: ' + response)
+    const data = JSON.parse(response);
+
+
+    },
+    error: function (error, status, xhr) {
+    console.log("Error loading data " + JSON.stringify(error)  + " xhr: " + xhr);
+    }
+    });
+
+    })
+
+</script>

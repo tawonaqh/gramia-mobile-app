@@ -1,0 +1,77 @@
+<style>
+    input:focus, select:focus {
+  border-color: #00c292;
+  box-shadow: 0 0 0 0.1rem rgba(0, 194, 146, 0.25);
+}
+</style>
+<div class="container mt-4 view" id="request">
+    <div class="mx-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2"  onclick="navigateTo('teacher-progress-reports')" style="cursor:pointer"></i>
+                Record Progress
+            </h5>
+
+        </div>
+        <br>
+        <div id="current_requests"></div>
+
+    </div>
+    <form class="py-3" id="create_item_form">
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Class</div>
+            <select class="form-select border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="institution_class"
+                    id="institution_class"
+                    style="font-size: 1rem;">
+            </select>
+        </div>
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Subject</div>
+            <select class="form-select border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="subject"
+                    id="subject"
+                    style="font-size: 1rem;">
+            </select>
+        </div>
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Possible Mark</div>
+            <input type="number" class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                   name="possible_mark"
+                   id="possible_mark"
+                   style="font-size: 1rem;" value="100">
+
+            <!-- add more as needed -->
+            </input>
+        </div>
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Grades</div>
+            <textarea type="text" class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                      name="grades"
+                      id="grades"
+                      style="font-size: 1rem;" />A:80;B:70;C:60;D:50;E:40;F:30;U:0</textarea>
+        </div>
+
+
+
+        <div id="studentList" >
+
+        </div>
+        <p id="form_result" class="small text-danger ps-2"></p>
+        <hr>
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <button type="button" id="btn_submit_item" class="btn btn-success btn-lg rounded-2 px-4 shadow-sm">
+                Submit Record
+            </button>
+
+        </div>
+    </form>
+
+    
+
+</div>
+<script type="text/javascript">
+
+
+
+</script>

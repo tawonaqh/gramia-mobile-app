@@ -1,0 +1,94 @@
+<div class="container mx-0 mt-4 px-0 view" id="request">
+    <div class="mx-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="goBackView()" ] style="cursor:pointer"></i>
+                Request Account
+            </h5>
+
+        </div>
+        <br>
+        <div id="current_requests"></div>
+
+    </div>
+
+    <form class="form px-0 py-4" id="create_item_form">
+
+        <!-- Institution -->
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Institution</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="institution" required>
+                <option value="">Select Institution</option>
+            </select>
+        </div>
+
+        <!-- Class -->
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Class</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="institution_class" required>
+                <option value="">Select Class</option>
+            </select>
+            <p class="text-muted mt-2 mb-0 small" id="class_description"></p>
+        </div>
+
+        <!-- Period -->
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Period</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="period" required>
+                <option value="">Select Period</option>
+            </select>
+        </div>
+
+        <!-- Profile -->
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Profile</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="profile" required>
+                <option value="0" selected>New Profile</option>
+            </select>
+        </div>
+
+        <div class="p-3 px-4 border-bottom " id="profile_name">
+            <div class="text-green fw-semibold">Full Name</div>
+            <input type="text" name="full_name" id="full_name" class="form-control border-0 px-0 bg-transparent mt-1" />
+        </div>
+
+        <!-- View Profile Section -->
+        <div id="view_profile" class="d-none">
+
+
+            <div class="p-3 px-4 border-bottom ">
+                <div class="text-green fw-semibold">National ID / Birth Certificate</div>
+                <input type="text" name="id_number" id="id_number"
+                    class="form-control border-0 px-0 bg-transparent mt-1" />
+            </div>
+
+            <div class="p-3 px-4 border-bottom ">
+                <div class="text-green fw-semibold">Cellphone Number</div>
+                <input type="text" name="phone" id="phone" class="form-control border-0 px-0 bg-transparent mt-1" />
+            </div>
+
+        </div>
+
+        <!-- Role -->
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Role</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="institution_role" required>
+                <option value="4" selected>Student</option>
+                <option value="3">Teaching Staff</option>
+            </select>
+        </div>
+        <div id="view_profile_fields"></div>
+
+        <!-- Result and Button -->
+        <div class="m-4" id="form_result"></div>
+
+        <input type="hidden" name="Method" value="add_item">
+        <input type="hidden" name="user" value="">
+        <br>
+        <div class="d-grid m-4">
+            <button type="button" id="btn_create_item" class="btn dark-bg rounded-2 btn-lg">
+                + Submit Request
+            </button>
+        </div>
+    </form>
+</div>

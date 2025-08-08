@@ -1,0 +1,66 @@
+<div class="container px-3 py-4">
+    <div class=" mb-3" id="breadcrumb-stack">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-sm btn-outline-secondary" onclick="dashboard()">Home</button>
+
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('teacher-assignments')">
+                    <i class="fas fa-chevron-right me-1"></i>Assignments
+                </button>
+            </div>
+
+            <!-- Active breadcrumb shown on its own row -->
+            <div class="mt-2 ps-1">
+                <span class="badge bg-primary-subtle text-primary fw-medium px-3 py-2 rounded-pill small">
+                  <i class="fas fa-circle me-1 small"></i>View
+                </span>
+            </div>
+        </nav>
+    </div>
+    <div class="row g-3">
+
+
+        <div class="col-12">
+            <div class="card shadow-sm p-3 rounded-3 bg-white">
+                <p class="mb-0 fw-semibold">{{name}} | {{subject}} | {{activityType}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card shadow-sm p-3 rounded-3 bg-white">
+                <pre class="mb-0 fw-semibold">{{description}}</pre>
+            </div>
+        </div>
+
+        <form class="py-3" id="create_item_form">
+
+
+
+            <div id="studentList">
+
+            </div>
+            <p id="form_result" class="small text-danger ps-2"></p>
+            <hr>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+
+
+            </div>
+        </form>
+
+
+
+    </div>
+
+    <div class="list-group rounded-3 shadow-sm mt-4">
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('teacher-assignments')">
+            <i class="fas fa-arrow-left fa-lg fa-fw me-3 text-primary"></i>
+            <span>Back to Assignments</span>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('edit-assignment', getRecord({{iD}}))">
+            <i class="fas fa-pen-to-square fa-lg fa-fw me-3 text-success"></i>
+            <span>Edit Assignment</span>
+        </a>
+       <!-- -->
+    </div>
+</div>

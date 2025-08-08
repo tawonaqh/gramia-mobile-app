@@ -1,0 +1,66 @@
+<style>
+    #slideViewer {
+  touch-action: pan-y;
+}
+</style>
+<div class="container view">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="goBackView()" style="cursor:pointer"></i>
+                View Resources
+            </h5>
+            <button class="btn  bg-green" type="button" id="refreshResource"><i class="ph ph-arrows-clockwise"></i></button>
+
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end mb-3">
+
+       
+        <button class="btn w-50 my-4 rounded-2 py-3 dark-bg" onclick="navigateTo('add-teacher-resource-slide', {iD: {{iD}}})">
+            <i class="fas fa-plus me-1"></i>
+        </button>
+        <button class="btn w-25 text-warning  my-4  rounded-2 py-3 dark-bg ms-1" onclick="navigateTo('edit-teacher-resource', getRecord({{iD}}))">
+            <i class="fas fa-pen-to-square me-1 "></i> 
+        </button>
+        <button class="btn w-25 text-danger my-4 rounded-2 py-3 dark-bg ms-1" id="deleteSlide" >
+            <i class="fas fa-x me-1"></i> 
+        </button>
+        
+    </div>
+    <div class="row g-3">
+
+
+        <div class="col-12">
+            <div class=" p-3 rounded-3 bg-light">
+                <h6 class=" fw-semibold mb-1" id="name">{{name}}  | <span class="text-green">{{subject}}</span> </h6>
+                <p class="mb-0 text-muted small" id="description">{{description}}</p>
+            </div>
+        </div>
+
+        <div id="slideViewer" class="text-center p-2">
+
+            <div id="slideImageWrapper" class="position-relative">
+                <img id="currentSlideImage" src="" class="img-fluid rounded shadow-sm" style="max-height: 60vh;">
+                <div id="slideCounter" class="mt-2 small text-muted">loading...</div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button id="prevSlide" class="btn dark-bg"><i class="fas arrow-left"></i> Previous</button>
+                <button id="nextSlide" class="btn dark-bg ">Next <i class="fas arrow-right"></i></button>
+            </div>
+        </div>
+        <input type="hidden" id="itemiD" value="{{iD}}">
+
+
+    </div>
+    <div class="my-5">
+
+
+    </div>
+
+</div>
+<script>
+
+</script>

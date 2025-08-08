@@ -1,0 +1,79 @@
+<div class="container mx-0 mt-4 px-0 view" id="request">
+    <div class="mx-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2"  onclick="navigateTo('teacher-assignments')" style="cursor:pointer"></i>
+                Add Activity
+            </h5>
+
+        </div>
+        <br>
+        <div id="current_requests"></div>
+
+    </div>
+    <form class="form px-0 py-4" id="_form">
+
+
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold"> Class: </div>
+            <select class="form-select border-0 px-0 bg-transparent" name="_class" required>
+
+            </select>
+        </div>
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold"> Subject: </div>
+            <select class="form-select border-0 px-0 bg-transparent" id="class_lessons" name="subject" required>
+
+            </select>
+        </div>
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold"> Activity Type: </div>
+            <select class="form-select border-0 px-0 bg-transparent" name="activityType" required="">
+                <option value="1" selected>Class Exercise</option>
+                <option value="2">Home Work</option>
+                <option value="3">Test</option>
+                <option value="4">Exam</option>
+                <option value="5">Assignment</option>
+                <option value="6">Project</option>
+                <option value="7">Quizz</option>
+                <option value="8">Presentation</option>
+                <option value="9">Group Work</option>
+                <option value="10">Other</option>
+            </select>
+
+        </div>
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Activity Name (eg Test 2, Algebra homework):</div>
+            <input type="text" name="name" class="form-control border-0 px-0 bg-transparent mt-1" value="" />
+        </div>
+
+
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">weight (torwards final mark):</div>
+            <input type="number" name="weight" class="form-control border-0 px-0 bg-transparent mt-1" value="0" />
+        </div>
+
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">possible mark:</div>
+            <input type="number" name="possible_mark" class="form-control border-0 px-0 bg-transparent mt-1" value="10" />
+        </div>
+
+
+
+
+        <div class="m-4" id="form_result"></div>
+
+
+        <br>
+        <div class="d-grid m-4">
+            <button type="button" id="btn_submit_item" class="btn dark-bg rounded-2 btn-lg">
+                Submit Record
+            </button>
+        </div>
+    </form>
+
+</div>
+

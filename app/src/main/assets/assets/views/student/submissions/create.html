@@ -1,0 +1,107 @@
+<div class="container px-3 py-4">
+    <div class=" mb-3" id="breadcrumb-stack">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-sm btn-outline-secondary" onclick="dashboard()">Home</button>
+
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('teacher-assignments')">
+                    <i class="fas fa-chevron-right me-1"></i>Activities
+                </button>
+            </div>
+
+            <!-- Active breadcrumb shown on its own row -->
+            <div class="mt-2 ps-1">
+                <span class="badge bg-primary-subtle text-primary fw-medium px-3 py-2 rounded-pill small">
+                  <i class="fas fa-circle me-1 small"></i>Create
+                </span>
+            </div>
+        </nav>
+    </div>
+    <form class="py-3" id="_form">
+
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1"> Class: </label>
+            <select class="form-select form-select-lg border-0 bg-light f-sel" name="_class" required>
+
+            </select>
+        </div>
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1"> Subject: </label>
+            <select class="form-select form-select-lg  border-0 bg-light" id="class_lessons" name="subject" required>
+
+            </select>
+        </div>
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="mb-3"> Activity Type: </label>
+            <select class="form-select form-select-lg  border-0 bg-light" name="activityType" required="">
+                <option value="">Select Type</option>
+                <option value="1">Class Exercise</option>
+                <option value="2">Home work</option>
+                <option value="3">Test</option>
+                <option value="4">Exam</option>
+                <option value="5">Assignment</option>
+                <option value="6">Project</option>
+                <option value="7">Quizz</option>
+                <option value="8">Presentation</option>
+                <option value="9">group work</option>
+                <option value="10">Other</option>
+            </select>
+
+        </div>
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Activity Name:</label>
+            <input type="text" name="name" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Description / Instruction / Questions:</label>
+            <textarea rows="8" type="text" name="description" class="form-control form-control-sm border-0 bg-light" value="" ></textarea>
+        </div>
+
+
+
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">opening date:</label>
+            <input type="datetime-local" name="start" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+
+
+        <div class="mb-1 border rounded-3 shadow-sm bg-white p-3">
+        <label class="text-muted fw-lighter fs-6 mb-1">closing date:</label>
+        <input type="datetime-local" name="end" class="form-control form-control-sm border-0 bg-light" value="" />
+    </div>
+        <span class="text-muted fw-lighter fst-italic mb-3">* nb. students will only be able to see and respond to this activity between these days</span>
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">weight (torwards final mark):</label>
+            <input type="number" name="weight" class="form-control form-control-sm border-0 bg-light" value="1" />
+        </div>
+
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">possible mark:</label>
+            <input type="number" name="possible_mark" class="form-control form-control-sm border-0 bg-light" value="100" />
+        </div>
+
+
+
+        <p id="form_result" class="small text-danger ps-2"></p>
+        <hr>
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <button type="button" id="btn_submit_item" class="btn btn-success btn-lg rounded-2 px-4 shadow-sm">
+                Submit Record
+            </button>
+
+        </div>
+    </form>
+
+    <div class="list-group mt-4">
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('teacher-assignments')">
+            <i class="fas fa-arrow-left fa-lg fa-fw me-3 text-primary"></i>
+            <span>Back to Activities</span>
+        </a>
+
+    </div>
+
+</div>

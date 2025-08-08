@@ -1,0 +1,66 @@
+<div class="container px-3 py-4">
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" style="cursor:pointer" onclick="goBackView()"></i>
+                Record Attedance
+            </h5>
+        </div>
+    </div>
+
+    <button class="btn btn-outline-primary btn-sm mb-3" onclick="refreshCachedData()">Refresh Data</button>
+
+    <form class="py-3" id="create_item_form">
+        <!-- Class Selector -->
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Class</div>
+            <select class="form-select border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                    name="institution_class"
+                    id="institution_class"
+                    style="font-size: 1rem;">
+                <!-- Options will be dynamically loaded -->
+            </select>
+        </div>
+
+        <!-- Date Picker -->
+        <div class="bg-light rounded-4 p-3 mb-3">
+            <div class="text-green fw-semibold small mb-1">Date</div>
+            <input type="date"
+                   class="form-control border-0 bg-transparent p-0 text-muted shadow-none"
+                   id="dayLong"
+                   name="day"
+                   value="2025-06-19"
+                   style="font-size: 1rem;" />
+        </div>
+
+        <!-- Mark All As -->
+        <div class="mb-2">
+            <div class="fw-bold text-dark mb-2">Mark all as:</div>
+            <div class="bg-light rounded-4 p-3 d-flex justify-content-around text-center fw-medium small">
+                <span class="text-success" style="cursor:pointer;" onclick="markAllAttendance('Present')">Present</span>
+                <span class="text-danger" style="cursor:pointer;" onclick="markAllAttendance('Absent')">Absent</span>
+                <span class="text-warning" style="cursor:pointer;" onclick="markAllAttendance('Late')">Late</span>
+                <span class="text-info" style="cursor:pointer;" onclick="markAllAttendance('Excused')">Excused</span>
+            </div>
+        </div>
+
+        <!-- Student List Will Be Rendered Here -->
+        <div id="studentList"></div>
+
+        <p id="form_result" class="small text-danger ps-2"></p>
+        <hr>
+
+        <!-- Reserved for anything extra -->
+        <div class="d-flex justify-content-center align-items-center mt-4"></div>
+    </form>
+    <!-- ✅ Save Attendance Button (initially disabled) -->
+    <div class="mb-4">
+        <button type="button"
+                id="saveAttendanceBtn"
+                class="btn btn-success text-white py-3 w-100 opacity-50"
+                disabled
+                onclick="alert('Attendance saved')">
+            Save Attendance
+        </button>
+    </div>
+</div>

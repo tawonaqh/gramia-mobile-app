@@ -1,0 +1,101 @@
+<div class="container view" id="studentGuardian">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="dashboard()" style="cursor:pointer"></i>
+                Guardians
+            </h5>
+            <button class="btn  bg-green" type="button" onclick="loadData(true)"><i class="ph ph-arrows-clockwise"></i></button>
+
+        </div>
+        <br>
+        <button class="btn w-100 my-4 rounded-2 py-3 dark-bg" onclick="navigateTo('add-guardian')">
+            <i class="fas fa-plus me-1"></i> Add Guardian
+        </button>
+        <!-- Search + Filter Row -->
+        <div class="d-flex align-items-center gap-2 my-3">
+            <!-- Search Input -->
+            <div class="flex-grow-1 position-relative search-wrapper">
+                <input type="search" name="search" class="form-control search-input ps-5" placeholder="Search">
+                <i class="ph ph-magnifying-glass search-icon text-muted" onclick="loadData(true)"></i>
+            </div>
+    
+            <!-- Filter Button -->
+            <button class="btn btn-outline-light border rounded-3 px-3 py-2 " onclick="$('#filterMenu').slideToggle()">
+                <i class="ph ph-funnel-simple text-dark"></i>
+            </button>
+        </div>
+
+        <!-- Custom Styled Sort Options -->
+        <div class="mb-3 px-1" id="filterMenu" style="display:none">
+            <div class="fw-semibold mb-2 text-muted">Sort by</div>
+
+            <div class="custom-radio-list">
+                <label class="sort-label">
+                    <input type="radio" name="order_filter"  value="reg_date ASC" onchange="updateActiveSort()">
+                    <span class="label-text">Oldest First</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+
+                <label class="sort-label active">
+                    <input type="radio" name="order_filter" value="reg_date DESC" onchange="updateActiveSort()" checked>
+                    <span class="label-text">Newest</span>
+                    <span class="check-icon">&check;</span>
+                </label>
+            </div>
+        </div>
+        
+        <div class=" mt-4 mb-2 text-end">
+            <small class="dark-text">Total Records: <span id="total_records_label">0</span></small>
+        </div>
+    </div>
+    <div id="results" class="mb-4"></div>
+
+    <div id="nav" >
+        <br><hr>
+        <br>
+        <div class="input-group shadow-sm my-3 bg-green rounded-pill mb-3">
+            <button class="btn  text-white rounded-start-pill" onclick="changePage(-1)">Prev</button>
+            <select id="page_selector" class="form-select text-center border-0 bg-transparent text-white form-select"  onchange="goToPage(this.value)">
+                <!-- Dynamic page options -->
+            </select>
+            <button class="btn  text-white btn rounded-end-pill" onclick="changePage(1)">Next</button>
+        </div>
+
+        <div class="text-center">
+            <select id="page_size" class="form-select  bg-green text-white rounded-pill w-auto d-inline-block text-center px-3" onchange="updatePageSize(this.value)">
+                <option value="10">10 per page</option>
+                <option value="25">25 per page</option>
+                <option value="50" >50 per page</option>
+                <option value="100" selected>100 per page</option>
+            </select>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div id="list_template" style="display: none;">
+    <a href="#" onclick="navigateTo('view-guardian', getRecord(@item_id))" class="text-decoration-none">
+        <div class="bg-light border-0 rounded-4 mb-3 px-3 py-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                    <div class="fw-semibold fs-6 text-dark">@item_name</div>
+                    <div class="small text-muted">@guardianType_name (<span class="text-capitalize">@occupation_name</span>)</div>
+                </div>
+                <i class="fas fa-chevron-right text-muted"></i>
+            </div>
+            <div class="bg-light rounded-3 p-2 px-3">
+                <div class="d-flex align-items-center small text-muted">
+                    <i class="fas fa-phone-alt me-2 text-success"></i>
+                    <span class="text-dark">@phone_name</span>
+                </div>
+                <div class="d-flex align-items-center small text-muted">
+                    <i class="fas fa-at me-2 text-success"></i>
+                    <span class="text-dark">@email_name</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

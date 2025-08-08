@@ -1,0 +1,79 @@
+function init(){
+
+//get_user_balance()
+}
+$('#loginForm').submit(function (e) {
+    e.preventDefault();
+    const name = $('#loginUsername').val().trim();
+    const id = $('#loginPassword').val().trim();
+    var msg =  $("#msg"), _btn = $("#btn_login")
+
+    if (name && id) {
+        uri = server_url + '/sign-in'
+        var _form = $('#loginForm').serialize();
+        $("#msg").html("");  _btn.attr("disabled", "true"); _btn.html("Processing...");
+
+                            console.log('uri:', uri);
+
+
+        // Make a POST request to the API endpoint
+        $.ajax({
+            url: uri,
+            method: 'POST',
+            dataType: 'json',
+            data: _form,
+            success: function (response) {
+                            console.log('ata:', response);
+
+                // alert(response)
+                  console.log(JSON.stringify(response));
+                var rString = JSON.stringify(response);
+                _btn.removeAttr("disabled");
+                //  alert(response.status) //get_pagination();
+                var result = response;// $.parseJSON(response);
+                if (result.status == '1') {
+                    _btn.html(result.status);
+ localStorage.removeItem('user');
+        localStorage.removeItem('user_accounts')
+        localStorage.removeItem('current_account')
+                    localStorage.setItem("user", JSON.stringify(response));
+                    user = $.parseJSON(localStorage.getItem("user"));
+                  // alert_msg(msg, "success", result.message);
+                    msg.html(create_message("success", result.message));
+
+                   //  showAlert("Login successful!" );
+                     setTimeout(() => loadView('dashboard/dashboard'), 800);
+
+                    //	document.location.reload();
+                } else {
+                    // alert("rsp: " + response.error_msg)
+
+                    _btn.html("Try again");
+                    msg.html(create_message("danger", result.message));
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('LocationWorker: Error fetching data:', xhr.responseText);
+                _btn.removeAttr("disabled");
+                _btn.html("Try again");
+               msg.html(create_message("danger", 'Error fetching data: ' + error));
+
+              //  alert_msg(msg, "danger", 'Error fetching data: ' + error)
+                console.log('LocationWorker: Error fetching :', error);
+            }
+        });
+
+    } else {
+        var message = ""
+        if (!name) {
+            message = "Username is required; <br>"
+        }
+        if (!id) {
+           message = "password is required; <br>"
+        }
+
+        msg.html(create_message("danger", message));
+
+       // showAlert("Both fields are required.", "Login Error");
+    }
+});

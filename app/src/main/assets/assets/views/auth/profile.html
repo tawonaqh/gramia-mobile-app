@@ -1,0 +1,14 @@
+<h3>Profile</h3>
+<div id="profileInfo"></div>
+
+<script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      $('#profileInfo').html(`
+        <p><strong>Name:</strong> ${user.name}</p>
+        <p><strong>User ID:</strong> ${user.id}</p>
+      `);
+    } else {
+      $('#profileInfo').html("<p>You are not logged in.</p>");
+    }
+</script>

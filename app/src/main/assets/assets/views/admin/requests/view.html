@@ -1,0 +1,82 @@
+
+<div class="container view py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="green-text fw-bold mb-0">
+            <i class="ph ph-arrow-left me-2"  onclick="goBackView()"]
+               style="cursor:pointer"></i>
+            View Request
+        </h5>
+
+    </div>    <div class="row g-3">
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Institution</h6>
+                <p class="mb-0 fw-semibold">{{institution}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Owner</h6>
+                <p class="mb-0 fw-semibold">{{user}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Full name</h6>
+                <p class="mb-0 fw-semibold">{{full_name}}</p>
+            </div>
+        </div>
+
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">ID Number / Birth Number</h6>
+                <p class="mb-0 fw-semibold">{{id_number}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Phone</h6>
+                <p class="mb-0 fw-semibold">{{phone}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1"> Role</h6>
+                <p class="mb-0 fw-semibold">{{institution_role}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Date Registered</h6>
+                <p class="mb-0 fw-semibold">{{reg_date}}</p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="p-3 rounded-3 bg-light">
+                <h6 class="text-muted small mb-1">Recorded By</h6>
+                <p class="mb-0 fw-semibold">{{creator}}</p>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <div class="list-group  mt-4" id="view_profile_fields">
+       
+    </div>
+    <div class="@cofirmers d-flex gap-2 mt-3 ">
+        <a class="btn btn-sm btn-outline-success rounded-pill px-3 py-1" onclick="confirm_request({{iD}}, '2')">
+            <i class="fas fa-check me-1"></i> Approve
+        </a>
+        <a class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="confirm_request({{iD}}, '3')">
+            <i class="fas fa-times me-1"></i> Reject
+        </a>
+    </div>
+</div>

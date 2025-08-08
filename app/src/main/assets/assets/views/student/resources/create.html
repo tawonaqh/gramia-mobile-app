@@ -1,0 +1,117 @@
+<div class="container px-3 py-4">
+    <div class=" mb-3" id="breadcrumb-stack">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-sm btn-outline-secondary" onclick="dashboard()">Home</button>
+
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('guardians')">
+                    <i class="fas fa-chevron-right me-1"></i>Guardians
+                </button>
+            </div>
+
+            <!-- Active breadcrumb shown on its own row -->
+            <div class="mt-2 ps-1">
+                <span class="badge bg-primary-subtle text-primary fw-medium px-3 py-2 rounded-pill small">
+                  <i class="fas fa-circle me-1 small"></i>Create
+                </span>
+            </div>
+        </nav>
+    </div>
+    <form class="py-3" id="_form">
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Name:</label>
+            <input type="text" name="name" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Phone:</label>
+            <input type="text" name="phone" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Email:</label>
+            <input type="text" name="email" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Occupation:</label>
+            <input type="text" name="occupation" class="form-control form-control-sm border-0 bg-light" value="" />
+        </div>
+
+        <div class="mb-3 border rounded-3 shadow-sm bg-white p-3">
+            <label class="text-muted fw-lighter fs-6 mb-1">Guardian Type:</label>
+
+            <select class="form-select form-select-sm border-0 bg-light f-sel" name="guardianType" required>
+                <option value="1" >Parent</option>
+                <option value="2">Legal Guardian</option>
+                <option value="3">Sponsor</option>
+            </select>
+        </div>
+
+
+
+        <p id="form_result" class="small text-danger ps-2"></p>
+        <hr>
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <button type="button" id="btn_submit_item" class="btn btn-success btn-lg rounded-2 px-4 shadow-sm">
+                Submit Record
+            </button>
+
+        </div>
+    </form>
+
+    <div class="list-group mt-4">
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('guardians')">
+            <i class="fas fa-arrow-left fa-lg fa-fw me-3 text-primary"></i>
+            <span>Back to Guardians</span>
+        </a>
+
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    $('#btn_submit_item').on('click', function () {
+    overlay('start');
+     current = JSON.parse(localStorage.getItem("current_account"));
+
+    console.log('submitting...')
+    var msg = $('#form_result'), _btn = $(this), _form = $('#_form').serialize()+ "&institution_user=" + current.iD+ "&user=" + user.iD;
+
+    msg.html(""); _btn.attr("disabled", "true"); _btn.html("Processing...");
+    var uri =  site + "/api/create-guardian";
+    console.log("uri: " + _form);
+    $.ajax({
+    url:uri, type: 'POST', dataType: 'application/json', data: _form,
+    complete: function (data) {
+   overlay('stop');
+
+
+    _btn.removeAttr("disabled"); console.log("rs: " + data.responseText.toString());
+    var result = JSON.parse(data.responseText.toString());
+
+    _btn.html("Update again");
+
+    //alert(rString) //get_pagination();
+    if (result.status == 1) {
+    loadData()
+
+    msg.html(create_message("success", result.message));
+
+    //	document.location.reload();
+    } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
+    },
+    success: function (response) {
+    console.log('res: ' + response)
+    const data = JSON.parse(response);
+
+    },
+    error: function (error, status, xhr) {
+    console.log("Error loading data " + JSON.stringify(error)  + " xhr: " + xhr);
+    }
+    });
+
+    })
+
+</script>

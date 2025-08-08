@@ -1,0 +1,52 @@
+<div class="container view">
+    <div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="green-text fw-bold mb-0">
+                <i class="ph ph-arrow-left me-2" onclick="navigateTo('teacher-assignments')" style="cursor:pointer"></i>
+                View Activity
+            </h5>
+
+        </div>
+    </div>
+    <div class="row g-3">
+
+
+        <div class="col-12">
+            <div class="bg-light px-3 py-1 rounded-3 bg-white">
+                <h5 class="mb-0 fw-semibold">{{name}} </h5>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="bg-light p-3 rounded-3 bg-white">
+                <p class="mb-0">Subject: {{subject}} <br>Type: {{activityType}} <br>Possible Mark: {{possible_mark}} <br>Weight Torwards Final Mark: {{weight}}</p>
+            </div>
+        </div>
+
+        <form class="py-3" id="create_item_form">
+
+
+
+            <div id="studentList">
+
+            </div>
+            <p id="form_result" class="small text-danger ps-2"></p>
+            <hr>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+
+
+            </div>
+        </form>
+
+
+
+    </div>
+
+    <div class="list-group rounded-3 my-3">
+        <a href="#" class="list-group-item bg-green mb-3 rounded-pill d-flex align-items-center py-3 fs-6" onclick="navigateTo('edit-assignment', getRecord({{iD}}))">
+            <i class="fas fa-pen-to-square fa-lg fa-fw me-3 text-success"></i>
+            <span>Edit Activity</span>
+        </a>
+       <!-- -->
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="container">
+    <h3>User: {{name}}</h3>
+    <p>ID: {{id}}</p>
+</div>
+
+{{if role == "admin"}}
+<p class="text-success">This user is an admin.</p>
+{{else}}
+<p class="text-muted">This user is not an admin.</p>
+{{endif}}
+
+<div class="container">
+    <h3>Teachers:</h3>
+    <ul>
+        {{loop:teachers}}
+        <li>{{name}} (ID: {{id}})</li>
+        {{endloop}}
+    </ul>
+
+    <h3>Students:</h3>
+    <ul>
+        {{loop:students}}
+        <li>{{name}} (ID: {{id}})</li>
+        {{endloop}}
+    </ul>
+</div>
+<div class="row mt-4 mx-2 p-4 ">
+    <div class="col-md-12 p-3">
+
+
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> institution: </label>
+            <span class="view-text"><?= $item->institution()->name; ?></span>
+        </div>
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> user: </label>
+            <span class="view-text"><?= $item->user()->name; ?></span>
+        </div>
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> account_no: </label>
+            <span class="view-text"><?= $item->account_no; ?></span>
+        </div>
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> id_no: </label>
+            <span class="view-text"><?= $item->profile()[0]->id_no; ?></span>
+        </div>
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> phone: </label>
+            <span class="view-text"><?= $item->profile()[0]->phone; ?></span>
+        </div>
+        <div class="form-group mb-4  rounded-2 p-3 ps-5  border bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location"> institution_role: </label>
+            <span class="view-text"><?= $item->institution_role()->name; ?></span>
+        </div>
+
+        <div class="form-group mb-4 border rounded-2 p-3 ps-5 bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location">Date Registered: </label>
+            <span class="view-text"><?= formatDateTime($item->reg_date); ?></span>
+        </div>
+        <div class="form-group mb-4 border rounded-2 p-3 ps-5 bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location">Recorded By: </label>
+            <span class="view-text"><?= $item->creator()->name; ?></span>
+        </div>
+        <div class="form-group mb-4 border rounded-2 p-3 ps-5 bg-white shadow-sm">
+            <label class="text-muted fw-lighter fs-6" for="location">Status: </label>
+            <span class="view-text"><?= $item->status()->name; ?></span>
+        </div>
+
+
+    </div>
+</div>
+<a href="#" class="list-group-item list-group-item-action py-3 fs-6" onclick="navigateTo('users')">
+    <i class="fas fa-users me-2"></i> back
+</a>
+<a href="#" class="list-group-item list-group-item-action py-3 fs-6" onclick="navigateTo('edit-user', {id: 12, name: 'Tariro Chibvuva'})">
+    <i class="fas fa-users me-2"></i> edit User
+</a>

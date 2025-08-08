@@ -1,0 +1,56 @@
+<div class="container px-3 py-4">
+    <div class=" mb-3" id="breadcrumb-stack">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-sm btn-outline-secondary" onclick="dashboard()">Home</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('student-dashboard')">
+                    <i class="fas fa-chevron-right me-1"></i>Student
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('guardians')">
+                    <i class="fas fa-chevron-right me-1"></i>Guardians
+                </button>
+            </div>
+
+            <!-- Active breadcrumb shown on its own row -->
+            <div class="mt-2 ps-1">
+                <span class="badge bg-primary-subtle text-primary fw-medium px-3 py-2 rounded-pill small">
+                  <i class="fas fa-circle me-1 small"></i>View
+                </span>
+            </div>
+        </nav>
+    </div>
+    <div class="container py-4" id="chatContainer">
+        <h5 class="fw-bold mb-3">Communications</h5>
+
+        <!-- Chat List -->
+        <div id="chatList" class="mb-4">
+            <!-- Populated via AJAX -->
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chatMessages" class="card shadow-sm d-none">
+            <div class="card-header bg-primary text-white fw-bold" id="chatTitle">Chat</div>
+            <div class="card-body bg-light" style="height: 300px; overflow-y: auto;" id="messageBody">
+                <!-- Messages will be appended here -->
+            </div>
+            <div class="card-footer p-2">
+                <form id="sendMessageForm" class="d-flex">
+                    <input type="text" class="form-control me-2" id="messageInput" placeholder="Type a message..." required>
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="list-group rounded-3 shadow-sm mt-4">
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('guardians')">
+            <i class="fas fa-arrow-left fa-lg fa-fw me-3 text-primary"></i>
+            <span>Back to Guardians</span>
+        </a>
+
+        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 fs-6" onclick="navigateTo('edit-guardian', getRecord({{iD}}))">
+            <i class="fas fa-pen-to-square fa-lg fa-fw me-3 text-success"></i>
+            <span>Edit Guardian</span>
+        </a>
+       <!-- -->
+    </div>
+</div>

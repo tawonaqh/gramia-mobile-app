@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- Viewport for responsive scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+
+    <!-- App Title -->
+    <title>Hybrid App</title>
+
+    <!-- Stylesheets -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="assets/phosphor-regular/style.css">
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <link href="assets/css/cropper.min.css" rel="stylesheet">
+    <script src="assets/js/cropper.min.js"></script>
+    <!-- Optional: Prevent highlighting links on tap (iOS look) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Custom mobile tweaks -->
+    <style>
+        html,
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+        }
+
+        .card {
+            border: none;
+            border-radius: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        #mainBottomNav {
+            height: 70px;
+        }
+
+        #mainContent {
+            margin-bottom: 70px
+        }
+
+        .floating-nav-btn {
+            width: 64px;
+            height: 64px;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            border: 4px solid white;
+            background-color: #0051ba;
+            /* deep blue */
+            color: white;
+        }
+
+        .navbar.fixed-bottom a {
+            width: 60px;
+            font-size: 0.75rem;
+            color: #0051ba;
+        }
+
+        .navbar.fixed-bottom i {
+            display: block;
+            font-size: 1.25rem;
+        }
+
+        .bg-navy {
+            background-color: #003366 !important;
+            /* Deep Navy Blue */
+        }
+
+        .menu-label {
+            font-size: 0.85rem;
+            color: #00ec8b;
+            font-weight: 500;
+        }
+
+        .menu-label.active {
+            color: #004f55;
+        }
+
+        .user-card {
+            border: 1px solid #eee;
+        }
+
+        #profileActionSheet {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .offcanvas-bottom {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+
+            /* Adjust based on content */
+        }
+
+        .payment-method-logo {
+            height: 20px;
+            width: auto;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Top Navbar with Navy Background -->
+    <div class="position-relative  d-none index-nav">
+        <div class="bg-navy text-white p-4 d-flex align-items-center">
+            <img src="assets/img/schoollogo.png" id="institution_logo" class="rounded-circle me-3" alt="School Logo"
+                style="width: 50px; height: 50px;">
+            <h5 class="mb-0">Bright School</h5>
+        </div>
+
+        <!-- Floating User Card -->
+
+    </div>
+
+    <!-- Main content area -->
+
+    <main class=" " id="mainContent">
+        <div class="text-center">Gramia Technologies</div>
+    </main><!-- Alert Modal -->
+    <nav class="navbar fixed-bottom bg-white shadow-md justify-content-around px-3 py-2 index-nav" id="mainBottomNav"
+        style="height: 70px; z-index: 100; display: none">
+        <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('dashboard')">
+            <i class="ph ph-house-simple" style="font-size: 1.6rem; color: #004f55;"></i>
+            <span class="menu-label active d-block">Home</span>
+        </a>
+
+        <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('direct-chat')">
+            <i class="ph ph-chat" style="font-size: 1.6rem; color: #004f55;"></i>
+            <span class="menu-label active d-block">Chat</span>
+        </a>
+
+        <a href="#" class="text-center text-decoration-none my-2" onclick="gotoprofile()">
+            <i class="ph ph-user-list" style="font-size: 1.6rem; color: #004f55;"></i>
+            <span class="menu-label active d-block">Profile</span>
+        </a>
+
+
+        <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('notifications')">
+            <i class="ph ph-bell" id="alerts-icon" style="font-size: 1.6rem; color: #004f55;"></i>
+            <span class="menu-label active d-block">Alerts</span>
+        </a>
+    </nav>
+    <div class="offcanvas offcanvas-bottom rounded-top shadow" tabindex="-1" id="profileActionSheet">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">User Options</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body text-center px-4">
+            <button class="btn w-100 logout-btn mb-3" data-bs-dismiss="offcanvas"
+                onclick="navigateTo('switch-profile')">
+                <i class="ph ph-users-three me-3"></i>Switch Profiles
+            </button>
+
+            <button class="btn w-100 logout-btn" data-bs-dismiss="offcanvas" onclick="logout()">
+                <i class="ph ph-sign-out me-3"></i>Logout
+            </button>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="studentListCanvas"
+        aria-labelledby="studentListCanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-primary" id="studentListCanvasLabel"></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" id="studentListDetails" style="min-height:300px">
+
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="selectClassCanvas" style="height: 75vh;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-primary" id="selectClassTitle">Select Class</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body overflow-auto" id="selectClassDetails">
+            <div class="form-group mb-4 rounded-4 p-3  py-4 border bg-transparent ">
+                <label class="text-muted fw-lighter fs-6 mb-3 text-green"> Classes: </label>
+                <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom"
+                    name="institution_class" required>
+                    <option value="">Select Class</option>
+
+                </select>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="reportCardCanvas" style="height: 75vh;">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-primary" id="reportCardTitle">Report Card</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body overflow-auto" id="reportCardDetails">
+            <!-- Subject breakdown will be injected here -->
+        </div>
+    </div>
+    <div class="offcanvas " tabindex="-1" id="offcanvasMessages" style="">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-primary" id="offcanvasMessagesTitle">Report Card</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body overflow-auto" id="offcanvasMessagesDetails">
+        </div>
+    </div>
+
+    <div class="modal fade" id="alertModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="alertTitle">Notice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="alertMessage">This is an alert message.</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loading Overlay -->
+    <div id="appOverlay" class="overlay d-none">
+        <div class="overlay-content">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-3" id="overlayMessage">Loading...</p>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" style="display: none;">
+        <div class="overlay-content">
+            <span class="spinner-border text-light" role="status"></span>
+            <span class="text-light">Processing...</span>
+        </div>
+    </div>
+    <div class="modal bg-red" id="progressModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Synchronising App</h5>
+                    <!-- Optionally, you can add a close button here -->
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <!-- Optionally, you can add a footer here with additional controls -->
+                <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal bg-red" id="messageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="message-text"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editFieldsModal" tabindex="-1" aria-labelledby="editFieldsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editFieldsModalLabel">Edit Other Fields</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="edit_other_fields_form"></form>
+             
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success w-100 mt-3" type="submit" form="edit_other_fields_form">
+                    <i class="ph ph-check-circle me-1"></i> Save Changes
+                  </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="offcanvas offcanvas-bottom rounded-top-3 bg-light" tabindex="-1" id="profileEditor"
+        aria-labelledby="profileEditorLabel" style="min-height: 90vh;">
+
+        <div class="offcanvas-body bg-white px-0 mx-0 mt-3">
+            <div class="container px-3 my-3">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <button class="btn w-100 rounded-2 py-3 dark-bg" data-bs-dismiss="offcanvas"
+                            onclick="navigateTo('add-profile')">
+                            <i class="fas fa-plus me-1"></i> Request Account
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn w-100 rounded-2 py-3 dark-bg" data-bs-dismiss="offcanvas"
+                            onclick="get_account(true)">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn w-100 rounded-2 py-3 dark-bg" data-bs-dismiss="offcanvas"
+                            onclick="navigateTo('switch-profile')">
+                            <i class="fas fa-user-switch me-1"></i> Switch Profile
+                        </button>
+                    </div>
+                    <div class="col-6">
+
+                        <button class="btn w-100 rounded-2 py-3 dark-bg" data-bs-dismiss="offcanvas" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+            <form id="editProfileForm" class="mx-3 border p-2 rounded-4" enctype="multipart/form-data">
+                <div class="bg-light rounded-4 p-3 mb-3">
+                    <div class="text-green fw-semibold small mb-1">Picture</div>
+                    <input type="file" accept="image/*" id="pictureInput"
+                        class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                        style="font-size: 1rem;" value="">
+                    </select>
+                    <div class="mt-2" style="max-width: 300px; margin-top: 10px;">
+                        <img id="cropPreview" style="width: 100%; display: none;" />
+                    </div>
+                </div>
+                <button type="button" id="submit_button" onclick="submit_profile_form()"
+                    class="btn dark-bg  w-100 py-3">
+                    Update Profile Picture
+                </button>
+
+            </form>
+            <hr>
+            <form class="mx-3 border  p-2 rounded-4" id="securityForm">
+                <div class="bg-light rounded-4 p-3 mb-3">
+                    <div class="text-green fw-semibold small mb-1">Current Password</div>
+                    <input type="password" name="current_password"
+                        class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                        style="font-size: 1rem;" value="">
+                    </select>
+                </div>
+                <div class="bg-light rounded-4 p-3 mb-3">
+                    <div class="text-green fw-semibold small mb-1">New Username</div>
+                    <input type="text" name="new_username"
+                        class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                        style="font-size: 1rem;" value="">
+                    </select>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-3">
+                    <div class="text-green fw-semibold small mb-1">New Password</div>
+                    <input type="password" name="new_password"
+                        class="form-control border-0 bg-transparent shadow-none p-0 fw-medium text-muted"
+                        style="font-size: 1rem;" value="">
+                    </select>
+                </div>
+
+                <button type="button" onclick="submit_security_form()" class="btn dark-bg py-3 w-100">
+                    Update Password
+                </button>
+            </form>
+
+            <br>
+
+        </div>
+    </div>
+    <!-- Payment Offcanvas -->
+    <div class="offcanvas offcanvas-bottom rounded-top-3 bg-light" tabindex="-1" id="paymentEditor"
+         aria-labelledby="paymentEditorLabel" style="min-height: 90vh;">
+        <div class="offcanvas-header bg-success text-white">
+            <h5 class="offcanvas-title" id="paymentEditorLabel">Make a Payment</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body bg-white px-0 mx-0 mt-3">
+            <div class="container px-3 my-3">
+                <div class="row g-3">
+                    <div class="col-12">
+
+                        <!-- Invoice details -->
+                        <div class="bg-light rounded p-3 mb-3">
+                            <p class="mb-0 fw-semibold">Invoice for: <strong id="paymentOffcanvasInvoiceName"></strong></p>
+                            <p class="mb-0 text-muted">Current Balance: <strong id="paymentOffcanvasInvoiceBalance" class="text-danger"></strong></p>
+                        </div>
+
+                        <!-- Payment Form -->
+                        <form id="paymentForm">
+
+                            <!-- Amount -->
+                            <div class="form-group mb-3">
+                                <label for="paymentOffcanvasAmountInput" class="form-label fw-semibold">Amount to Pay</label>
+                                <input type="number" class="form-control" id="paymentOffcanvasAmountInput" min="0.01" step="0.01" required>
+                            </div>
+                            <div class="d-flex justify-content-around align-items-center flex-wrap gap-3 my-3">
+                                <img src="assets/img/ecocash-logo.png" alt="Ecocash" class="payment-method-logo">
+                                <img src="assets/img/innbucks-logo.png" alt="Innbucks" class="payment-method-logo">
+                                <img src="assets/img/visa-logo.png" alt="Visa" class="payment-method-logo">
+                                <img src="assets/img/zimswitch-logo.svg" alt="Zimswitch" class="payment-method-logo">
+                            </div>
+                            <!-- Payment Method Dropdown -->
+                            <div class="form-group mb-3">
+                                <label for="paymentMethod" class="form-label fw-semibold">Payment Method</label>
+                                <select class="form-select" id="paymentMethod" onchange="handlePaymentMethodChange()">
+                                    <option value="">-- Select Payment Method --</option>
+                                    <option value="PZW204">Visa</option>
+                                    <option value="PZW211">Ecocash USD</option>
+                                    <option value="PZW212">Innbucks</option>
+                                    <option value="PZW215">Zimswitch USD</option>
+                                </select>
+                            </div>
+
+                            <!-- Card Payment Fields -->
+                            <div id="cardDetails" class="d-none">
+                                <div class="form-group mb-2">
+                                    <label for="cardNumber" class="form-label">Card Number</label>
+                                    <input type="text" id="cardNumber" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="cardExpiry" class="form-label">Expiry (MM/YY)</label>
+                                    <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="cardCvv" class="form-label">CVV</label>
+                                    <input type="text" id="cardCvv" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+
+                            <!-- Phone Number Field (for Ecocash and Innbucks) -->
+                            <div id="phoneNumberField" class="d-none">
+                                <div class="form-group mb-3">
+                                    <label for="mobileNumber" class="form-label">Phone Number</label>
+                                    <input type="text" id="mobileNumber" class="form-control" placeholder="07XXXXXXXX">
+                                </div>
+                            </div>
+
+                            <!-- Instructions Field (for Zimswitch or others) -->
+                            <div id="instructions" class="d-none">
+                                <div class="alert alert-info">
+                                    You will be redirected to complete this payment on your bank's secure gateway.
+                                </div>
+                            </div>
+
+                            <!-- Pay Button -->
+                            <button style="background-color: #014F59" type="button" class="btn w-100 py-3 text-white"
+                                    id="confirmPaymentBtn" onclick="processPayment()">
+                                <i class="fas fa-credit-card me-2 text-white"></i>Pay Now
+                            </button>
+                            <div class="d-flex justify-content-around align-items-center flex-wrap gap-3 my-3">
+                                <img src="assets/img/pesepay-logo.svg" alt="Ecocash" class="payment-method-logo">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal bg-red" id="logoutModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-body ">
+
+                    <h5 class="modal-title text-center py-4">Confirm that you want to logout</h5>
+                    <div class="d-flex mb-3">
+
+                        <button type="button"
+                            class="btn btn-outline-n border mx-auto bg-success rounded-2 w-25 d-block text-white text-black-50 py-2 "
+                            onclick="confirm_logout()"><span class="text-white my-2">confirm</span></button>
+                        <button type="button"
+                            class="btn btn-outline-n border mx-auto bg-warning rounded-2 w-25 d-block text-white text-black-50 py-2 "
+                            data-bs-dismiss="modal"><span class="text-white my-2">cancel</span></button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirm-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm-action-btn-yes" type="button" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JS-->
+    <!-- Hidden HTML templates -->
+
+
+    <div id="template_footer" style="display: none;">
+        <footer class="text-center py-3 small text-muted">Powered by Gramia</footer>
+    </div>
+
+    <!-- Add more templates like #template_search, #template_header etc. -->
+    <!-- Add Guardian Modal -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/routes/common.js"></script>
+    <script src="assets/js/routes/student.js"></script>
+    <script src="assets/js/routes/teacher.js"></script>
+    <script src="assets/js/routes/admin.js"></script>
+    <script src="assets/js/routes/staff.js"></script>
+
+    <script src="assets/js/routes.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <script src="assets/js/requests.js"></script>
+</body>
+
+</html>

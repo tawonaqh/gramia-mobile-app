@@ -1,0 +1,98 @@
+<div class="container view" id="request">
+
+    <div class=" mb-3" id="breadcrumb-stack">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-sm btn-outline-secondary" onclick="dashboard()">Home</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="navigateTo('profiles')">
+                    <i class="fas fa-chevron-right me-1"></i>Profiles
+                </button>
+
+            </div>
+
+            <!-- Active breadcrumb shown on its own row -->
+            <div class="mt-2 ps-1">
+                <span class="badge bg-primary-subtle text-primary fw-medium px-3 py-2 rounded-pill small">
+                  <i class="fas fa-circle me-1 small"></i>Request Account
+                </span>
+            </div>
+        </nav>
+    </div>
+
+    <form class="form  py-5 " id="create_item_form">
+<div id="current_requests"></div>
+
+
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted" > Institution: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="institution" required>
+
+        </select>
+    </div>
+
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Class: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="institution_class" required>
+            <option value="">Select Class</option>
+
+        </select>
+        <p class="pt-2" id="class_description"></p>
+    </div>
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Period: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="period" required>
+            <option value="">Select Period</option>
+
+        </select>
+    </div>
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Profile: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="profile" required>
+            <option value="">Select Profile</option>
+
+            <option value="0" selected>New Profile</option>
+
+        </select>
+    </div>
+    <div id="view_profile">
+        <div class="form-group mb-4 rounded-2 p-3 py-4 border bg-white shadow-sm ">
+            <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Full Name: </label>
+            <input type="text" name="full_name"
+                   class="form-control form-control-lg bg-transparent border-0 border-bottom" />
+        </div>
+        <div class="form-group mb-4 rounded-2 p-3 py-4 border bg-white shadow-sm ">
+            <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> National ID / Birth Certificate:
+            </label>
+            <input type="text" name="id_number"
+                   class="form-control form-control-lg bg-transparent border-0 border-bottom" />
+        </div>
+        <div class="form-group mb-4 rounded-2 p-3 py-4 border bg-white shadow-sm ">
+            <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Cellphone Number: </label>
+            <input type="text" name="phone"
+                   class="form-control form-control-lg bg-transparent border-0 border-bottom" />
+        </div>
+    </div>
+    <div class="form-group mb-4 rounded-2 p-3  py-4 border bg-white shadow-sm ">
+        <label class="text-muted fw-lighter fs-6 mb-3 text-muted"> Role: </label>
+        <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom" name="institution_role" required>
+            <option value="4" selected>Student</option>
+            <option value="3">Teaching Staff</option>
+        </select>
+    </div>
+
+    <div class="mt-2" id="form_result"></div>
+
+    <hr>
+    <br>
+
+    <input type="hidden" name="Method" value="add_item">
+    <input type="hidden" name="user" value="">
+    <div class="d-flex justify-content-center">
+        <button type="button" id="btn_create_item"
+                class="btn button1 w-100  mx-auto btn-lg btn-block">Submit Request</button>
+    </div>
+
+
+</form>
+
+</div>

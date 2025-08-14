@@ -245,7 +245,9 @@ function get_profiles() {
             data.records.forEach((item, index) => {
                 inst += `<option value="${item.iD}" >${item.name}</option>`
             })
-            $('[name=profile]').html(inst)
+
+            // no adding the other profiles only new profile (client request 🤣)
+            //$('[name=profile]').html(inst)
         }
     });
 }

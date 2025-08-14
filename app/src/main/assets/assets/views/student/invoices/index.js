@@ -124,55 +124,56 @@ function makePayment(invoiceId) {
  * Processes the payment after the user confirms in the offcanvas.
  * This function sends a request to the payment API.
  */
-function handlePaymentMethodChange() {
-    const method = document.getElementById("paymentMethod").value;
-
-    // Hide all method-specific fields first
-    document.getElementById("cardDetails").classList.add("d-none");
-    document.getElementById("phoneNumberField").classList.add("d-none");
-    document.getElementById("instructions").classList.add("d-none");
-
-    if (method === "PZW204") {
-        document.getElementById("cardDetails").classList.remove("d-none");
-    } else if (method === "PZW211" || method === "PZW212") {
-        document.getElementById("phoneNumberField").classList.remove("d-none");
-    } else if (method === "PZW215") {
-        document.getElementById("instructions").classList.remove("d-none");
-    }
-}
+//function handlePaymentMethodChange() {
+//    const method = document.getElementById("paymentMethod").value;
+//
+//    // Hide all method-specific fields first
+//    document.getElementById("cardDetails").classList.add("d-none");
+//    document.getElementById("phoneNumberField").classList.add("d-none");
+//    document.getElementById("instructions").classList.add("d-none");
+//
+//    if (method === "PZW204") {
+//        document.getElementById("cardDetails").classList.remove("d-none");
+//    } else if (method === "PZW211" || method === "PZW212") {
+//        document.getElementById("phoneNumberField").classList.remove("d-none");
+//    } else if (method === "PZW215") {
+//        document.getElementById("instructions").classList.remove("d-none");
+//    }
+//}
 
 function processPayment() {
     const amount = $('#paymentOffcanvasAmountInput').val();
-    const method = $('#paymentMethod').val();
+    //const method = $('#paymentMethod').val();
     const invoiceId = $('#confirmPaymentBtn').attr('data-invoice-id');
 
-    if (!amount || !method) {
-        alert("Please enter amount and select a payment method.");
+    if (!amount) {
+        alert("Please enter amount.");
         return;
     }
 
     let data = {
-        invoiceId: invoiceId,
+        transactionId: invoiceId,
         amount: parseFloat(amount),
-        method: method,
-        user: user // your user object, make sure it exists globally
+        //method: method,
+        user: user.iD, // your user object, make sure it exists globally
+        api: true
     };
 
-    if (method === "PZW204") {
-        data.card_number = $('#cardNumber').val();
-        data.expiry = $('#cardExpiry').val();
-        data.cvv = $('#cardCvv').val();
-        if (!data.card_number || !data.expiry || !data.cvv) {
-            alert("Please fill all card details.");
-            return;
-        }
-    } else if (method === "PZW211" || method === "PZW212") {
-        data.mobile_number = $('#mobileNumber').val();
-        if (!data.mobile_number) {
-            alert("Please enter a mobile number.");
-            return;
-        }
-    }
+//    if (method === "PZW204") {
+//        data.card_number = $('#cardNumber').val();
+//        data.expiry = $('#cardExpiry').val();
+//        data.cvv = $('#cardCvv').val();
+//        if (!data.card_number || !data.expiry || !data.cvv) {
+//            alert("Please fill all card details.");
+//            return;
+//        }
+//    } else if (method === "PZW211" || method === "PZW212") {
+//        data.mobile_number = $('#mobileNumber').val();
+//        if (!data.mobile_number) {
+//            alert("Please enter a mobile number.");
+//            return;
+//        }
+//    }
 
     $.ajax({
         url: site + "/api/make-mobile-payment",
@@ -182,6 +183,11 @@ function processPayment() {
         dataType: 'json',
         success: function(res) {
             if (res.status === 1) {
+                localStorage.setItem('referenceNumber', res.referenceNumber);
+                localStorage.setItem('pollUrl', res.pollUrl);
+                localStorage.setItem('invoiceId', res.invoiceId);
+                localStorage.setItem('amount', res.amount);
+
                 if (res.redirectUrl) {
                     window.location.href = res.redirectUrl;
                 } else {

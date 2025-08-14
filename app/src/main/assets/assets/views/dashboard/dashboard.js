@@ -22,6 +22,50 @@ function init() {
     setupNotifications();
 }
 
+$(document).ready(function () {
+    // Check for stored reference number, poll URL, invoice ID, and amount
+    const referenceNumber = localStorage.getItem('referenceNumber');
+    const pollUrl = localStorage.getItem('pollUrl');
+    const invoiceId = localStorage.getItem('invoiceId');
+    const amount = localStorage.getItem('amount');
+
+    if (referenceNumber && pollUrl && invoiceId && amount) {
+        // Show notification with payment details
+        //toastr.info('Payment details stored:<br>Reference Number: ' + referenceNumber + '<br>Poll URL: ' + pollUrl);
+
+        // Optionally, clear these values after showing the notification
+        localStorage.removeItem('referenceNumber');
+        localStorage.removeItem('pollUrl');
+        localStorage.removeItem('invoiceId');
+        localStorage.removeItem('amount');
+
+        // Make an API call to validate the payment status
+        $.ajax({
+            url: site + "/api/validate-payment-status", // Adjust the URL to your backend endpoint
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                referenceNumber: referenceNumber,
+                invoiceId: invoiceId,
+                amount: parseFloat(amount), // Ensure amount is a number
+                pollUrl: pollUrl
+            }),
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 1) {
+                    toastr.success('Payment Status: ' + response.message);
+                } else {
+                    toastr.error('Payment failed: ' + response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error("Error validating payment status:", xhr.responseText);
+                toastr.error('Error validating payment status: ' + xhr.statusText);
+            }
+        });
+    }
+});
+
 function get_account(forceRefresh = false) {
     const cached = localStorage.getItem("user_account");
     if (!forceRefresh && cached) {
@@ -229,3 +273,4 @@ function switch_view(view) {
     $('.view').hide()
     $('#' + view).show()
 }
+

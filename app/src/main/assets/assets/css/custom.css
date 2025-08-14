@@ -505,6 +505,13 @@ a {
   margin-bottom: 0;
 }
 
+.toast {
+    width: 100% !important; /* Set to full width */
+    left: 0 !important; /* Align to left */
+    right: 0 !important; /* Align to right */
+    margin: 0; /* Remove margin */
+}
+
 .card h6 {
   font-size: 0.75rem;
   letter-spacing: 0.5px;

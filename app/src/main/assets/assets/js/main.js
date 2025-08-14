@@ -168,6 +168,53 @@ function resetIdleTimer() {
     }, IDLE_LIMIT_MINUTES * 60 * 1000);
 }
 
+//$(document).ready(function () {
+//    // Existing code...
+//
+//    // Check for stored reference number, poll URL, invoice ID, and amount
+//    const referenceNumber = localStorage.getItem('referenceNumber');
+//    const pollUrl = localStorage.getItem('pollUrl');
+//    const invoiceId = localStorage.getItem('invoiceId');
+//    const amount = localStorage.getItem('amount');
+//
+//    if (referenceNumber && pollUrl && invoiceId && amount) {
+//        alert('Payment details stored:\nReference Number: ' + referenceNumber + '\nPoll URL: ' + pollUrl);
+//
+//        // Optionally, clear these values after showing the alert
+//        localStorage.removeItem('referenceNumber');
+//        localStorage.removeItem('pollUrl');
+//        localStorage.removeItem('invoiceId');
+//        localStorage.removeItem('amount');
+//
+//        // Make an API call to validate the payment status
+//        $.ajax({
+//            url: site + "/api/validate-payment-status", // Adjust the URL to your backend endpoint
+//            method: 'POST',
+//            contentType: 'application/json',
+//            data: JSON.stringify({
+//                referenceNumber: referenceNumber,
+//                invoiceId: invoiceId,
+//                amount: parseFloat(amount), // Ensure amount is a number
+//                pollUrl: pollUrl
+//            }),
+//            dataType: 'json',
+//            success: function(response) {
+//                if (response.status === 1) {
+//                    alert('Payment Status: ' + response.message);
+//                } else {
+//                    alert('Payment validation failed: ' + response.message);
+//                }
+//            },
+//            error: function(xhr) {
+//                console.error("Error validating payment status:", xhr.responseText);
+//                alert('Error validating payment status: ' + xhr.statusText);
+//            }
+//        });
+//    }
+//
+//    // Existing code...
+//});
+
 // Listen for activity
 
 

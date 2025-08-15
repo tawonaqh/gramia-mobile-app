@@ -174,25 +174,25 @@ function renderCalendar(monthOffset = 0) {
 
     // Get today's status
     const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-    const todayStatus = attendanceMap[todayKey];
+    const todayStatus = attendanceMap[todayKey] || 'Present';
 
     const showTodayStatus = (
         today.getFullYear() === year &&
-        today.getMonth() === month &&
-        todayStatus
+        today.getMonth() === month
     );
 
     let todayStatusHTML = '';
     if (showTodayStatus) {
         todayStatusHTML = `
-            <div class="bg-light rounded-pill text-center py-2 my-5 d-flex justify-content-center align-items-center gap-2" style="font-weight: 500;">
-                <span>Today Attendance</span>
+            <div class="bg-light rounded-pill text-center py-3 mt-4 d-flex justify-content-center align-items-center gap-2" style="font-weight: 500;">
+                <span class="text-success">Today Attendance</span>
                 <span class="vr mx-2" style="opacity: 0.2;"></span>
-                <i class="fas fa-star text-dark"></i>
-                <span class="text-dark">${capitalizeFirstLetter(todayStatus)}</span>
+                <i class="fas fa-star text-success"></i>
+                <span class="text-success">${capitalizeFirstLetter(todayStatus)}</span>
             </div>
         `;
     }
+
 
     const monthlyCounts = { present: 0, absent: 0, late: 0, excused: 0 };
 
@@ -310,7 +310,7 @@ function renderLegend(counts = {}) {
 
 function legendRow(label, color, count) {
     return `
-        <div class="d-flex align-items-center justify-content-between px-4 py-2 mb-3 rounded-pill"
+        <div class="d-flex align-items-center justify-content-between px-4 py-2 mb-2 mx-4 rounded-pill"
              style="background:#00e29f; height: 40px;">
             <span class="fw-semibold" style="font-size: 16px;">${label}</span>
             <div class="d-flex justify-content-center align-items-center text-white fw-bold"

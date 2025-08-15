@@ -91,21 +91,31 @@ function get_account(forceRefresh = false) {
 
 // dashboard/user.js
 function updateUserDetails() {
-    console.log('account.profile.name: ' + account.profile.name )
-    $('#user_name').html(account.profile.name);
-    $('#user_role').html(current.institution_role);
-    $('#user_institution').text(current.institution || "");
-    if (current.role == '4') {
-        const nameField =  getProfileField("Student Name");
-        const surnameField =  getProfileField("Student Surname");
+    // Prefer name from current_account JSON
+    const displayName = current.user || account.profile.name || "Guest";
+    $('#user_name').text(displayName);
 
-        const fullName = `${nameField || ""} ${surnameField || ""}`;
-        if(fullName.trim()!=""){ $("#user_name").text(fullName.trim()); }
-        
+    // Role text, muted style
+    $('#user_role').text(current.institution_role).addClass('text-green small');
+
+    // Institution name
+    $('#user_institution').text(current.institution || "");
+
+    // If student role, override with specific profile fields
+    if (current.role == '4') {
+        const nameField = getProfileField("Student Name");
+        const surnameField = getProfileField("Student Surname");
+        const fullName = `${nameField || ""} ${surnameField || ""}`.trim();
+        if (fullName) {
+            $('#user_name').text(fullName);
+        }
     }
 
+    // Logo update
     const inst = accounts.institutions.find(i => i.iD === current.institutioniD);
-    if (inst?.logo) $('#institution_logo').attr('src', inst.logo);
+    if (inst?.logo) {
+        $('#institution_logo').attr('src', inst.logo);
+    }
 }
 
 // dashboard/roles.js
@@ -150,21 +160,51 @@ function setupNotifications() {
 
 // dashboard/results.js
 function displayResults(res) {
-    $("#account_no").text(`# ${res.account_no}`);
-    $("#studentName").text(current.user);
-    $("#accountName").text(res.profile.name);
-    $("#studentPhoto").attr("src", res.profile.picture);
-    console.log('rsc: ' + res.profile.picture)
+    // ===== Account Number =====
+    $("#account_no").text(res.account_no ? `# ${res.account_no}` : "");
 
+    // ===== User Name =====
+    let displayName = current.user || (res.profile?.name || "Guest");
 
+    // If student role, use full student name from profile fields
     if (current.role == '4') {
-        $("#totalInvoices").text("$" + res.financial.invoices);
-        $("#totalPayments").text("$" + res.financial.payments);
-        $("#balance").text("$" + (res.financial.invoices - res.financial.payments));
-       
+        const nameField = getProfileField("Student Name") || "";
+        const surnameField = getProfileField("Student Surname") || "";
+        const fullName = `${nameField} ${surnameField}`.trim();
+        if (fullName) displayName = fullName;
     }
 
+    $("#user_name").text(displayName);
 
+    // ===== Role and Institution =====
+    $("#user_role").text(current.institution_role || "").addClass('text-green small');
+    $("#user_institution").text(current.institution || "");
+
+    // ===== Profile Picture =====
+    let picture = res.profile?.picture || "assets/img/profile.png";
+
+    // Fix escaped slashes if Base64 string came with `\/`
+    if (picture.startsWith("data:image")) {
+        picture = picture.replace(/\\\//g, '/');
+    } else {
+        // fallback to default image if picture is invalid
+        picture = "assets/img/profile.png";
+    }
+
+    $("#studentPhoto").attr("src", picture);
+
+    // ===== Student Financials =====
+    if (current.role == '4' && res.financial) {
+        $("#totalInvoices").text("$" + (res.financial.invoices || 0));
+        $("#totalPayments").text("$" + (res.financial.payments || 0));
+        $("#balance").text("$" + ((res.financial.invoices || 0) - (res.financial.payments || 0)));
+    }
+
+    // ===== Institution Logo =====
+    const inst = accounts?.institutions?.find(i => i.iD === current.institutioniD);
+    if (inst?.logo) {
+        $("#institution_logo").attr('src', inst.logo);
+    }
 }
 
 function populateClassDropdown(classes) {

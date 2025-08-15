@@ -137,26 +137,30 @@
     <main class=" " id="mainContent">
         <div class="text-center">Gramia Technologies</div>
     </main><!-- Alert Modal -->
-    <nav class="navbar fixed-bottom bg-white shadow-md justify-content-around px-3 py-2 index-nav" id="mainBottomNav"
-        style="height: 70px; z-index: 100; display: none">
+    <nav class="navbar fixed-bottom bg-white shadow-md justify-content-around px-3 py-2 index-nav"
+         id="mainBottomNav"
+         style="height: 70px; z-index: 100; display: none">
+        <!-- Home -->
         <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('dashboard')">
-            <i class="ph ph-house-simple" style="font-size: 1.6rem; color: #004f55;"></i>
+            <i class="ph ph-house-simple" style="font-size: 1.8rem; color: #004f55;"></i>
             <span class="menu-label active d-block">Home</span>
         </a>
 
+        <!-- Chat -->
         <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('direct-chat')">
-            <i class="ph ph-chat" style="font-size: 1.6rem; color: #004f55;"></i>
+            <i class="ph ph-chat-teardrop-text" style="font-size: 1.8rem; color: #004f55;"></i>
             <span class="menu-label active d-block">Chat</span>
         </a>
 
+        <!-- Profile -->
         <a href="#" class="text-center text-decoration-none my-2" onclick="gotoprofile()">
-            <i class="ph ph-user-list" style="font-size: 1.6rem; color: #004f55;"></i>
+            <i class="ph ph-user-circle" style="font-size: 1.8rem; color: #004f55;"></i>
             <span class="menu-label active d-block">Profile</span>
         </a>
 
-
+        <!-- Alerts -->
         <a href="#" class="text-center text-decoration-none my-2" onclick="navigateTo('notifications')">
-            <i class="ph ph-bell" id="alerts-icon" style="font-size: 1.6rem; color: #004f55;"></i>
+            <i class="ph ph-bell-ringing" id="alerts-icon" style="font-size: 1.8rem; color: #004f55;"></i>
             <span class="menu-label active d-block">Alerts</span>
         </a>
     </nav>

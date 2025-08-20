@@ -106,7 +106,7 @@ function changePage(direction) {
 
     if (nextPage < 1 || nextPage > total_pages) return;
     current_page = nextPage;
-    console.log('nextes page ' + current_page)
+    console.log('next page ' + current_page)
 
     loadData();
 }

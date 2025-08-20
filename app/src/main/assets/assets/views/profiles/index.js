@@ -6,8 +6,8 @@ function init(data) {
     current_page = 1;
     console.log('init: ' + localStorage.getItem("user_account"))
 
-    //current = JSON.parse(localStorage.getItem("current_account"));
-    // if (!current) return showAlert("No student account found");
+    current = JSON.parse(localStorage.getItem("current_account"));
+    //if (!current) return showAlert("No student account found");
     if (localStorage.getItem("user_account") && localStorage.getItem('current_account')) {
         res = JSON.parse(localStorage.getItem("user_account"));
 
@@ -18,7 +18,7 @@ function init(data) {
         $("#user_institution").text(` ${res.institution} `);
         $("#user_role").text(`${current.institution_role} `);
         $("#account_no").text(`# ${res.account_no} `);
-        $("#studentName").text(current.user);
+        $("#studentName").text(current.user || res.profile.institution_user || user.name);
         $("#accountName").text(res.profile.name);
 
         $("#user_period").text(getSelectedClass().period);
@@ -36,8 +36,8 @@ function init(data) {
             const surnameField = getProfileField("Student Surname");
 
             const fullName = `${nameField || ""} ${surnameField || ""}`;
-            $("#studentName").text(fullName.trim());
-            $("#user_address").text(getProfileField("Home Address"));
+            //$("#studentName").text(fullName.trim());
+            //$("#user_address").text(getProfileField("Home Address"));
             // displayProfile(current);
             renderGuardiansFromFields(account.fields);
             renderOtherFields(account.fields);
@@ -174,11 +174,11 @@ function renderGuardiansFromFields(fields) {
         const email = g.fields.email || "No email provided";
 
         const contactRow = `
-            <div class="d-flex align-items-center bg-light p-2 rounded-3 mt-2 mb-1">
+            <div class="d-flex align-items-center bg-light px-2 py-1 rounded-3 mt-1 mb-1">
                 <i class="ph ph-phone me-2 green-text"></i>
                 <span class="me-3">${phone}</span>
             </div>
-            <div class="d-flex align-items-center bg-light p-2 rounded-3">
+            <div class="d-flex align-items-center bg-light px-2 py-1 rounded-3">
                 <i class="ph ph-envelope-simple me-2 green-text"></i>
                 <span>${email}</span>
             </div>
@@ -186,12 +186,12 @@ function renderGuardiansFromFields(fields) {
         const imageURL = `https://randomuser.me/api/portraits/${index % 2 === 0 ? "women" : "men"}/${10 + index}.jpg`;
         const icon = `
         <div class="d-flex align-items-center justify-content-center rounded-circle border border-success bg-light" 
-             style="width:60px; height:60px;">
+             style="width:45px; height:45px;">
             <i class="ph ph-user" style="font-size: 28px; color: #198754;"></i>
         </div>
     `;
         const card = `
-        <div class="guardian-card  mb-3 bg-white rounded-4 border">
+        <div class="guardian-card mb-3 bg-white rounded-4 border">
            <div class="d-flex gap-3 align-items-start p-3"> <div>
                 ${icon}            
             </div>
@@ -201,7 +201,7 @@ function renderGuardiansFromFields(fields) {
                 
             </div>
             </div>
-            <div class="d-flex align-items-center bg-light p-2 rounded-3 m-2">
+            <div class="d-flex align-items-center justify-content-center bg-light rounded-3 p-1 m-2">
                     ${contactRow}
                 </div>
         </div>`;

@@ -32,7 +32,7 @@ function loadData(forceRefresh = false) {
         return
     }
 
-    $('#results').html('loading...');
+    $('#results').html('No invoices available');
 
     // Get filter and pagination values
     var n_institution = current.institutioniD;
@@ -225,33 +225,35 @@ function displayResults(records, pagination) {
         records.forEach(item => {
             const date = item.date || item.record?.[0]?.reg_date?.split(' ')[0] || '-';
             const name = item.name?.trim() || '';
+            const category = item.record?.invoiceCategory || ''; // Access the nested property
             const type = item.transactionType || '';
             const cr = item.cr_amount || item.dr_amount || 0;
             const balance = item.balance || 0;
             const id = item.iD;
 
             html += `
-                <div class="bg-light rounded px-3 py-2 mb-3 ">
-                    <div class="d-flex justify-content-between">
+                <div class="bg-light rounded p-2 mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <div class="fw-bold">${name}</div>
-                            <small class="text-muted">${date}</small>
+                            <div class="fw-semibold text-success" style="font-size: 0.9rem;">${name}</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">${category}</div>
+                            <small class="text-muted" style="font-size: 0.7rem;">${date}</small>
                         </div>
                         <div class="text-end">
-                            <div class="fw-bold text-success">$${cr}</div>
-                            <small class="text-muted">${type}</small>
+                            <div class="fw-semibold text-success" style="font-size: 0.9rem;">$${cr}</div>
+                            <small class="text-muted" style="font-size: 0.7rem;">${type}</small>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <div class="text-muted">Bal: $${balance}</div>
-                        <div>
-                            <a href="#" onclick="downloadPDF(${id})" class="btn btn-outline-success btn-sm">
-                                <i class="fas fa-download"></i>
-                            </a>
-                            <a href="#" onclick="makePayment(${id})" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-credit-card"></i>
-                            </a>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
+                        <div class="text-muted fw-bold" style="font-size: 0.9rem;">Bal: $${balance}</div>
+                        <div class="d-flex justify-content-start gap-2">
+                                <a href="#" onclick="downloadPDF(${id})" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-download me-1"></i> Download
+                                </a>
+                                <a href="#" onclick="makePayment(${id})" class="btn btn-success btn-sm">
+                                    <i class="fas fa-credit-card me-1"></i> Pay
+                                </a>
+                            </div>
                     </div>
                 </div>
             `;

@@ -1,6 +1,4 @@
 function init() {
-
-
     console.log('init c')
 
     console.log("current_account:", localStorage.getItem('current_account'));
@@ -8,9 +6,21 @@ function init() {
     get_periods()
     get_class_lits()
     get_invoice_categories()
+
+    // Combined change listener for user and period.
     $('[name=institution_user], [name=period]').on('change', function () {
         select_change();
+    });
 
+    // NEW EVENT LISTENER FOR INVOICE CATEGORY
+    $('[name=invoiceCategory]').on('change', function() {
+        if ($(this).val() == '8') {
+            $('#other_category_container').removeClass('d-none');
+            $('[name=other_invoice_category]').attr('required', true);
+        } else {
+            $('#other_category_container').addClass('d-none');
+            $('[name=other_invoice_category]').removeAttr('required');
+        }
     });
 }
 function get_class_lits(useCache = true) {
@@ -27,7 +37,7 @@ function get_class_lits(useCache = true) {
                     ` + cached);
 
 
-         
+
         }
     }
 
@@ -56,12 +66,12 @@ function get_class_lits(useCache = true) {
             if (response && response.length > 0) {
                 const select = $('[name=institution_user]');
                 select.html(`
-               
+
                     <option value="all">All Users</option>
                     <option value="specific">Specific User</option>
                 ` + response);
 
-              
+
                 loadData()
             }
         },
@@ -95,7 +105,7 @@ function get_class_periods(val) {
             api: true,
             user: user.iD,
             period: _period
-        }          
+        }
           console.log('j:' + JSON.stringify(_form));
 
         $.ajax({
@@ -136,7 +146,7 @@ function select_change(val) {
             api: true,
             user: user.iD,
             period: _period
-        }          
+        }
           console.log('j:' + JSON.stringify(_form));
 
         $.ajax({
@@ -171,6 +181,7 @@ function get_invoice_categories(useCache = true) {
         data: _form,
         success: function (response) {
             localStorage.setItem(cacheKey, (response));
+            console.log("items: " + response);
             $('[name=invoiceCategory]').html(response)
         },
         error: function (xhr, status, error) {
@@ -214,7 +225,7 @@ function get_classes(useCache = true) {
     if (useCache) {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
-          
+
             $('[name=institution_class]').html(cached);
 
            // return;
@@ -235,7 +246,7 @@ function get_classes(useCache = true) {
         url: uri,
         type: 'post',
         data: _form,
-       
+
         complete: function (response) {
             console.log('jgf:' + JSON.stringify(response));
         },
@@ -277,7 +288,7 @@ $('#btn_submit_item').on('click', function () {
 
                 msg.html(create_message("success", result.message));
 
-                //	document.location.reload();
+                //  document.location.reload();
             } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
         },
         success: function (response) {

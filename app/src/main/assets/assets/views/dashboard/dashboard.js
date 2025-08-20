@@ -222,18 +222,14 @@ function populateClassDropdown(classes) {
     // If nothing is selected yet, set the first class as selected
     if (!selectedId && classes.length > 0) {
         selectedId = String(classes[0].iD);
-        localStorage.setItem(selectedKey, selectedId);
     }
 
-    // If still nothing selected, show canvas (empty list edge case)
-    if (!selectedId) {
-        bootstrap.Offcanvas.getOrCreateInstance('#selectClassCanvas').show();
+    // Set the dropdown value without triggering the change event
+    if (selectedId) {
+        select.val(selectedId);
     }
 
-    // Update dropdown value
-    select.val(selectedId).trigger('change');
-
-    // Display selected class name in UI
+    // If a class is found, update the display name immediately
     const selectedClass = classes.find(c => String(c.iD) === String(selectedId));
     if (selectedClass) {
         $('#current_class_name').html(`${selectedClass.name} - ${selectedClass.period}`);
@@ -241,11 +237,32 @@ function populateClassDropdown(classes) {
         $('#current_class_name').html('No class selected');
     }
 
-    // Save new selection on change
-    select.off('change').on('change', function () {
-        const newVal = $(this).val();
-        localStorage.setItem(selectedKey, newVal);
-    });
+    // If still nothing selected, show canvas (empty list edge case)
+    if (!selectedId) {
+        bootstrap.Offcanvas.getOrCreateInstance('#selectClassCanvas').show();
+    }
+
+    // The old `onchange` listener is no longer needed here as it is handled by the new function.
+}
+
+function handleClassChange(newVal) {
+    if (newVal) {
+        // Find the selected class from the accounts object
+        const selectedClass = account.classes.find(c => String(c.iD) === String(newVal));
+        if (selectedClass) {
+            // Update the display name
+            $('#current_class_name').html(`${selectedClass.name} - ${selectedClass.period}`);
+            // Save the new selection
+            const selectedKey = getClassStorageKey();
+            localStorage.setItem(selectedKey, newVal);
+        }
+        // Close the offcanvas
+        const offcanvasElement = document.getElementById('selectClassCanvas');
+        const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+        if (offcanvas) {
+            offcanvas.hide();
+        }
+    }
 }
 
 function get_classes(forceRefresh = false) {

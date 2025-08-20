@@ -26,7 +26,7 @@ selectedClass = getSelectedClass();
          function get_subjects(useCache = true) {
              const cacheKey = 'cached_student_subjects';
              const uri = site + "/get-class-submission-subjects";
-        
+
              if (useCache) {
                  const cached = localStorage.getItem(cacheKey);
                  if (cached) {
@@ -35,7 +35,7 @@ selectedClass = getSelectedClass();
                      //return;
                  }
              }
-        
+
              const _form = {
                  user: user.iD,
                  api: true,
@@ -44,7 +44,7 @@ selectedClass = getSelectedClass();
                  institution_class: selectedClass.classiD,
                  student: selectedClass.iD
              };
-        
+
              $.ajax({
                  url: uri,
                  type: 'post',
@@ -63,13 +63,13 @@ selectedClass = getSelectedClass();
                  }
              });
          }
-        
+
         function renderOptions(response, useCache = true) {
             if (response && response.subjects.length > 0) {
                 const container = $('#subjectSelector');
                 const hiddenInput = $('#selectedSubject');
                 container.html('');
-        
+
                 response.subjects.forEach((item, index) => {
                     const btn = $(`
                         <button class="btn btn-sm px-3 py-2 fw-light rounded-3 border-0 subject-pill ${
@@ -81,29 +81,29 @@ selectedClass = getSelectedClass();
                             ${item.name} <span>${item.submissions}</span>
                         </button>
                     `);
-        
+
                     btn.on('click', function () {
                         $('.subject-pill').removeClass('active').css({
                             backgroundColor: '#ebebfa',
                             color: '#01e888'
                         });
-        
+
                         $(this).addClass('active').css({
                             backgroundColor: '#01e888',
                             color: '#3a5d6c'
                         });
-        
+
                         hiddenInput.val(item.iD);
                         loadData(true);
                     });
-        
+
                     container.append(btn);
-        
+
                     if (index === 0) {
                         hiddenInput.val('');
                     }
                 });
-        
+
                 if (!useCache) {
                     loadData(true);
                 } else {
@@ -186,6 +186,15 @@ function displayResults(records, pagination) {
         return;
     }
 
+    // Build a set of unique subjects
+    const subjectsSet = new Set(records.map(r => r.subject));
+    const subjectSelect = $('#subjectFilter');
+    subjectSelect.empty().append('<option value="">All Subjects</option>');
+    subjectsSet.forEach(sub => {
+        subjectSelect.append(`<option value="${sub}">${sub}</option>`);
+    });
+
+    // Display all tiles initially
     records.forEach(record => {
         const percent = record.status && record.possible_mark
             ? ((record.status.mark_awarded / record.possible_mark) * 100).toFixed(1) + '%'
@@ -195,30 +204,35 @@ function displayResults(records, pagination) {
         const weight = record.status?.weight ?? (record.weight) ?? '-';
 
         const card = $(`
-            <div class="rounded-3 p-3 mb-3 bg-light ">
+            <div class="rounded-3 p-3 mb-3 bg-light activity-tile" data-subject="${record.subject}">
                 <div class="fw-semibold text-dark fs-5 mb-1">${record.name}</div>
                 <div class="small text-green mb-2">${record.subject} • ${record.activityType}</div>
-
                 <div class="d-flex flex-wrap small text-black-50 mt-3">
-                    <div class="me-auto">
-                        <strong>Mark:</strong> ${mark} / ${record.possible_mark}
-                    </div>
-                    <div class="mx-auto">
-                        <strong>Score:</strong> ${percent}
-                    </div>
-                    <div class="ms-auto">
-                        <strong>Weight:</strong> ${weight.toFixed(1)}
-                    </div>
+                    <div class="me-auto"><strong>Mark:</strong> ${mark} / ${record.possible_mark}</div>
+                    <div class="mx-auto"><strong>Score:</strong> ${percent}</div>
+                    <div class="ms-auto"><strong>Weight:</strong> ${weight.toFixed(1)}</div>
                 </div>
             </div>
         `);
 
         container.append(card);
     });
-    pagination.total_records = records.length
-    renderPaginationDropdown(pagination)
 
-    // Optional: handle pagination UI here
+    // Handle subject filtering
+    subjectSelect.off('change').on('change', function () {
+        const selected = $(this).val();
+        $('.activity-tile').each(function () {
+            const tileSubject = $(this).data('subject');
+            if (!selected || tileSubject === selected) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    pagination.total_records = records.length;
+    renderPaginationDropdown(pagination);
 }
 
 

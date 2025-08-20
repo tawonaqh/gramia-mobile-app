@@ -191,7 +191,7 @@ function viewStudents(id) {
         const tickVisible = s.st ? 'd-inline-block' : 'd-none';
 
         const item = `
-            <div class="rounded-4 bg-light p-3 mb-3 d-flex align-items-center justify-content-between">
+            <div class="rounded-4 bg-light p-3 mb-8 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     <div style="width: 32px; height: 32px; border-radius: 8px; background-color: ${statusColor};"></div>
                     <div>

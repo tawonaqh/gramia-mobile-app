@@ -151,7 +151,7 @@ function select_change(val) {
             api: true,
             user: user.iD,
             period: val
-        }          
+        }
           console.log('j:' + JSON.stringify(_form));
 
         $.ajax({

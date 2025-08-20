@@ -180,7 +180,7 @@
             </button>
         </div>
     </div>
-    <div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="studentListCanvas"
+    <div style="height:80%; width: 100%" class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="studentListCanvas"
         aria-labelledby="studentListCanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title text-primary" id="studentListCanvasLabel"></h5>
@@ -201,12 +201,9 @@
             <div class="form-group mb-4 rounded-4 p-3  py-4 border bg-transparent ">
                 <label class="text-muted fw-lighter fs-6 mb-3 text-green"> Classes: </label>
                 <select class="form-select form-select-lg f-sel bg-transparent border-0 border-bottom"
-                    name="institution_class" required>
+                        name="institution_class" required onchange="handleClassChange(this.value)">
                     <option value="">Select Class</option>
-
                 </select>
-
-
             </div>
         </div>
     </div>

@@ -1,3 +1,5 @@
+/* this is the original code here the institution_class is not available in selectedClass hence nothing pops up. */
+
 key = 'studenttimetable_' + current.iD
 
 function init(data){
@@ -9,7 +11,7 @@ function init(data){
     selectedClass = getSelectedClass();
             if (selectedClass) {
             console.log('stri: ' + JSON.stringify(selectedClass))
-                console.log("Selected class name:", selectedClass.institution_class);
+                console.log("Selected class name:", selectedClass.name);
                 console.log("Selected period:", selectedClass.period);
                  $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period)
                     if (navigator.onLine) {  loadData(true); }else{ loadData(); }
@@ -64,8 +66,8 @@ function loadData(forceRefresh = false) {
             api: true,
             institution_role: n_institution_role,
             institution_user: n_institution_user,
- period: selectedClass.periodiD,
-             institution_class: selectedClass.classiD
+            period: 12,
+            institution_class: 16 // just dummy values need to get current period and inst class
         },
         success: function (response) {
            console.log('res: ' + response)

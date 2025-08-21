@@ -78,6 +78,7 @@ function loadData(forceRefresh = false) {
     var n_user = user.iD;
     var n_institution_user = current.iD;
     const classValue = $('[name=institution_class]').val();
+    console.log("class values: " + classValue );
 
     const classParts = classValue.split('_');
 

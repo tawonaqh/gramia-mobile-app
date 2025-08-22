@@ -1,5 +1,5 @@
 function init(data) {
-    commonVar = data
+    commonVar = data;
     $("#user_institution").text(` ${data.institution} `);
     $("#user_role").text(`${data.institution_role} `);
     $("#account_no").text(`# ${data.account_no} `);
@@ -17,23 +17,23 @@ function init(data) {
     });
 
     if (data.institution_role_id != '4') {
-        $('.studentOptions').hide()
+        $('.studentOptions').hide();
         // get_account(data)
 
     } else {
-        var cnt = 0; $('.studentOptions').show()
+        var cnt = 0; $('.studentOptions').show();
         // var guardians = JSON.parse(data.guardians)
-        var transactions = JSON.parse(data.transactions)
-        var fields = (data.fields)
+        var transactions = JSON.parse(data.transactions);
+        var fields = (data.fields);
 
         // $("#guardians_count").text(guardians.length);
         renderGuardiansFromFields(fields);
         renderOtherFields(fields);
-        renderTransactions(transactions)
-        renderEditableProfileForm(fields)
+        renderTransactions(transactions);
+        renderEditableProfileForm(fields);
     }
-
 }
+
 function renderTransactions(records) {
     let message = '';
 
@@ -75,7 +75,7 @@ function renderTransactions(records) {
     } else {
         message = '<div class="alert alert-warning">No transaction records</div>';
     }
-    $("#transactions_body").html(message)
+    $("#transactions_body").html(message);
 
     $('#toggle_transactions').off('click').on('click', function () {
         const tbody = $("#transactions_body");
@@ -90,6 +90,7 @@ function renderTransactions(records) {
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
 function extractGuardianBlocks(fields) {
     const guardians = [];
     let _current = null;
@@ -147,7 +148,7 @@ function renderGuardiansFromFields(fields) {
         `;
         const imageURL = `https://randomuser.me/api/portraits/${index % 2 === 0 ? "women" : "men"}/${10 + index}.jpg`;
         const icon = `
-        <div class="d-flex align-items-center justify-content-center rounded-circle border border-success bg-light" 
+        <div class="d-flex align-items-center justify-content-center rounded-circle border border-success bg-light"
              style="width:60px; height:60px;">
             <i class="ph ph-user" style="font-size: 28px; color: #198754;"></i>
         </div>
@@ -155,12 +156,12 @@ function renderGuardiansFromFields(fields) {
         const card = `
         <div class="guardian-card  mb-3 bg-white rounded-4 border">
            <div class="d-flex gap-3 align-items-start p-3"> <div>
-                ${icon}            
+                ${icon}
             </div>
             <div class="flex-grow-1">
                 <div class="fw-semibold fs-5 text-teal">${name}</div>
                 <div class="text-muted small">${role}</div>
-                
+
             </div>
             </div>
             <div class="d-flex align-items-center bg-light p-2 rounded-3 m-2">
@@ -180,6 +181,7 @@ function renderGuardiansFromFields(fields) {
             .toggleClass("ph-caret-up", visible);
     });
 }
+
 function renderOtherFields(fields) {
     const knownLabels = ["guardian", "keen", "contact", "full name", "occupation", "cell number", "relationship", "email", "last name", "residential address"];
     const otherFields = fields.filter(field =>
@@ -214,9 +216,8 @@ function renderOtherFields(fields) {
             .toggleClass("ph-caret-down", !visible)
             .toggleClass("ph-caret-up", visible);
     });
-
-
 }
+
 function get_account(data) {
     if (data.institution_role_id == '4') {
         var uri = site + "/get-accountrequest-record";
@@ -226,15 +227,15 @@ function get_account(data) {
             user: user.iD,
             api: true,
 
-        }
+        };
         $.ajax({
             url: uri, type: 'post', dataType: 'application/json', data: _form,
             complete: function (data) {
 
-                console.log('dkc: ' + (data.responseText) + " : ")
+                console.log('dkc: ' + (data.responseText) + " : ");
                 // $('#view_profile_fields').html( data.responseText)
-                let fields = JSON.parse(data.responseText).fields
-                renderProfileForm(fields)
+                let fields = JSON.parse(data.responseText).fields;
+                renderProfileForm(fields);
 
             }, error: function (xhr, status, error) {
                 overlay('stop');
@@ -242,13 +243,14 @@ function get_account(data) {
                 //   msg.html(create_message("danger", "Submission failed."));
             }
         });
-
     }
 }
+
 function renderEditableProfileForm(fields, formSelector = "#edit_other_fields_form") {
     const $form = $('<div class="p-3  "></div>');
 
     fields.forEach(field => {
+        console.log('fieldig:' + JSON.stringify(field));
         const id = `field_${field.iD}`;
         const name = field.name;
         const type = parseInt(field.type);
@@ -298,6 +300,7 @@ function renderEditableProfileForm(fields, formSelector = "#edit_other_fields_fo
 
     $(formSelector).html($form);
 }
+
 $('#edit_other_fields_form').off('submit').on('submit', function (e) {
     e.preventDefault();
 
@@ -307,44 +310,43 @@ $('#edit_other_fields_form').off('submit').on('submit', function (e) {
             formData[item.name] = item.value.trim();
         }
     });
-  //  console.log(localStorage.getItem('current_account') + " : " + current.profile)
-   // formData['profile'] = current.profile;
-    let _values = JSON.stringify(formData)
-    console.log('vs: ' + _values)
+    // console.log(localStorage.getItem('current_account') + " : " + current.profile)
+    // formData['profile'] = current.profile;
+    let _values = JSON.stringify(formData);
+    console.log('vs: ' + _values);
 
     $.ajax({
         url: site + "/bulk-update-userprofilefield",
         type: "POST",
         data: {
             user: user.iD,
-            profile:  commonVar.profileiD,
+            profile: commonVar.profileiD,
             institution: current.institutioniD,
             api: true,
             values: _values
         },
         complete: function (data) {
-            console.log('dk: ' + JSON.stringify(data))
-
+            console.log('dk: ' + JSON.stringify(data));
         },
         success: function (res) {
-            console.log('res: ' + res)
+            console.log('res: ' + res);
 
             const data = JSON.parse(res);
             if (data.status == 1) {
                 showAlert("Fields updated successfully!", "Success");
                 $('#editFieldsModal').modal('hide');
-                loadData(true)
+                loadData(true);
                 get_account(true);
             } else {
                 showAlert(data.message || "Update failed", "Error");
             }
         },
         error: function (xhr, status, error) {
-          
             console.log("AJAX error:", error);
         }
     });
 });
+
 function renderProfileForm(fields, containerSelector = "#view_profile_fields") {
     const $form = $('<div class="p-3 bg-light rounded-3"></div>');
 
@@ -408,6 +410,7 @@ function renderProfileForm(fields, containerSelector = "#view_profile_fields") {
 
     $(containerSelector).html($form);
 }
+
 function show_transactions() {
     let records = JSON.parse(commonVar.transactions);
     let message = '';
@@ -453,12 +456,12 @@ function show_transactions() {
 
     show_offcanvas_message(message, 'success', 'Student Transactions');
 }
+
 function show_guardians() {
-    let records = JSON.parse(commonVar.guardians)
+    let records = JSON.parse(commonVar.guardians);
     let message = '';
     if (records.length > 0) {
         records.forEach((item, index) => {
-
             message = `<a href="#" onclick="" class="text-decoration-none">
                 <div class="card shadow-sm border-0 rounded-4 mb-3 px-3 py-3">
                     <div class="d-flex justify-content-between align-items-start mb-2">
@@ -477,9 +480,11 @@ function show_guardians() {
                             <span class="text-dark">${item.email}</span>
                         </div>
                     </div>
-                </div>`
+                </div>`;
         });
-    } else { message = 'No guardian records' }
+    } else {
+        message = 'No guardian records';
+    }
 
-    show_offcanvas_message(message, 'success', 'student guardians')
+    show_offcanvas_message(message, 'success', 'student guardians');
 }

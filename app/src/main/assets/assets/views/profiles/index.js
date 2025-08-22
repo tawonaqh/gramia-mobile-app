@@ -41,7 +41,7 @@ function init(data) {
             // displayProfile(current);
             renderGuardiansFromFields(account.fields);
             renderOtherFields(account.fields);
-        }else{
+        } else {
             $(".student-section").addClass('d-none');
 
         }

@@ -94,7 +94,7 @@ function showAlert(message, title = "Notice") {
 function goToPage(page) {
 
     current_page = page;
-    console.log('nextes page ' + current_page)
+    console.log('next page ' + current_page)
 
     loadData();
 }
@@ -108,7 +108,7 @@ function changePage(direction) {
     current_page = nextPage;
     console.log('next page ' + current_page)
 
-    loadData();
+    loadData(true);
 }
 function updatePageSize(size) {
     localStorage.setItem('page_size', size);

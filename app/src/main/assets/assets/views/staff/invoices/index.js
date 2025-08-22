@@ -79,21 +79,26 @@ function displayResults(records, pagination) {
             let balanceStatus = '';
             let invoicename = item.name
             if (item.type == "1" && isInvoice) {
-                const inv = JSON.parse(item.data || '{}');
-                const balance = Number(inv.balance);
-                const invoiceAmount = Number(item.dr_amount);
-                dt = JSON.parse(item.data)
-                 invoicename = item.name + ' | <span class="text-dark">' + dt.invoiceCategory + "</span>"
-        
-                if (balance > 0 && balance !== invoiceAmount) {
-                    amountValue = `$${invoiceAmount.toFixed(2)}`;
-                    balanceStatus = `<span class="text-warning fw-semibold">Balance: $${balance.toFixed(2)}</span>`;
-                } else if (balance === 0) {
-                    amountValue = `$${invoiceAmount.toFixed(2)}`;
-                    balanceStatus = `<span class="text-success fw-semibold">Paid</span>`;
-                } else {
-                    amountValue = `$${invoiceAmount.toFixed(2)}`;
-                    balanceStatus = `<span class="text-danger fw-semibold">Unpaid</span>`;
+                const invDataArray = JSON.parse(item.data || '{}');
+                if (invDataArray.length > 0) {
+                    const inv = invDataArray[0];
+                    const balance = Number(inv.balance);
+                    const invoiceAmount = Number(item.dr_amount);
+
+                    // Correctly access the invoiceCategory from the first object in the array
+                    const invoiceCategory = inv.invoiceCategory;
+                    invoicename = item.name + ' | <span class="text-dark">' + invoiceCategory + "</span>";
+
+                    if (balance > 0 && balance !== invoiceAmount) {
+                        amountValue = `$${invoiceAmount.toFixed(2)}`;
+                        balanceStatus = `<span class="text-warning fw-semibold">Balance: $${balance.toFixed(2)}</span>`;
+                    } else if (balance === 0) {
+                        amountValue = `$${invoiceAmount.toFixed(2)}`;
+                        balanceStatus = `<span class="text-success fw-semibold">Paid</span>`;
+                    } else {
+                        amountValue = `$${invoiceAmount.toFixed(2)}`;
+                        balanceStatus = `<span class="text-danger fw-semibold">Unpaid</span>`;
+                    }
                 }
             } else {
                 amountValue = `$${(item.cr_amount || 0).toFixed(2)}`;

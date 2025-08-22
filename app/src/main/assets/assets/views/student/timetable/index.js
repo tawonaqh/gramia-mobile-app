@@ -1,85 +1,82 @@
-/* this is the original code here the institution_class is not available in selectedClass hence nothing pops up. */
-
 key = 'studenttimetable_' + current.iD
 
-function init(data){
+async function init(data){
     current_page = 1;
-               console.log('init: ' )
+    console.log('init: ' + data);
 
-  current = JSON.parse(localStorage.getItem("current_account"));
-  if (!current) return showAlert("No student account found");
-    selectedClass = getSelectedClass();
-            if (selectedClass) {
-            console.log('stri: ' + JSON.stringify(selectedClass))
-                console.log("Selected class name:", selectedClass.name);
-                console.log("Selected period:", selectedClass.period);
-                 $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period)
-                    if (navigator.onLine) {  loadData(true); }else{ loadData(); }
+    current = JSON.parse(localStorage.getItem("current_account"));
+    if (!current) return showAlert("No student account found");
 
-            } else {
-                showAlert("No class selected.");
-                 $('.class-id').html("No class selected.")
-                     $('#results').html('No class selected');
+    try {
+        const studentDetails = await fetchStudentTimetableData(current.account_no);
+        console.log('Fetched Class ID & Period:', studentDetails.classID, '_', studentDetails.periodID);
 
-            }
+        // Store the IDs in localStorage
+        localStorage.setItem('studentPeriodID', studentDetails.periodID);
+        localStorage.setItem('studentClassID', studentDetails.classID);
+
+        loadData(true);
+
+        $('.class-id').html('Class: ' + studentDetails.classID + ', Period: ' + studentDetails.periodID);
+
+    } catch (error) {
+        console.error("Error in init:", error);
+        showAlert(error);
+        $('.class-id').html("Class details not available.");
+        $('#results').html('Class details not available.');
+    }
 }
 function loadData(forceRefresh = false) {
+    // Retrieve the IDs from localStorage
+    const periodID = localStorage.getItem('studentPeriodID');
+    const classID = localStorage.getItem('studentClassID');
 
     if (localStorage.getItem(key) && !forceRefresh) {
         data = JSON.parse(localStorage.getItem(key));
-           // displayResults(data.records, data.pagination);
-            renderCompactTimetable(data.weeks)
-
-            localStorage.setItem("current_record", JSON.stringify(data.records));
+        renderCompactTimetable(data.weeks);
+        localStorage.setItem("current_record", JSON.stringify(data.records));
         return;
     }
+
     if (!navigator.onLine) {
         showAlert('No Internet Connection');
-        return
+        return;
     }
+
+    // Check if IDs exist in storage.
+    if (!periodID || !classID) {
+        showAlert('Your class was not found. Please reload the page.');
+        return;
+    }
+
     $('#results').html('loading...');
-   // const province = $('.search').find('[name=province]').val();
-       var n_institution = current.institutioniD;
-                var n_institution_role = '';// $('.search').find('[name=institution_role]').val();
-             var n_user = user.iD;
+
+    var n_institution = current.institutioniD;
+    var n_user = user.iD;
     var n_institution_user = current.iD;
 
+    const uri = site + "/get-student-timetable";
+    console.log('uri: ' + uri);
 
-
-     const search =  $('input[name="search"]').val();
-        const ps = $('#page_size').val() || '10';
-        const ob =  $('input[name="order_filter"]:checked').val();
-
-    // Set default or capture from a pagination control
-    var uri = site + "/get-student-timetable";
-    console.log('uri:  ' + uri + "; pr: " + n_institution)
     $.ajax({
         url: uri,
         type: "POST",
         data: {
-            search: search,
-            page: current_page,
-            order_by: ob,
-            page_size: ps, // Or capture from a page-size selector if available
             institution: n_institution,
             user: n_user,
             api: true,
-            institution_role: n_institution_role,
             institution_user: n_institution_user,
-            period: 12,
-            institution_class: 16 // just dummy values need to get current period and inst class
+            period: periodID,
+            institution_class: classID
         },
-        success: function (response) {
-           console.log('res: ' + response)
+        success: function(response) {
+            console.log('res: ' + response);
             const data = JSON.parse(response);
             localStorage.setItem("current_record", JSON.stringify(data.records));
             localStorage.setItem(key, response);
-
-            //displayResults(data.records, data.pagination);
-             renderCompactTimetable(data.weeks)
-           // $('#total_records_label').html(data.pagination.total_records)
+            renderCompactTimetable(data.weeks);
         },
-        error: function () {
+        error: function() {
             alert('Error loading data');
         }
     });
@@ -272,5 +269,46 @@ currentView = 'list'
     } else {
         $('#results').html('<p>No records found.</p>');
     }
+}
+function fetchStudentTimetableData(accountID) {
+    return new Promise((resolve, reject) => {
+        if (!navigator.onLine) {
+            reject('No Internet Connection');
+            return;
+        }
+
+        const uri = site + "/api/get-student-class-details";
+        var n_user = user.iD;
+
+        console.log("accountID: " + accountID);
+
+        $.ajax({
+            url: uri,
+            type: "POST",
+            data: {
+                user: n_user,
+                accountID: accountID,
+                api: true
+            },
+            success: function(response) {
+                try {
+                    const data = JSON.parse(response);
+                    if (data && data.periodID && data.classID) {
+                        resolve({
+                            periodID: data.periodID,
+                            classID: data.classID
+                        });
+                    } else {
+                        reject('Invalid response from server.');
+                    }
+                } catch (e) {
+                    reject('Failed to parse server response.');
+                }
+            },
+            error: function(xhr, status, error) {
+                reject('Error fetching student data: ' + status);
+            }
+        });
+    });
 }
 

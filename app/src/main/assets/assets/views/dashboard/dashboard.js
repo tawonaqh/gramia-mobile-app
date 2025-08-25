@@ -195,9 +195,13 @@ function displayResults(res) {
 
     // ===== Student Financials =====
     if (current.role == '4' && res.financial) {
-        $("#totalInvoices").text("$" + (res.financial.invoices || 0));
-        $("#totalPayments").text("$" + (res.financial.payments || 0));
-        $("#balance").text("$" + ((res.financial.invoices || 0) - (res.financial.payments || 0)));
+        const totalInvoices = res.financial.invoices || 0;
+        const totalPayments = res.financial.payments || 0;
+        const balance = totalInvoices - totalPayments;
+
+        $("#totalInvoices").text("$" + totalInvoices);
+        $("#totalPayments").text("$" + totalPayments);
+        $("#balance").text("$" + balance);
     }
 
     // ===== Institution Logo =====

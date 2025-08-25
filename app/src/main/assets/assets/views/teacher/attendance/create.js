@@ -55,6 +55,7 @@ function init() {
          dataType: 'json',
          success: function (response) {
              localStorage.setItem(cacheKey, JSON.stringify(response));
+             console.log("response: " + response);
              renderClassOptions(response);
          },
          error: function (xhr, status, error) {
@@ -69,13 +70,13 @@ function init() {
          select.html('<option value="">Select Class</option>');
 
          response.forEach(function (item) {
-             const text = item.name + ' [' + item.period + '] ' + item.iD;
+             const text = item.name + ' [' + item.period + '] ';
              const id = item.periodiD + "_" + item.classiD + "_" + item.iD
              const option = `<option value="${id}" data-description="${text}">${text}</option>`;
              select.append(option);
          });
          get_class_list()
-        // loadData(); // If needed
+         // loadData(); // If needed
      }
  }
 

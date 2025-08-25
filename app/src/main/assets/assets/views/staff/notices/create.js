@@ -6,7 +6,7 @@ function init() {
     console.log("current_account:", localStorage.getItem('current_account'));
 
     //get_periods()
- //  get_classes()
+    //get_classes()
     get_notice_categories()
    // $('[name=institution_user], [name=institution_class]').on('change', function () {
    //     select_change($(this).val());
@@ -199,20 +199,9 @@ function get_notice_categories(useCache = true) {
         }
     });
 }
-function get_classes(useCache = true) {
 
-    const cacheKey = 'cached_classees';
-
-    if (useCache) {
-        const cached = localStorage.getItem(cacheKey);
-        if (cached) {
-          
-            $('[name=institution_class]').html(cached);
-
-           // return;
-        }
-    }
-
+// A more robust get_classes() function
+function get_classes() {
     const uri = site + "/api/get-institution-class-list";
     const _form = {
         user: user.iD,
@@ -221,21 +210,26 @@ function get_classes(useCache = true) {
         institution_user: current.iD,
         institution: current.institutioniD
     };
-    console.log('gh: ' + JSON.stringify(_form))
+
+    console.log("AJAX request started for classes...");
 
     $.ajax({
         url: uri,
         type: 'post',
         data: _form,
-       
-        complete: function (response) {
-            console.log('jgf:' + JSON.stringify(response));
-        },
-        success: function (response) {
-            console.log('j:' + JSON.stringify(response));
-            $('[name=institution_class]').html(response);
-            localStorage.setItem(cacheKey, (response));
+        // The 'complete' callback runs when the request is done, regardless of success or failure.
+        complete: function (data) {
+            console.log('AJAX request completed:', data);
 
+            // Check for a successful HTTP status code
+            if (data.status === 200) {
+                console.log('AJAX successful. Populating dropdown...');
+
+                // Set the HTML of the dropdown directly
+                $('[name="institution_class[]"]').html(data.responseText);
+            } else {
+                console.error('Failed to fetch class list. Status:', data.status);
+            }
         },
         error: function (xhr, status, error) {
             console.error('Failed to fetch class list:', error);

@@ -25,19 +25,15 @@
             <select class="form-select border-0 px-0 bg-transparent" name="institution_user" required>
                 <option value="">Select User</option>
                 <option value="all">All Students</option>
+                <option value="by-class">By Class</option>
                 <option value="specific">Specific User</option>
             </select>
         </div>
 
         <div class="p-3 px-4 border-bottom class-students d-none">
-            <div class="text-green fw-semibold"> Class Students: </div>
-            <select class="form-select border-0 px-0 bg-transparent" name="institution_class" required>
-                <option value="">Select Class</option>
-                <option value="class1">1A</option>
-                <option value="class2">1B</option>
-                <option value="class2">2A</option>
-                <option value="class2">3A</option>
-                <option value="class2">4B</option>
+            <div class="text-green fw-semibold"> Class Students: (Click here to select classes)</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="institution_class[]" multiple required>
+                <option value="" disabled selected>Select Class(es)</option>
             </select>
         </div>
 
@@ -81,14 +77,15 @@
         const classStudents = document.querySelector('.class-students');
         const specificUser = document.querySelector('.specific-user');
 
-        if (selectedValue === "all") {
+        if (selectedValue === "by-class") {
             classStudents.classList.remove('d-none');
             specificUser.classList.add('d-none');
+            // Call the revised function to fetch and populate classes
+            get_classes();
         } else if (selectedValue === "specific") {
             specificUser.classList.remove('d-none');
             classStudents.classList.add('d-none');
         } else {
-            // Reset when nothing is selected
             classStudents.classList.add('d-none');
             specificUser.classList.add('d-none');
         }

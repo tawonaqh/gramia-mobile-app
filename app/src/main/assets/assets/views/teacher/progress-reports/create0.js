@@ -158,7 +158,7 @@ function get_classes() {
                 select.html('<option value="">Select Class</option>');
 
                 response.forEach(function (item) {
-                    const text = item.name + ' [' + item.period + '] ' + item.iD;
+                    const text = item.name + ' [' + item.period + '] ';
                     const id = item.periodiD + "_" + item.classiD + "_" + item.iD
                     const subjects = item.subjects;
                     const option = `<option value="${id}" data-subjects="${subjects}">${text}---</option>`;

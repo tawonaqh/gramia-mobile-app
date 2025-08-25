@@ -225,7 +225,7 @@ function displayResults(records, pagination) {
         records.forEach(item => {
             const date = item.date || item.record?.[0]?.reg_date?.split(' ')[0] || '-';
             const name = item.name?.trim() || '';
-            const category = item.record?.invoiceCategory || ''; // Access the nested property
+            const category = item.record?.[0]?.invoiceCategory || '';
             const type = item.transactionType || '';
             const cr = item.cr_amount || item.dr_amount || 0;
             const balance = item.balance || 0;

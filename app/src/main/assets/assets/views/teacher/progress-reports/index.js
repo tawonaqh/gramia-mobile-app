@@ -48,7 +48,7 @@ function renderClassOptions(response) {
         select.html('');
 
         response.forEach(function (item) {
-            const text = item.name + ' [' + item.period + '] ' + item.iD;
+            const text = item.name + ' [' + item.period + '] ';
             const id = item.periodiD + "_" + item.classiD + "_" + item.iD
             const option = `<option value="${id}" data-description="${text}">${text}</option>`;
             select.append(option);

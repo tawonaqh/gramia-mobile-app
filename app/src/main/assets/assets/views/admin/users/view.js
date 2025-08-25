@@ -1,5 +1,6 @@
 function init(data) {
     commonVar = data;
+     renderProfileData(data);
     $("#user_institution").text(` ${data.institution} `);
     $("#user_role").text(`${data.institution_role} `);
     $("#account_no").text(`# ${data.account_no} `);
@@ -32,6 +33,40 @@ function init(data) {
         renderTransactions(transactions);
         renderEditableProfileForm(fields);
     }
+}
+
+function renderProfileData(data) {
+    // Populate simple profile data from the top level
+    $("#studentName").text(data.user);
+    $("#user_gender").text(data.institution_user);
+    $("#user_role").text(data.institution_role);
+    $("#account_no").text(`# ${data.account_no}`);
+    $("#user_institution").text(data.institution);
+    $("#studentPhoto").attr("src", data.profile.picture);
+
+    // Populate data from the 'fields' array
+    data.fields.forEach(field => {
+        const name = field.name?.toLowerCase();
+        const value = field.value;
+
+        if (name && value) {
+            if (name.includes("national id") || name.includes("birth certificate")) {
+                $("#id_no").text(value);
+            }
+            if (name.includes("phone")) {
+                $("#user_phone").text(`Phone: ${value}`);
+            }
+            if (name.includes("email address")) {
+                $("#useremail").text(value);
+            }
+            if (name.includes("home address")) {
+                $("#user_address").text(value);
+            }
+            if (name.includes("date of birth")) {
+                $("#user_dob").text(`Date of Birth: ${value}`);
+            }
+        }
+    });
 }
 
 function renderTransactions(records) {

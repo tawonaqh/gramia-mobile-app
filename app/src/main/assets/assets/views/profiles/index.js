@@ -37,8 +37,8 @@ function init(data) {
 
             const fullName = `${nameField || ""} ${surnameField || ""}`;
             //$("#studentName").text(fullName.trim());
-            //$("#user_address").text(getProfileField("Home Address"));
-            // displayProfile(current);
+            $("#user_address").text(getProfileField("Home Address"));
+            displayProfile(current);
             renderGuardiansFromFields(account.fields);
             renderOtherFields(account.fields);
         } else {

@@ -159,7 +159,7 @@ function downloadReportPDF(id) {
             if (res.status == 1) {
                 // Send data to Android app
                 if (window.AndroidInterface && AndroidInterface.saveBase64PDF) {
-                    AndroidInterface.saveBase64PDF(res.data, res.filename || 'Invoice.pdf');
+                    AndroidInterface.saveBase64PDF(res.data, res.filename || 'Progress_report.pdf');
                 } else {
                     alert('Android interface not available.');
                 }

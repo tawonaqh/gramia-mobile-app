@@ -38,7 +38,7 @@ function init(data) {
             const fullName = `${nameField || ""} ${surnameField || ""}`;
             //$("#studentName").text(fullName.trim());
             $("#user_address").text(getProfileField("Home Address"));
-            displayProfile(current);
+            //displayProfile(current);
             renderGuardiansFromFields(account.fields);
             renderOtherFields(account.fields);
         } else {
@@ -185,7 +185,7 @@ function renderGuardiansFromFields(fields) {
         `;
         const imageURL = `https://randomuser.me/api/portraits/${index % 2 === 0 ? "women" : "men"}/${10 + index}.jpg`;
         const icon = `
-        <div class="d-flex align-items-center justify-content-center rounded-circle border border-success bg-light" 
+        <div class="d-flex align-items-center justify-content-center rounded-circle border border-success bg-light"
              style="width:45px; height:45px;">
             <i class="ph ph-user" style="font-size: 28px; color: #198754;"></i>
         </div>
@@ -193,12 +193,12 @@ function renderGuardiansFromFields(fields) {
         const card = `
         <div class="guardian-card mb-3 bg-white rounded-4 border">
            <div class="d-flex gap-3 align-items-start p-3"> <div>
-                ${icon}            
+                ${icon}
             </div>
             <div class="flex-grow-1">
                 <div class="fw-semibold fs-5 text-teal">${name}</div>
                 <div class="text-muted small">${role}</div>
-                
+
             </div>
             </div>
             <div class="d-flex align-items-center justify-content-center bg-light rounded-3 p-1 m-2">

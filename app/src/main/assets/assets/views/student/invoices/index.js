@@ -227,33 +227,51 @@ function displayResults(records, pagination) {
             const name = item.name?.trim() || '';
             const category = item.record?.[0]?.invoiceCategory || '';
             const type = item.transactionType || '';
-            const cr = item.cr_amount || item.dr_amount || 0;
+            const amount = item.cr_amount || item.dr_amount || 0;
             const balance = item.balance || 0;
             const id = item.iD;
+
+            // Determine the color based on transaction type
+            const amountColor = (type === 'Receipt' || type === 'Credit') ? 'text-success' : 'text-danger';
+            //const transactionSign = (type === 'Receipt' || type === 'Credit') ? '+' : '-';
+
+            // Conditional rendering for the "Pay" button and balance
+            const isInvoice = (type === 'Invoice');
+            const balanceSection = isInvoice ?
+                `<div class="text-muted fw-bold" style="font-size: 0.9rem;">Bal: $${balance}</div>` : '<div></div>';
+
+            const payButton = isInvoice ?
+                `<a href="#" onclick="makePayment(${id})" class="btn btn-success btn-sm">
+                    <i class="fas fa-credit-card me-1"></i> Pay
+                </a>` : '';
+
+            const paymentLabel = isInvoice ?
+                '' : `<div class="fw-semibold text-success" style="font-size: 0.9rem;">Payment</div>`;
+
+            const downloadButton = `<a href="#" onclick="downloadPDF(${id})" class="btn btn-secondary btn-sm">
+                <i class="fas fa-download me-1"></i> Download
+            </a>`;
 
             html += `
                 <div class="bg-light rounded p-2 mb-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <div class="fw-semibold text-success" style="font-size: 0.9rem;">${name}</div>
-                            <div class="text-muted" style="font-size: 0.8rem;">${category}</div>
+                            <div class="fw-semibold text-success" style="font-size: 0.9rem;">${category}</div>
+                            ${paymentLabel}
+                            <div class="text-muted" style="font-size: 0.8rem;">${name}</div>
                             <small class="text-muted" style="font-size: 0.7rem;">${date}</small>
                         </div>
                         <div class="text-end">
-                            <div class="fw-semibold text-success" style="font-size: 0.9rem;">$${cr}</div>
+                            <div class="fw-semibold ${amountColor}" style="font-size: 0.9rem;">$${amount}</div>
                             <small class="text-muted" style="font-size: 0.7rem;">${type}</small>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
-                        <div class="text-muted fw-bold" style="font-size: 0.9rem;">Bal: $${balance}</div>
-                        <div class="d-flex justify-content-start gap-2">
-                                <a href="#" onclick="downloadPDF(${id})" class="btn btn-secondary btn-sm">
-                                    <i class="fas fa-download me-1"></i> Download
-                                </a>
-                                <a href="#" onclick="makePayment(${id})" class="btn btn-success btn-sm">
-                                    <i class="fas fa-credit-card me-1"></i> Pay
-                                </a>
-                            </div>
+                        ${balanceSection}
+                        <div class="d-flex gap-2">
+                            ${downloadButton}
+                            ${payButton}
+                        </div>
                     </div>
                 </div>
             `;
@@ -271,33 +289,36 @@ function displayResults(records, pagination) {
  * @param {string} id - The ID of the invoice to download.
  */
 function downloadPDF(id) {
-    showLoadingOverlay('Generating PDF...');
+    if (!navigator.onLine) {
+        showAlert('No Internet Connection');
+        return
+    }
     var uri = site + "/api/download-invoice";
     $.ajax({
         url: uri,
         type: "POST",
-        data: {
-            id: id
-        },
-        complete: function(response) {
-            hideLoadingOverlay();
-            var dt = JSON.parse(response.responseText)
-            if (dt.status == '1') {
-                const link = document.createElement('a');
-                link.href = dt.data;
-                link.download = dt.filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+        data: { id: id, api: true, user: user.iD },
+        success: function (resp) {
+
+
+            console.log("rss: " + (resp))
+            console.log("rss: " + JSON.stringify(resp))
+            const res = JSON.parse(resp);
+            if (res.status == 1) {
+                // Send data to Android app
+                if (window.AndroidInterface && AndroidInterface.saveBase64PDF) {
+                    AndroidInterface.saveBase64PDF(res.data, res.filename || 'Invoice.pdf');
+                } else {
+                    alert('Android interface not available.');
+                }
             } else {
-                showAlert('Download failed.');
+                alert('Download failed.');
             }
         },
-        error: function() {
-            hideLoadingOverlay();
-            showAlert('Error loading data');
+        error: function (xhr, status, err) {
+            alert('Error: ' + err);
         }
-    })
+    });
 }
 
 /**

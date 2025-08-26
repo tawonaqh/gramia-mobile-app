@@ -48,7 +48,7 @@ function loadProgressData() {
           //  $('#total_records_label').html(data.pagination.total_records)
         },
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         }
     });
 }

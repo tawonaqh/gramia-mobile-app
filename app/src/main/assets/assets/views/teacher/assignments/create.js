@@ -121,7 +121,7 @@ $('#btn_submit_item').on('click', function () {
                 _btn.html("Try again");
                 msg.html(create_message("danger", result.message));
              }
-            //alert(rString) //get_pagination();
+            //showAlert(rString) //get_pagination();
 
         },
         success: function (response) {

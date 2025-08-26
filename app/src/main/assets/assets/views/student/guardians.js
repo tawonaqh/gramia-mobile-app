@@ -113,7 +113,7 @@ function loadGuardianData() {
             displayGuardianResults(data.records);
         },
         error: function () {
-            showAlert('Error loading data');
+            showshowAlert('Error loading data');
         }
     });
 }

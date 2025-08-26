@@ -78,7 +78,7 @@ function get_account(){
         url: server_url + "/api-get-institution-account", type: 'POST', dataType: 'application/json', data: { user: current.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data', 'Error');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();

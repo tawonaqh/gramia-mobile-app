@@ -85,7 +85,7 @@ $('#btn_submit_item').on('click', function () {
 
             _btn.html("Update again");
 
-            //alert(rString) //get_pagination();
+            //showAlert(rString) //get_pagination();
             if (result.status == 1) {
 loadData(result.id)
                 msg.html(create_message("success", result.message));
@@ -147,7 +147,7 @@ function loadData(id) {
 
         },
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         }
     });
 }

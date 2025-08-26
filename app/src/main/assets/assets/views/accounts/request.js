@@ -95,7 +95,7 @@ function get_applications() {
         url: server_url + "/api/get-user-applications", type: 'POST', dataType: 'application/json', data: { user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();
@@ -113,7 +113,7 @@ function get_profiles() {
         url: server_url + "/api/get-user-profile-records", type: 'POST', dataType: 'application/json', data: { user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();
@@ -140,7 +140,7 @@ function get_roles() {
         url: server_url + "/api/get-roles", type: 'POST', dataType: 'application/json', data: { user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();
@@ -165,7 +165,7 @@ function get_institutions() {
         url: server_url + "/api/get-institutions-records", type: 'POST', dataType: 'application/json', data: { user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();

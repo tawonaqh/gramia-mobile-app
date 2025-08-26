@@ -79,7 +79,7 @@ function loadData(forceRefresh = false) {
             //  $('#total_records_label').html(data.pagination.total_records)
         },
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         }
     });
 }
@@ -161,14 +161,14 @@ function downloadReportPDF(id) {
                 if (window.AndroidInterface && AndroidInterface.saveBase64PDF) {
                     AndroidInterface.saveBase64PDF(res.data, res.filename || 'Progress_report.pdf');
                 } else {
-                    alert('Android interface not available.');
+                    showAlert('Android interface not available.');
                 }
             } else {
-                alert('Download failed.');
+                showAlert('Download failed.');
             }
         },
         error: function (xhr, status, err) {
-            alert('Error: ' + err);
+            showAlert('Error: ' + err);
         }
     });
 }

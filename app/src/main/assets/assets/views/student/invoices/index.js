@@ -73,7 +73,7 @@ function loadData(forceRefresh = false) {
         },
         error: function() {
             // Show a custom alert on error
-            showAlert('Error loading data');
+            showshowAlert('Error loading data');
         }
     });
 }
@@ -147,7 +147,7 @@ function processPayment() {
     const invoiceId = $('#confirmPaymentBtn').attr('data-invoice-id');
 
     if (!amount) {
-        alert("Please enter amount.");
+        showAlert("Please enter amount.", 'Error');
         return;
     }
 
@@ -164,13 +164,13 @@ function processPayment() {
 //        data.expiry = $('#cardExpiry').val();
 //        data.cvv = $('#cardCvv').val();
 //        if (!data.card_number || !data.expiry || !data.cvv) {
-//            alert("Please fill all card details.");
+//            showAlert("Please fill all card details.");
 //            return;
 //        }
 //    } else if (method === "PZW211" || method === "PZW212") {
 //        data.mobile_number = $('#mobileNumber').val();
 //        if (!data.mobile_number) {
-//            alert("Please enter a mobile number.");
+//            showAlert("Please enter a mobile number.");
 //            return;
 //        }
 //    }
@@ -191,19 +191,19 @@ function processPayment() {
                 if (res.redirectUrl) {
                     window.location.href = res.redirectUrl;
                 } else {
-                    alert('Payment successful: ' + res.message);
+                    showAlert('Payment successful: ' + res.message, 'Success');
                     const offcanvasEl = document.getElementById('paymentEditor');
                     const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
                     if (offcanvas) offcanvas.hide();
                     loadData(true);
                 }
             } else {
-                alert('Payment failed: ' + res.message);
+                showAlert('Payment failed: ' + res.message, 'Error');
             }
         },
         error: function(xhr) {
             console.error("Error response:", xhr.responseText);
-            alert('Payment request error: ' + xhr.statusText);
+            showAlert('Payment request error: ' + xhr.statusText, 'Error');
         }
     });
 }
@@ -309,14 +309,14 @@ function downloadPDF(id) {
                 if (window.AndroidInterface && AndroidInterface.saveBase64PDF) {
                     AndroidInterface.saveBase64PDF(res.data, res.filename || 'Invoice.pdf');
                 } else {
-                    alert('Android interface not available.');
+                    showAlert('Android interface not available.', 'Error');
                 }
             } else {
-                alert('Download failed.');
+                showAlert('Download failed.', 'Error');
             }
         },
         error: function (xhr, status, err) {
-            alert('Error: ' + err);
+            showAlert('Error: ' + err, 'Error');
         }
     });
 }

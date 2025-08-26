@@ -137,7 +137,7 @@ function get_classes() {
 
     _btn.html("Update again");
 
-    //alert(rString) //get_pagination();
+    //showAlert(rString) //get_pagination();
     if (result.status == 1) {
     loadData()
 

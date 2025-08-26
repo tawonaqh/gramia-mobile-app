@@ -179,7 +179,7 @@ function resetIdleTimer() {
 //    const amount = localStorage.getItem('amount');
 //
 //    if (referenceNumber && pollUrl && invoiceId && amount) {
-//        alert('Payment details stored:\nReference Number: ' + referenceNumber + '\nPoll URL: ' + pollUrl);
+//        showAlert('Payment details stored:\nReference Number: ' + referenceNumber + '\nPoll URL: ' + pollUrl);
 //
 //        // Optionally, clear these values after showing the alert
 //        localStorage.removeItem('referenceNumber');
@@ -201,14 +201,14 @@ function resetIdleTimer() {
 //            dataType: 'json',
 //            success: function(response) {
 //                if (response.status === 1) {
-//                    alert('Payment Status: ' + response.message);
+//                    showAlert('Payment Status: ' + response.message);
 //                } else {
-//                    alert('Payment validation failed: ' + response.message);
+//                    showAlert('Payment validation failed: ' + response.message);
 //                }
 //            },
 //            error: function(xhr) {
 //                console.error("Error validating payment status:", xhr.responseText);
-//                alert('Error validating payment status: ' + xhr.statusText);
+//                showAlert('Error validating payment status: ' + xhr.statusText);
 //            }
 //        });
 //    }

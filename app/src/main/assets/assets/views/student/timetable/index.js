@@ -77,7 +77,7 @@ function loadData(forceRefresh = false) {
             renderCompactTimetable(data.weeks);
         },
         error: function() {
-            alert('Error loading data');
+            showAlert('Error loading data');
         }
     });
 }

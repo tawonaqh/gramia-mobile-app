@@ -97,7 +97,7 @@ function loadData(forceRefresh = false) {
             renderCalendarFromServer(data);
         },
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         }
     });
 }
@@ -365,5 +365,5 @@ function clearPeriodCache() {
     const i_period = $('[name=institution_period]').val();
     const key = `events_${current.iD}_${i_period}`;
     localStorage.removeItem(key);
-    alert('Cache cleared for this period');
+    showAlert('Cache cleared for this period');
 }

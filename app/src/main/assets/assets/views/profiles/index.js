@@ -314,7 +314,7 @@ function get_applications() {
         url: server_url + "/api/get-user-applications", type: 'POST', dataType: 'application/json', data: { user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();

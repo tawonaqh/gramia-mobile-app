@@ -286,7 +286,7 @@ $('#btn_submit_item').on('click', function () {
 
             _btn.html("Add Another");
 
-            //alert(rString) //get_pagination();
+            //showAlert(rString) //get_pagination();
             if (result.status == 1) {
                 loadData()
 

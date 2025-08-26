@@ -22,7 +22,7 @@ function submit() {
 }
 
 function register(source = 'internal') {
-    //alert('data.toString()')
+    //showAlert('data.toString()')
     var msg = $('#msg'), _btn = $("#submit_btn"), _form = $('#_form').serialize();
     msg.html(""); _btn.attr("disabled", "true"); _btn.html("Processing...");
     console.log('_frm : ' + JSON.stringify(_form));
@@ -31,13 +31,13 @@ function register(source = 'internal') {
         complete: function (data) {
             console.log('ata:', data);
 
-            // alert(response)
+            // showAlert(response)
             var rString = JSON.stringify(data);
             console.log(rString);
 
             _btn.removeAttr("disabled");
             response = JSON.parse(data.responseText)
-            _btn.html(''); //alert(rString) //get_pagination(); var dk =  $.parseJSON(data.toString())
+            _btn.html(''); //showAlert(rString) //get_pagination(); var dk =  $.parseJSON(data.toString())
             if (response.status == 1) {
                 localStorage.setItem('user', data.responseText);
                 localStorage.setItem('newUser', data.responseText);

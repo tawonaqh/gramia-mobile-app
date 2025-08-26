@@ -59,7 +59,7 @@ function loadData(forceRefresh = false) {
             $('#total_records_label').html(data.pagination.total_records)
         },
         error: function () {
-            showAlert('Error loading data');
+            showshowAlert('Error loading data');
         }
     });
 }

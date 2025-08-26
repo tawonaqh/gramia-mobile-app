@@ -29,7 +29,7 @@ function submit_form(form) {
 
             _btn.html("Add another");
 
-            //alert(rString) //get_pagination();
+            //showAlert(rString) //get_pagination();
             if (result.status == 1) {
 
                 msg.html(create_message("success", result.message));
@@ -424,7 +424,7 @@ function navigateTo(routeKey, data = null, transition = 'fade') {
     loadView(viewPath, transition, data);
 }
 function toggleFilterMenu() {
-    alert("Show filter options"); // implement as needed
+    showAlert("Show filter options"); // implement as needed
 }
 
 function updateActiveSort() {
@@ -506,7 +506,7 @@ function logout() {
         if (chatIntervalId) clearInterval(chatIntervalId);
         if (notificationIntervalId) clearInterval(notificationIntervalId);
 
-        // alert("You’ve been logged out.");
+        // showAlert("You’ve been logged out.");
         loadView('auth/login');
     })
 }
@@ -681,10 +681,10 @@ function downloadPDF(id) {
                 if (window.AndroidInterface && AndroidInterface.saveBase64PDF) {
                     AndroidInterface.saveBase64PDF(res.data, res.filename || 'Invoice.pdf');
                 } else {
-                    alert('Android interface not available.');
+                    showAlert('Android interface not available.');
                 }
             } else {
-                alert('Download failed.');
+                showAlert('Download failed.');
             }
         },
         complete: function (resp) {
@@ -693,7 +693,7 @@ function downloadPDF(id) {
         },
         error: function (xhr, status, err) {
             console.log("rss: " + JSON.stringify(res))
-            alert('Error: ' + err);
+            showAlert('Error: ' + err);
         }
     });
 }

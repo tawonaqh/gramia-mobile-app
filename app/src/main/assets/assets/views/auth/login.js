@@ -25,11 +25,11 @@ $('#loginForm').submit(function (e) {
             success: function (response) {
                             console.log('ata:', response);
 
-                // alert(response)
+                // showAlert(response)
                   console.log(JSON.stringify(response));
                 var rString = JSON.stringify(response);
                 _btn.removeAttr("disabled");
-                //  alert(response.status) //get_pagination();
+                //  showAlert(response.status) //get_pagination();
                 var result = response;// $.parseJSON(response);
                 if (result.status == '1') {
                     _btn.html(result.status);
@@ -46,7 +46,7 @@ $('#loginForm').submit(function (e) {
 
                     //	document.location.reload();
                 } else {
-                    // alert("rsp: " + response.error_msg)
+                    // showAlert("rsp: " + response.error_msg)
 
                     _btn.html("Try again");
                     msg.html(create_message("danger", result.message));

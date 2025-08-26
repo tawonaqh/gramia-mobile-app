@@ -123,7 +123,7 @@ function confirm_request(record, status) {
 
             },
             error: function () {
-                alert('Error loading data');
+                showAlert('Error loading data');
             }
         });
 

@@ -73,7 +73,7 @@ $('#btn_submit_item').on('click', function () {
 
             _btn.html("Update Again");
 
-            //alert(rString) //get_pagination();
+            //showAlert(rString) //get_pagination();
             if (result.status == 1) {
 
                 msg.html(create_message("success", result.message));

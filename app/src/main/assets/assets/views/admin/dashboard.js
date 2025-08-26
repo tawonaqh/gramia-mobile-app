@@ -15,7 +15,7 @@ function get_admin_account(){
         url: server_url + "/api/get-institution-admin-account", type: 'POST', dataType: 'application/json', data: { institution_user: current.iD,user: user.iD },
 
         error: function () {
-            alert('Error loading data');
+            showAlert('Error loading data');
         },
         complete: function (data) {
             //  $('#loadingOverlay').hide();
@@ -89,7 +89,7 @@ console.log('hg: ' + JSON.stringify(current))
 
            },
            error: function () {
-               alert('Error loading data');
+               showAlert('Error loading data');
            }
        });
    }

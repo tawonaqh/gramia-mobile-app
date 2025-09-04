@@ -223,17 +223,14 @@ function populateClassDropdown(classes) {
     const selectedKey = getSelectedClassKey();
     let selectedId = localStorage.getItem(selectedKey);
 
-    // If nothing is selected yet, set the first class as selected
     if (!selectedId && classes.length > 0) {
         selectedId = String(classes[0].iD);
     }
 
-    // Set the dropdown value without triggering the change event
     if (selectedId) {
         select.val(selectedId);
     }
 
-    // If a class is found, update the display name immediately
     const selectedClass = classes.find(c => String(c.iD) === String(selectedId));
     if (selectedClass) {
         $('#current_class_name').html(`${selectedClass.name} - ${selectedClass.period}`);
@@ -241,12 +238,14 @@ function populateClassDropdown(classes) {
         $('#current_class_name').html('No class selected');
     }
 
-    // If still nothing selected, show canvas (empty list edge case)
     if (!selectedId) {
         bootstrap.Offcanvas.getOrCreateInstance('#selectClassCanvas').show();
     }
 
-    // The old `onchange` listener is no longer needed here as it is handled by the new function.
+    // ✅ Add event listener here
+    select.off('change').on('change', function () {
+        handleClassChange($(this).val());
+    });
 }
 
 // Function to handle class selection from the dropdown
@@ -254,23 +253,26 @@ function handleClassChange(selectedClassId) {
     const offcanvas = document.getElementById('selectClassCanvas');
     const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvas) || new bootstrap.Offcanvas(offcanvas);
 
-    // Get the currently selected class from a stored variable or the UI
     const currentlySelected = localStorage.getItem('selectedClassId');
 
-    // or if the user selects the same class that is already active.
     if (!selectedClassId || selectedClassId === currentlySelected) {
         offcanvasInstance.hide();
-        return; // Exit the function to prevent further actions
+        return;
     }
 
     // Store the new selection
     localStorage.setItem('selectedClassId', selectedClassId);
 
-    // Call the function to display the report card or other relevant data
-    // based on the selected class.
+    // ✅ Find the newly selected class and update the display name
+    const selectedClass = account.classes.find(c => String(c.iD) === String(selectedClassId));
+    if (selectedClass) {
+        $('#current_class_name').html(`${selectedClass.name} - ${selectedClass.period}`);
+    }
+
+    // Call the function to load the data for this class
     displayReportCard(selectedClassId);
 
-    // Finally, close the offcanvas panel
+    // Finally close the offcanvas
     offcanvasInstance.hide();
 }
 

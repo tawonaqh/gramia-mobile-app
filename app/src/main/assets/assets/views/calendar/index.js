@@ -88,7 +88,7 @@ function loadData(forceRefresh = false) {
             api: true,
             institution_role: '',
             institution_user: current.iD,
-            period: '',
+            period: i_period, // ✅ send the selected period
         },
         success: function (response) {
             const data = JSON.parse(response);
@@ -109,9 +109,18 @@ function renderCalendarFromServer(data) {
 
     eventMap = {};
     data.days.forEach(e => {
-        const key = e.date;
-        if (!eventMap[key]) eventMap[key] = [];
-        eventMap[key].push(e);
+        // Subtract one day
+        const originalDate = new Date(e.date);
+        originalDate.setDate(originalDate.getDate() - 1);
+
+        // Format back to YYYY-MM-DD
+        const adjustedDate = originalDate.toISOString().split('T')[0];
+
+        // Replace date inside event object too (optional but keeps things consistent)
+        e.date = adjustedDate;
+
+        if (!eventMap[adjustedDate]) eventMap[adjustedDate] = [];
+        eventMap[adjustedDate].push(e);
     });
 
     renderCalendar();

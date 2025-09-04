@@ -8,7 +8,7 @@ function init() {
     const $end = $('[name="end"]');
 
     // Get tomorrow at 12:00
-   
+
 
     function formatDateTimeLocal(dt) {
         const pad = n => n.toString().padStart(2, '0');

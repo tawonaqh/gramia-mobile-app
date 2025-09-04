@@ -247,7 +247,7 @@ function get_profiles() {
             })
 
             // no adding the other profiles only new profile (client request 🤣)
-            //$('[name=profile]').html(inst)
+            $('[name=profile]').html(inst)
         }
     });
 }

@@ -28,7 +28,7 @@ function loadData(forceRefresh = false) {
     const ps = $('#page_size').val() || '10';
     const ob =  $('input[name="order_filter"]:checked').val();
     // Set default or capture from a pagination control
-    var uri = site + "/get-institution-event-records";
+    var uri = site + "/get-event-records";
     console.log('uri:  ' + uri + "; pr: " + n_institution)
     $.ajax({
         url: uri,

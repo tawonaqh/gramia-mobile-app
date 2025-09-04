@@ -158,8 +158,8 @@ function loadData(forceRefresh = false) {
             institution_role: n_institution_role,
             institution_user: n_institution_user,
             period:selectedClass.periodiD,
-             institution_class: selectedClass.classiD,
-             subject: select
+            institution_class: selectedClass.classiD,
+            subject: select
 
 
         },

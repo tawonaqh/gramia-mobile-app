@@ -88,7 +88,7 @@ function loadData(forceRefresh = false) {
             api: true,
             institution_role: '',
             institution_user: current.iD,
-            period: i_period, // ✅ send the selected period
+            period: i_period,
         },
         success: function (response) {
             const data = JSON.parse(response);
@@ -254,6 +254,9 @@ function showEventPills(events) {
 
     events.forEach(ev => {
         const dateObj = new Date(ev.date);
+        // Add one day
+        dateObj.setDate(dateObj.getDate() + 1);
+
         const dateFormatted = `${dateObj.getDate()} ${dateObj.toLocaleString('default', { month: 'long', year: 'numeric' })}`;
         const subEvents = ev.events.split(';').map(e => e.trim()).filter(e => e.length);
 

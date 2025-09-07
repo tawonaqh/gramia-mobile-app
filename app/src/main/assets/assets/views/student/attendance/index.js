@@ -174,7 +174,7 @@ function renderCalendar(monthOffset = 0) {
 
     // Get today's status
     const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-    const todayStatus = attendanceMap[todayKey] || 'Present';
+    const todayStatus = attendanceMap[todayKey] || 'N/A';
 
     const showTodayStatus = (
         today.getFullYear() === year &&

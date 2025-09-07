@@ -77,7 +77,8 @@ function displayResults(records, pagination) {
                 const html = `
                         <a href="#" onclick="navigateTo('edit-event', getRecord(${item.iD}))" class="text-decoration-none text-dark">
                             <div class="bg-success text-white rounded-4 shadow-sm p-3 mb-3">
-                                <div class="fw-bold fs-6 mb-1 dark-text"> ${item.start} - ${item.end}</div>
+                                <div class="fw-bold fs-5 mb-1 dark-text">${item.periodDay}</div>
+                                <div class="fw-bold fs-6 mb-1"> ${item.start} - ${item.end}</div>
                                 <div class="fw-semibold fs-5">${item.name}</div>
                                 <div class="text-light small fst-italic mb-2 text-black-50">${item.description}</div>
 

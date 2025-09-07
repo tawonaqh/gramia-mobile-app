@@ -253,26 +253,25 @@ function handleClassChange(selectedClassId) {
     const offcanvas = document.getElementById('selectClassCanvas');
     const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvas) || new bootstrap.Offcanvas(offcanvas);
 
-    const currentlySelected = localStorage.getItem('selectedClassId');
+    const storageKey = getSelectedClassKey(); // <-- use the same key
+    const currentlySelected = localStorage.getItem(storageKey);
 
     if (!selectedClassId || selectedClassId === currentlySelected) {
         offcanvasInstance.hide();
         return;
     }
 
-    // Store the new selection
-    localStorage.setItem('selectedClassId', selectedClassId);
+    // Store the new selection consistently
+    localStorage.setItem(storageKey, selectedClassId);
 
-    // ✅ Find the newly selected class and update the display name
+    // ✅ Update display
     const selectedClass = account.classes.find(c => String(c.iD) === String(selectedClassId));
     if (selectedClass) {
         $('#current_class_name').html(`${selectedClass.name} - ${selectedClass.period}`);
     }
 
-    // Call the function to load the data for this class
     displayReportCard(selectedClassId);
 
-    // Finally close the offcanvas
     offcanvasInstance.hide();
 }
 

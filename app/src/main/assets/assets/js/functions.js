@@ -462,7 +462,7 @@ window.goBackView = function () {
         closeAllOffcanvas();
     } else {
         console.log('🚪 No more views in history. Prompting exit...');
-        if (confirm("Exit the app?")) {
+        if (show_confirm("Exit the app?")) {
             window.location.href = "exit://app";
         }
     }
@@ -480,7 +480,7 @@ function _goBackView(transitionType = 'slide-right') {
                 // Already at dashboard? Then exit prompt
                 const lastView = viewHistory[viewHistory.length - 1];
                 if (lastView && lastView.view === 'dashboard') {
-                    if (confirm("Exit the app?")) {
+                    if (show_confirm("Exit the app?")) {
                         window.location.href = "exit://app";
                     }
                 } else {
@@ -494,7 +494,7 @@ function _goBackView(transitionType = 'slide-right') {
         }
     } else {
         // No history, already at dashboard
-        if (confirm("Exit the app?")) {
+        if (show_confirm("Exit the app?")) {
             window.location.href = "exit://app";
         }
     }

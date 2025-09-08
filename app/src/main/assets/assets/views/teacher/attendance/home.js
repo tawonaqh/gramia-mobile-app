@@ -81,7 +81,7 @@ function loadData(forceRefresh = false) {
         page_size: ps, // Or capture from a page-size selector if available
         institution: n_institution,
         user: n_user,
-        teacher: _class,
+        institution_class: _class,
         api: true
 
     }

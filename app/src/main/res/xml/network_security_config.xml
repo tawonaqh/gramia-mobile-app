@@ -10,6 +10,9 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain>172.24.156.125</domain>
     </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain>192.168.1.45</domain>
+    </domain-config>
     <!-- Allow cleartext HTTP traffic for 139.84.233.196 -->
     <domain-config cleartextTrafficPermitted="true">
         <domain>139.84.233.196</domain>

@@ -26,7 +26,7 @@ class NotificationClickReceiver : BroadcastReceiver() {
 
     private fun clearNotificationOnServer(context: Context, notificationId: Int) {
         val client = OkHttpClient()
-        val url = "http://192.168.0.113:80/easiwrap/public/clear-notification"
+        val url = "http://192.168.0.113:80/gramia/public/clear-notification"
 
         val formBody = FormBody.Builder()
             .add("notification_id", notificationId.toString())

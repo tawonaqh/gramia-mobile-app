@@ -50,13 +50,17 @@ function findFieldByName(fieldsArray, searchTerm) {
         field.name && field.name.toLowerCase().includes(lowerTerm)
     );
 }
-function getProfileField(searchTerm, flush=false) {
-   // console.log('xcv: ' + JSON.stringify(account) + ' lk: ' + account.fields.length)
-    fieldsArray = account.fields
+function getProfileField(searchTerm, flush = false) {
+    if (!account || !account.fields) return null;
+
+    const fieldsArray = account.fields;
     const lowerTerm = searchTerm.toLowerCase();
-    return fieldsArray.find(field =>
+
+    const match = fieldsArray.find(field =>
         field.name && field.name.toLowerCase().includes(lowerTerm)
-    ).value;
+    );
+
+    return match ? match.value : null;
 }
 function _getProfileField(searchTerm, flush=false) {
     return new Promise((resolve, reject) => {

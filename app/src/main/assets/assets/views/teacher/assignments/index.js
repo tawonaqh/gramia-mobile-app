@@ -86,6 +86,8 @@ function loadData(forceRefresh = false) {
     const ps = $('#page_size').val() || '10';
     const ob =  $('input[name="order_filter"]:checked').val();
 
+    const institution_class = classParts[2] || classParts[1];
+
     // Set default or capture from a pagination control
     var uri = site + "/get-activity-records";
     console.log('uri:  ' + uri + "; pr: " + n_institution)
@@ -103,8 +105,7 @@ function loadData(forceRefresh = false) {
             institution_role: n_institution_role,
             institution_user: n_institution_user,
             period: classParts[0],
-            institution_class: classParts[1],
-
+            institution_class: institution_class,
         },
         success: function (response) {
             console.log('res: ' + response)

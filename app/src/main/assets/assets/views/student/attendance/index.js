@@ -34,7 +34,8 @@ function loadData(forceRefresh = false) {
         }
 
     $('#results').html('loading...');
-   const _student = localStorage.getItem('selected_class_id_' + current.iD)// $('[name=class]').val();
+//   const _student = localStorage.getItem('selected_class_id_' + current.iD)// $('[name=class]').val();
+    const _student = getSelectedClass().iD;
    // const province = $('.search').find('[name=province]').val();
        var n_institution = current.institutioniD;
                 var n_institution_role = '';// $('.search').find('[name=institution_role]').val();

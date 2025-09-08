@@ -18,7 +18,7 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) : 
         var url = ""
         //url = "http://192.168.0.184:80/easiwrap/public/tray-notification-count" // update this to your actual API
        // url = "http://localhost/easiwrap/public/tray-notification-count" // update this to your actual API
-        url = "http://139.84.233.196:80/easiwrap/public/tray-notification-count" // update this to your actual API
+        url = "http://139.84.233.196:80/gramia/public/tray-notification-count" // update this to your actual API
 
         val formBody = FormBody.Builder()
             .add("institution_user", institutionUserId)

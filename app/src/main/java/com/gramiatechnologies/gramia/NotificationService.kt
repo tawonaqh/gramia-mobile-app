@@ -36,7 +36,7 @@ class NotificationService : Service() {
     }
 
     private fun checkForNotifications(userId: String) {
-        val url = "http://192.168.0.113:80/easiwrap/public/notification-count"
+        val url = "http://192.168.0.113:80/gramia/public/notification-count"
         val body = FormBody.Builder()
             .add("institution_user", userId)
             .add("api", "true")

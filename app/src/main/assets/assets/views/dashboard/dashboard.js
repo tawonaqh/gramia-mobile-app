@@ -20,8 +20,6 @@ function init() {
     handleRoleSpecificUI();
     get_account();
     setupNotifications();
-
-    updateInstitutionLogo();
 }
 
 $(document).ready(function () {
@@ -342,29 +340,4 @@ function switch_view(view) {
     $('.view').hide()
     $('#' + view).show()
 }
-
-// dashboard/init.js (add this function)
-function updateInstitutionLogo() {
-    if (!current || !current.institutioniD) return;
-
-    $.ajax({
-        url: site + "/api/get-institution-logo",
-        type: "POST",
-        data: { institutionID: current.institutioniD, user: user.iD },
-        dataType: "json",
-        success: function(res) {
-            if (res.status === 1 && res.logo) {
-                $("#institution_logo").attr("src", res.logo);
-            } else {
-                console.warn("Institution logo not found, using default");
-                $("#institution_logo").attr("src", "assets/img/default_logo.png");
-            }
-        },
-        error: function(err) {
-            console.error("Failed to fetch institution logo:", err);
-            $("#institution_logo").attr("src", "assets/img/default_logo.png");
-        }
-    });
-}
-
 

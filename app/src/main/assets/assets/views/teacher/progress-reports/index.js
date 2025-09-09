@@ -166,15 +166,15 @@ function showReportCardDetails(record) {
                 </div>
                 <div class="row text-muted small">
                     <div class="col-4">
-                        <div class="fw-light">Term</div>
+                        <div class="fw-light">Possible Mark</div>
                         <div class="text-dark fw-semibold">${mark.class_mark}</div>
                     </div>
                     <div class="col-4">
-                        <div class="fw-light">Exam</div>
+                        <div class="fw-light">Mark Awarded</div>
                         <div class="text-dark fw-semibold">${mark.exam_mark}</div>
                     </div>
                     <div class="col-4">
-                        <div class="fw-light">Final</div>
+                        <div class="fw-light">Percentage</div>
                         <div class="text-dark fw-semibold">${mark.final_mark}</div>
                     </div>
                 </div>

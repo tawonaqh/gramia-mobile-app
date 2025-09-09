@@ -59,67 +59,73 @@ function init(data) {
      }
  }
 
-function loadData(forceRefresh = false) {
-
+async function loadData(forceRefresh = false) {
     if (localStorage.getItem(key) && !forceRefresh) {
         data = JSON.parse(localStorage.getItem(key));
-            displayResults(data.records, data.pagination);
-            localStorage.setItem("current_record", JSON.stringify(data.records));
+        displayResults(data.records, data.pagination);
+        localStorage.setItem("current_record", JSON.stringify(data.records));
         return;
     }
+
     if (!navigator.onLine) {
         showAlert('No Internet Connection');
-        return
+        return;
     }
-    $('#results').html('loading...');
-    // const province = $('.search').find('[name=province]').val();
-    var n_institution = current.institutioniD;
-    var n_institution_role = '';// $('.search').find('[name=institution_role]').val();
-    var n_user = user.iD;
-    var n_institution_user = current.iD;
-    const classValue = $('[name=institution_class]').val();
 
+    $('#results').html('loading...');
+
+    const classValue = $('[name=institution_class]').val();
     const classParts = classValue.split('_');
 
+    const period = classParts[0];
+    const classIds = classParts.slice(1); // all classes after period
 
     const search = $('input[name="search"]').val();
     const ps = $('#page_size').val() || '10';
-    const ob =  $('input[name="order_filter"]:checked').val();
+    const ob = $('input[name="order_filter"]:checked').val();
 
-    const institution_class = classParts[2] || classParts[1];
+    let allRecords = [];
 
-    // Set default or capture from a pagination control
-    var uri = site + "/get-activity-records";
-    console.log('uri:  ' + uri + "; pr: " + n_institution)
-    $.ajax({
-        url: uri,
-        type: "POST",
-        data: {
-            search: search,
-            page: current_page,
-            order_by: ob,
-            page_size: ps, // Or capture from a page-size selector if available
-            institution: n_institution,
-            user: n_user,
-            api: true,
-            institution_role: n_institution_role,
-            institution_user: n_institution_user,
-            period: classParts[0],
-            institution_class: institution_class,
-        },
-        success: function (response) {
-            console.log('res: ' + response)
+    // fetch each class separately
+    for (const classId of classIds) {
+        try {
+            const response = await $.ajax({
+                url: site + "/get-activity-records",
+                type: "POST",
+                data: {
+                    search: search,
+                    page: current_page,
+                    order_by: ob,
+                    page_size: ps,
+                    institution: current.institutioniD,
+                    user: user.iD,
+                    api: true,
+                    institution_role: '',
+                    institution_user: current.iD,
+                    period: period,
+                    institution_class: classId,
+                }
+            });
+
             const data = JSON.parse(response);
-            localStorage.setItem("current_record", JSON.stringify(data.records));
-            localStorage.setItem(key, response);
+            allRecords = allRecords.concat(data.records);
 
-            displayResults(data.records, data.pagination);
-            $('#total_records_label').html(data.pagination.total_records)
-        },
-        error: function () {
-            showAlert('Error loading data');
+        } catch (error) {
+            console.error("Error fetching class " + classId, error);
         }
-    });
+    }
+
+    // fake pagination since you’re merging results
+    const pagination = {
+        total_records: allRecords.length,
+        current_page: 1
+    };
+
+    localStorage.setItem("current_record", JSON.stringify(allRecords));
+    localStorage.setItem(key, JSON.stringify({ records: allRecords, pagination }));
+
+    displayResults(allRecords, pagination);
+    $('#total_records_label').html(allRecords.length);
 }
 
 function displayResults(records, pagination) {

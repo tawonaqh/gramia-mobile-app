@@ -183,7 +183,7 @@ function displayChatMessages(chatId, append = false) {
 
         html += `
             <div class="d-flex ${isYou ? 'justify-content-end' : 'justify-content-start'} mb-2">
-                    <div class="chat-bubble py-0 rounded-pill text-center ${isYou ? 'from-me' : 'from-them'}">
+                    <div class="chat-bubble py-0 ${isYou ? 'from-me' : 'from-them'}">
                     ${msg.message}
                 </div>
             </div>`;

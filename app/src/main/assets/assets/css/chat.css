@@ -60,8 +60,9 @@
 .chat-bubble {
     max-width: 75%;
     padding: 0px 15px;
-    font-size: 19px;
+    font-size: 16px;
     word-break: break-word;
+    border-radius: 12px;
 }
 
 .from-me {

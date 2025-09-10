@@ -87,9 +87,10 @@ $('#btn_submit_item').on('click', function () {
 
             //showAlert(rString) //get_pagination();
             if (result.status == 1) {
-loadData(result.id)
+                loadData(result.id)
                 msg.html(create_message("success", result.message));
 
+                $('#_form')[0].reset();
                 //	document.location.reload();
             } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
         },

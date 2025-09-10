@@ -263,6 +263,7 @@ $('#btn_submit_item').on('click', function () {
 
                 msg.html(create_message("success", result.message));
 
+                $('#_form')[0].reset();
                 //	document.location.reload();
             } else { _btn.html("Try again"); msg.html(create_message("danger", result.message)); }
         },

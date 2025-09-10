@@ -112,6 +112,7 @@ $('#btn_submit_item').on('click', function () {
 
             _btn.removeAttr("disabled"); console.log("rs: " + data.responseText.toString());
             var result = JSON.parse(data.responseText.toString());
+            console.log("result: " + result);
 
              if (result.status == 1) {
                 msg.html(create_message("success", result.message));

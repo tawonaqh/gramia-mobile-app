@@ -115,6 +115,9 @@ $('#btn_submit_item').on('click', function () {
 
              if (result.status == 1) {
                 msg.html(create_message("success", result.message));
+
+                $('#_form')[0].reset();
+
                 _btn.html("Add another");
              } else {
                 _btn.html("Try again");

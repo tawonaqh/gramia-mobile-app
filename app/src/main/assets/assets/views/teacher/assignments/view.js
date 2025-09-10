@@ -39,6 +39,8 @@ function init(activity) {
             $('#studentList').html('<p class="text-danger">Error loading students.</p>');
         }
     });
+
+    getActivityDetails(activity.iD);
 }
 
 function generateStudentListMobile(students, activityiD, possible_mark) {
@@ -193,4 +195,32 @@ function checkDummySaveButtonState() {
 
     const btn = $('#saveEditActivityBtn');
     btn.prop('disabled', !anyMarkEntered).toggleClass('opacity-50', !anyMarkEntered);
+}
+
+function getActivityDetails(activity) {
+
+    const detailsUri = site + "/api/get-activity-details";
+    const detailsForm = {
+        activity_id: activity,
+        api: true,
+        user: user.iD
+    };
+
+    $.ajax({
+        url: detailsUri,
+        type: 'POST',
+        dataType: 'json',
+        data: detailsForm,
+        success: function(details) {
+            if (details) {
+                // Update the elements with the correct names
+                $('#activity-name').text(details.name);
+                $('#activity-subject').text(details.subject_name);
+                $('#activity-type').text(details.activity_type_name);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to fetch activity details:', error);
+        }
+    });
 }

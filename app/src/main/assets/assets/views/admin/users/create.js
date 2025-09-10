@@ -305,6 +305,9 @@ $('#btn_create_item').on('click', function () {
                 var result = JSON.parse(data.responseText);
                 if (result.status == 1) {
                     msg.html(create_message("success", result.message));
+
+                    $('#_form')[0].reset();
+
                     _btn.html("Add Another");
 
                 } else {

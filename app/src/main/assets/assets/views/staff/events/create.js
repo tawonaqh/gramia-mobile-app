@@ -186,7 +186,7 @@ function load_period_days(periodID) {
                 data.records.forEach(d => {
                     console.log(`➡️ Day ID: ${d.iD}, Date: ${d.date}, Name: ${d.name}`);
                     $daySelect.append(
-                        `<option value="${d.iD}">${d.name} (${d.date})</option>`
+                        `<option value="${d.iD}">${d.date}</option>`
                     );
                 });
 

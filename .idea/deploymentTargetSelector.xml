@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-09-09T14:21:08.179719600Z">
+        <DropdownSelection timestamp="2025-09-10T07:16:31.560641700Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R83X207LQEY" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\tawona\.android\avd\Medium_Phone.avd" />
             </handle>
           </Target>
         </DropdownSelection>

@@ -1,5 +1,3 @@
-// Consolidated and improved dashboard initialization
-// dashboard/init.js
 function init() {
     console.log("user:", localStorage.getItem('user'));
     console.log("current_account:", localStorage.getItem('current_account'));
@@ -89,7 +87,6 @@ function get_account(forceRefresh = false) {
     });
 }
 
-// dashboard/user.js
 function updateUserDetails() {
     // Prefer name from current_account JSON
     const displayName = current.user || account.profile.name || "Guest";
@@ -112,13 +109,11 @@ function updateUserDetails() {
     }
 
     // Logo update
-    const inst = accounts.institutions.find(i => i.iD === current.institutioniD);
-    if (inst?.logo) {
-        $('#institution_logo').attr('src', inst.logo);
+    if (current?.institutioniD) {
+        getInstitutionLogo(current.institutioniD);
     }
 }
 
-// dashboard/roles.js
 function handleRoleSpecificUI() {
 
     const role = current.role;
@@ -133,12 +128,10 @@ function handleRoleSpecificUI() {
         $('.student-links').show();
       //  get_classes();
         populateClassDropdown(account.classes)
-
     }
 }
 
 
-// dashboard/notifications.js
 function setupNotifications() {
     get_account_notifications();
 
@@ -153,10 +146,31 @@ function setupNotifications() {
     notificationIntervalId = setInterval(get_account_notifications, 60000);
 }
 
+// New function to fetch and set the institution logo
+function getInstitutionLogo(institutionID) {
+    if (!institutionID) {
+        $("#institution_logo").attr('src', 'assets/img/schoollogo.png');
+        return;
+    }
 
-// dashboard/account.js
-
-
+    $.ajax({
+        url: server_url + "/api/get-institution-logo-encoded",
+        type: 'POST',
+        data: { institutionID: institutionID },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 1 && response.logo) {
+                console.log("Setting logo URL:", response.logo);
+                $("#institution_logo").attr('src', response.logo);
+            } else {
+                $("#institution_logo").attr('src', 'assets/img/schoollogo.png');
+            }
+        },
+        error: function() {
+            $("#institution_logo").attr('src', 'assets/img/schoollogo.png');
+        }
+    });
+}
 
 // dashboard/results.js
 function displayResults(res) {
@@ -204,10 +218,13 @@ function displayResults(res) {
         $("#balance").text("$" + balance);
     }
 
-    // ===== Institution Logo =====
-    const inst = accounts?.institutions?.find(i => i.iD === current.institutioniD);
-    if (inst?.logo) {
-        $("#institution_logo").attr('src', inst.logo);
+    // ===== Institution Logo (UPDATED LOGIC) =====
+    // Now, call the new function to fetch and display the logo
+    if (current?.institutioniD) {
+        getInstitutionLogo(current.institutioniD);
+    } else {
+         // Fallback to a default logo if no institution ID is available
+         $("#institution_logo").attr('src', 'assets/img/schoollogo.png');
     }
 }
 
@@ -340,4 +357,3 @@ function switch_view(view) {
     $('.view').hide()
     $('#' + view).show()
 }
-

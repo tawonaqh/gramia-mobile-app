@@ -12,40 +12,55 @@
 
     </div>
     <form class="py-4" id="_form">
-
         <div class="p-3 px-4 border-bottom">
-            <div class="text-green fw-semibold"> Category: </div>
-            <select class="form-select border-0 px-0 bg-transparent" name="eventCategory" required>
-
-            </select>
+            <div class="text-green fw-semibold">Category:</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="eventCategory" required></select>
         </div>
 
         <div class="p-3 px-4 border-bottom">
-            <div class="text-green fw-semibold"> Event Title: </div>
+            <div class="text-green fw-semibold">Event Title:</div>
             <input type="text" name="name" class="form-control border-0 px-0 bg-transparent mt-1" />
         </div>
+
         <div class="p-3 px-4 border-bottom">
-            <div class="text-green fw-semibold"> Event description: </div>
-            <textarea type="text" name="description" class="form-control border-0 px-0 bg-transparent mt-1"></textarea>
-        </div>
-        <div class="p-3 px-4 border-bottom">
-            <div class="text-green fw-semibold"> Start: </div>
-            <input type="datetime-local" name="start" class="form-control border-0 px-0 bg-transparent mt-1" />
-        </div>
-        <div class="p-3 px-4 border-bottom">
-            <div class="text-green fw-semibold"> End: </div>
-            <input type="datetime-local" name="end" class="form-control border-0 px-0 bg-transparent mt-1" />
+            <div class="text-green fw-semibold">Period:</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="period" required></select>
         </div>
 
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Day:</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="periodDay" required></select>
+        </div>
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Start:</div>
+            <select name="start" class="form-select border-0 px-0 bg-transparent mt-1"></select>
+        </div>
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Duration:</div>
+            <select name="duration" class="form-select border-0 px-0 bg-transparent mt-1"></select>
+        </div>
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Event description:</div>
+            <textarea name="description" class="form-control border-0 px-0 bg-transparent mt-1"></textarea>
+        </div>
+
+        <div class="p-3 px-4 border-bottom">
+            <div class="text-green fw-semibold">Allow RSVP:</div>
+            <select class="form-select border-0 px-0 bg-transparent" name="allowRSVP" required>
+                <option value="1">True</option>
+                <option value="0">False</option>
+            </select>
+        </div>
 
         <p id="form_result" class="small text-danger ps-2"></p>
         <div class="d-flex justify-content-center align-items-center mt-4">
             <button type="button" id="btn_submit_item" class="btn btn-success btn-lg rounded-2 px-4 shadow-sm">
                 Submit Record
             </button>
-
         </div>
     </form>
-
 
 </div>

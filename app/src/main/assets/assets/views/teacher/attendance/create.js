@@ -1,7 +1,10 @@
+var periodCache = {};
+
 function init() {
     const today = new Date().toISOString().split('T')[0];
     $('#dayLong').val(today);
-    get_classes();
+    //get_classes();
+    load_periods();
 
     $('#create_item_form').find('[name=institution_class], #dayLong').on('change', function () {
         get_class_list();
@@ -75,8 +78,32 @@ function init() {
              const option = `<option value="${id}" data-description="${text}">${text}</option>`;
              select.append(option);
          });
-         get_class_list()
-         // loadData(); // If needed
+         get_class_list();
+
+         // 🔹 Hook here: restrict date based on selected class's period
+         select.off("change.periodRange").on("change.periodRange", function () {
+             const classVal = $(this).val();
+             if (!classVal) return;
+
+             const parts = classVal.split('_');
+             const periodId = parts[0]; // first piece is periodId
+             if (periodCache[periodId]) {
+                 const { start, end } = periodCache[periodId];
+                 console.log(`📅 Restricting date to ${start} - ${end}`);
+
+                 $('#dayLong')
+                     .attr('min', start)
+                     .attr('max', end);
+
+                 // auto-fix if chosen day is invalid
+                 const currentVal = $('#dayLong').val();
+                 if (currentVal < start) {
+                     $('#dayLong').val(start);
+                 } else if (currentVal > end) {
+                     $('#dayLong').val(end);
+                 }
+             }
+         });
      }
  }
 
@@ -503,3 +530,55 @@ $('#btn_submit_item').on('click', function () {
     });
 
 })
+
+function load_periods() {
+    current = JSON.parse(localStorage.getItem("current_account"));
+    user = JSON.parse(localStorage.getItem("user"));
+
+    const uri = site + "/api/get-periods";
+    const _form = {
+        api: true,
+        user: user.iD,
+        institutioniD: current.institutioniD
+    };
+
+    $.ajax({
+        url: uri,
+        type: "POST",
+        data: _form,
+        dataType: "json",
+        success: function (data) {
+            console.log("📌 Periods response:", data);
+
+            const $periodSelect = $("[name=period]");
+            $periodSelect.html('<option value="">Select Period</option>');
+
+            if (data.records && data.records.length > 0) {
+                data.records.forEach(p => {
+                    console.log(`➡️ ID: ${p.iD}, Name: ${p.name}, Start: ${p.start}, End: ${p.end}`);
+
+                    // cache start/end by ID
+                    periodCache[p.iD] = { start: p.start, end: p.end };
+
+                    $periodSelect.append(
+                        `<option value="${p.iD}">${p.name}</option>`
+                    );
+
+                    get_classes();
+                });
+
+                $periodSelect.off("change").on("change", function () {
+                    const selectedPeriod = $(this).val();
+                    localStorage.setItem("selected_period", selectedPeriod);
+                    console.log("✅ Selected period:", selectedPeriod);
+
+                    // fetch and fill days
+                    load_period_days(selectedPeriod);
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("❌ Failed to fetch periods:", error, xhr.responseText);
+        }
+    });
+}

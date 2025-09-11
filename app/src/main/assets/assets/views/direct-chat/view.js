@@ -84,7 +84,7 @@ function fetchNewChatMessages(chatId) {
 
             html += `
                 <div class="d-flex ${isYou ? 'justify-content-end' : 'justify-content-start'} mb-1">
-                    <div class="chat-bubble py-4 rounded-pill text-center ${isYou ? 'from-me' : 'from-them'}">
+                    <div class="chat-bubble py-2 ${isYou ? 'from-me' : 'from-them'}">
                         ${msg.message}
                     </div>
                 </div>`;
@@ -135,7 +135,7 @@ function _fetchNewChatMessages(chatId) {
 
             const bubble = `
                 <div class="d-flex ${isYou ? 'justify-content-end' : 'justify-content-start'} mb-2">
-                    <div class="chat-bubble ${isYou ? 'from-me' : 'from-them'}">
+                    <div class="chat-bubble py-2 ${isYou ? 'from-me' : 'from-them'}">
                         ${msg.message}
                         <div class="chat-time">${timeLabel}</div>
                     </div>
@@ -183,7 +183,7 @@ function displayChatMessages(chatId, append = false) {
 
         html += `
             <div class="d-flex ${isYou ? 'justify-content-end' : 'justify-content-start'} mb-2">
-                    <div class="chat-bubble py-0 ${isYou ? 'from-me' : 'from-them'}">
+                    <div class="chat-bubble py-2 ${isYou ? 'from-me' : 'from-them'}">
                     ${msg.message}
                 </div>
             </div>`;
@@ -218,7 +218,7 @@ function _displayChatMessages(chatId, append = false) {
 
         return `
             <div class="d-flex ${isYou ? 'justify-content-end' : 'justify-content-start'} mb-2">
-                <div class="chat-bubble ${isYou ? 'from-me' : 'from-them'}">
+                <div class="chat-bubble py-2 ${isYou ? 'from-me' : 'from-them'}">
                     ${msg.message}
                     <div class="chat-time">${timeLabel}</div>
                 </div>

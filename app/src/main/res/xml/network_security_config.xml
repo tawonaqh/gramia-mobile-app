@@ -11,7 +11,7 @@
         <domain>172.24.156.125</domain>
     </domain-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain>192.168.1.37</domain>
+        <domain>192.168.1.36</domain>
     </domain-config>
     <!-- Allow cleartext HTTP traffic for 139.84.233.196 -->
     <domain-config cleartextTrafficPermitted="true">

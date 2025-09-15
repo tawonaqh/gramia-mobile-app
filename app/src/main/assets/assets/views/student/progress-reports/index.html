@@ -5,16 +5,19 @@
                 <i class="ph ph-arrow-left me-2" onclick="dashboard()" style="cursor:pointer"></i>
                 Progress Report
             </h5>
-            <button class="btn  bg-green" type="button" onclick="loadData(true)"><i class="ph ph-arrows-clockwise"></i></button>
+            <button class="btn  bg-green" type="button" onclick="reloadCurrentPeriod()"><i class="ph ph-arrows-clockwise"></i></button>
 
         </div>
         <br>
         <!-- Search + Filter Row -->
 
+        <!-- Filter dropdown -->
+        <div class="custom-select-container text-end text-white mb-4">
+            <select name="institution_period" class="custom-select-display bg-success text-white text-small rounded-pill fw-bold py-1 px-4  save-state f-sel" style="color:#01e888" onchange="loadDataByPeriod(this.value)">
+
+            </select>
+        </div>
     </div>
-
-
-
 
     <div class=" d-none justify-content-between my-3">
         <small class="text-muted">Total Records: <span id="total_records_label">0</span></small>

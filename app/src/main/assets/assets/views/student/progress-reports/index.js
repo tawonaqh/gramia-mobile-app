@@ -2,87 +2,142 @@ key = 'progress_report_' + current.iD
 
 function init(data) {
     current_page = 1;
-    console.log('curent: ' + localStorage.getItem("current_account"))
 
     current = JSON.parse(localStorage.getItem("current_account"));
     if (!current) return showAlert("No student account found");
+
     selectedClass = getSelectedClass();
-    if (selectedClass) {
-        console.log('stri: ' + JSON.stringify(selectedClass))
-        console.log("Selected class name:", selectedClass.institution_class);
-        console.log("Selected period:", selectedClass.period);
-        $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period)
-           if (navigator.onLine) {  loadData(true); }else{ loadData(); }
 
-    } else {
+    if (!selectedClass) {
         showAlert("No class selected.");
-        $('.class-id').html("No class selected.")
+        $('.class-id').html("No class selected.");
         $('#results').html('No class selected');
+        return; // stop execution if no class
+    }
 
+    console.log('stri: ' + JSON.stringify(selectedClass))
+    console.log("Selected class name:", selectedClass.institution_class);
+    console.log("Selected period:", selectedClass.period);
+    $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period);
+
+    // Only load data if selectedClass exists
+    if (navigator.onLine) {
+        loadData(true);
+    } else {
+        loadData();
+    }
+
+    // Fetch periods asynchronously, but don't call loadData inside it
+    get_report_periods();
+}
+
+function get_report_periods(forceRefresh = false) {
+    if (localStorage.getItem(period_key) && !forceRefresh) {
+        const data = JSON.parse(localStorage.getItem(period_key));
+        list_report_periods(data);
+        return;
+    }
+
+    if (!navigator.onLine) {
+        showAlert('No Internet Connection');
+        return;
+    }
+
+    $.ajax({
+        url: site + "/get-institution-periods",
+        type: 'POST',
+        data: {
+            user: user.iD,
+            api: true,
+            institution_user: current.iD,
+            institution: current.institutioniD
+        },
+        dataType: 'json',
+        success: function (response) {
+            localStorage.setItem(period_key, JSON.stringify(response));
+            list_report_periods(response, forceRefresh);
+        },
+        error: function () {
+            console.error("Failed to fetch periods");
+        }
+    });
+}
+function list_report_periods(response, forceRefresh = false) {
+    if (response.records && response.records.length > 0) {
+        const select = $('[name=institution_period]');
+        select.html('');
+
+        // Always start with All
+        select.append(`<option value="" selected>All Periods</option>`);
+
+        response.records.forEach(item => {
+            select.append(`<option value="${item.iD}">${item.name}</option>`);
+        });
+
+        // 🔥 Load all initially
+        loadData(null, true);
     }
 }
-function loadData(forceRefresh = false) {
 
+function loadData(periodId = null, forceRefresh = false) {
+    const i_period = periodId || $('[name=institution_period]').val();
+
+    // include period in the key
+    const key = `progress_report_${current.iD}_${i_period || 'all'}`;
+
+    // Skip cache if forceRefresh = true
     if (localStorage.getItem(key) && !forceRefresh) {
-        data = JSON.parse(localStorage.getItem(key));
+        const data = JSON.parse(localStorage.getItem(key));
         renderReportCard(data);
         localStorage.setItem("current_record", JSON.stringify(data.records));
         return;
     }
+
     if (!navigator.onLine) {
         showAlert('No Internet Connection');
-        return
+        return;
     }
+
     $('#results').html('loading...');
     const _student = $('[name=class]').val();
-    // const province = $('.search').find('[name=province]').val();
-    var n_institution = current.institutioniD;
-    var n_institution_role = '';// $('.search').find('[name=institution_role]').val();
-    var n_user = user.iD;
-    var n_institution_user = current.iD;
-
-
+    const n_institution = current.institutioniD;
+    const n_user = user.iD;
+    const n_institution_user = current.iD;
 
     const search = $('input[name="search"]').val();
     const ps = $('#page_size').val() || '10';
     const ob = $('input[name="order_filter"]:checked').val();
 
-    // Set default or capture from a pagination control
-    var uri = site + "/get-reportcard-records";
-    console.log('uri:  ' + uri + "; st: " + _student)
     $.ajax({
-        url: uri,
+        url: site + "/get-reportcard-records",
         type: "POST",
         data: {
             search: search,
             page: current_page,
             order_by: ob,
-            page_size: ps, // Or capture from a page-size selector if available
+            page_size: ps,
             institution: n_institution,
             user: n_user,
             api: true,
-            institution_role: n_institution_role,
             institution_user: n_institution_user,
             student: _student,
-            period: selectedClass.periodiD,
-            institution_class: selectedClass.classiD
-
+            period: i_period || (selectedClass ? selectedClass.periodiD : ''),
+            institution_class: selectedClass ? selectedClass.classiD : ''
         },
         success: function (response) {
-            console.log('rest: ' + response)
             const data = JSON.parse(response);
-            localStorage.setItem("current_record", JSON.stringify(data.records));
-            localStorage.setItem(key, response);
 
-            //   displayResults(data.records, data.pagination);
-            renderReportCard(data)
-            //  $('#total_records_label').html(data.pagination.total_records)
+            // store per period if needed
+            localStorage.setItem(key, response);
+            localStorage.setItem("current_record", JSON.stringify(data.records));
+            renderReportCard(data);
         },
         error: function () {
             showAlert('Error loading data');
         }
     });
 }
+
 function renderReportCard(data) {
     const container = $('#results');
     container.empty();
@@ -263,3 +318,12 @@ function _renderReportCard(data) {
         container.append(card);
     });
 }
+function loadDataByPeriod(periodId) {
+    // Pass selected period to loadData
+    loadData(periodId, true);
+}
+function reloadCurrentPeriod() {
+    const currentPeriod = $('[name=institution_period]').val() || ''; // "" means All
+    loadData(currentPeriod, true);
+}
+

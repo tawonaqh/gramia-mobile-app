@@ -6,18 +6,18 @@ function init(data) {
 
     current = JSON.parse(localStorage.getItem("current_account"));
     if (!current) return showAlert("No student account found");
-selectedClass = getSelectedClass();
+    selectedClass = getSelectedClass();
            if (selectedClass) {
-           console.log('stri: ' + JSON.stringify(selectedClass))
+               console.log('stri: ' + JSON.stringify(selectedClass))
                console.log("Selected class name:", selectedClass.institution_class);
                console.log("Selected period:", selectedClass.period);
-                $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period)
-                   if (navigator.onLine) {  loadData(true); }else{ loadData(); }
+               $('.class-id').html(selectedClass.institution_class + ' ' + selectedClass.period)
+                  if (navigator.onLine) {  loadData(true); }else{ loadData(); }
 
            } else {
                showAlert("No class selected.");
-                $('.class-id').html("No class selected.")
-                    $('#results').html('No class selected');
+               $('.class-id').html("No class selected.")
+               $('#results').html('No class selected');
 
            }
            get_subjects()
